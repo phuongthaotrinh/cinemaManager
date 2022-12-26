@@ -112,21 +112,32 @@ const SeatByRoom = (props: Props) => {
 
       <Tabs defaultActiveKey="2" type="card" items={items} />
 
-      <div className="mb-10 flex justify-around mx-20">
-        {seatType?.map((item: any) => (
-          <div className="flex" key={item._id}>
-            <p
-              className={`w-5 h-5 border-2 border-black`}
-              style={{ backgroundColor: `${item.color}` }}
-            ></p>
-            <span className="text-black pl-2 capitalize  ">{item.name}</span>
-          </div>
-        ))}
-
+      <div className="mb-10 flex gap-3 mx-20">
+        <div className="flex mr-5">
+          {seatType?.map((item: any) => (
+            <div className="flex mr-5" key={item._id}>
+              <p
+                className={`w-5 h-5 border-2 border-black`}
+                style={{ backgroundColor: `${item.color}` }}
+              ></p>
+              <span className="text-black pl-2 capitalize  ">{item.name}</span>
+            </div>
+          ))}
+          {seats?.map((item: any) => (
+            <div key={item?._id}>
+              {item?.status === 1 && (
+                <div className="flex" >
+                  <p className={`w-5 h-5 border-2 border-black`} style={{ backgroundColor: "#000" }}  ></p>
+                  <span className="text-black pl-2 capitalize  ">Ghế bị khóa</span>
+                </div>
+              )}</div>
+          ))}
+        </div>
         <div className="flex">
           <p className="w-5 h-5 bg-[#35d406]"></p>
           <span className="text-black pl-2"> Ghế Đang Chọn</span>
         </div>
+
       </div>
     </div>
   );
