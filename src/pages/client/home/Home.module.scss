@@ -107,6 +107,10 @@
 }
 .content_list_item_img img{
     transition: all ease 0.5s;
+    width: 100%;
+    min-height: 365px;
+    max-height: 365px;
+    overflow: hidden;
 }
 .content_list_item:hover .content_list_item_img img{
     transform: scale(1.2);

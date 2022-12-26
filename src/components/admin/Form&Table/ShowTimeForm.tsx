@@ -15,7 +15,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import moment from "moment";
 import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
- import "antd/dist/antd.css";
+import "antd/dist/antd.css";
 import { formatTime, convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 
@@ -57,7 +57,7 @@ const ShowTimeForm = ({
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
-   const { stList } = useAppSelector((state:any) => state.ShowTimeReducer);
+   const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
 
    let movieSelect = movie?.find((item: any) => item?._id === movieId);
    let movieTime = convertMovieTime(movieSelect?.runTime);
@@ -170,6 +170,7 @@ const ShowTimeForm = ({
                         return e?._id == cv?._id;
                      });
                   });
+                  setRoomList(kiemtraphongtrong)
                   if (kiemtraphongtrong?.length > 0) {
                      setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
 

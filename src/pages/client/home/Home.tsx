@@ -27,11 +27,11 @@ const Home = (props: Props) => {
   };
   const { movie } = useAppSelector((state: any) => state.movie);
   useEffect(() => {
-    if(movie) {
-      let a = movie?.filter((item:any) => item?.status == 0)
+    if (movie) {
+      let a = movie?.filter((item: any) => item?.status == 0)
       setMovieActive(a)
     }
-  },[movie])
+  }, [movie])
   let dateToday = Date.now();
   //  convert date to number
   let data = movieActive.map((item: any) => {
@@ -76,7 +76,7 @@ const Home = (props: Props) => {
                         item?.image[0]?.url ??
                         `${import.meta.env.VITE_HIDDEN_SRC}`
                       }
-                      alt=""
+                      style={{ objectFit: "fill" }}
                     />
                   </div>
                   <div className={styles.content_list_item_info}>
@@ -138,7 +138,7 @@ const Home = (props: Props) => {
         <div className={styles.content_news_cmt}>
           <div className={styles.content_news}>
             <h3>Tin tức</h3>
-            <News activeNav={true}  isShow={isShow}/>
+            <News activeNav={true} isShow={isShow} />
           </div>
 
           {/* <div className={styles.content_cmt}>
