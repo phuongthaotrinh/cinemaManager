@@ -8,7 +8,7 @@ import styles from "../Form&Table/room.module.scss";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { CloseOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
-
+import { MinusOutlined, OrderedListOutlined } from "@ant-design/icons";
 type Props = {
   row?: any;
   column?: any;
@@ -46,6 +46,8 @@ const RenderSeats = ({
   const [blockSeat, setBlockSeat] = useState<any>([]);
   const [parseCharac, setParseCharac] = useState<any>([]);
   const [mutipleForm, setMutipleForm] = useState(false);
+
+
   useEffect(() => {
     handleSubmit();
     let blockS = seats?.filter((item: any) => item?.status == 1);
@@ -260,8 +262,9 @@ const RenderSeats = ({
       setSeatArrSelect(arrToUpdate);
     }
   };
+
   //
-  const findByCharacter = (name: any, start: number, end: number, objN: any) => {
+  const findByCharacter = (name: any, start: number, end: number) => {
     let cloneArrFBCT: any[] = JSON.parse(JSON.stringify(seats));
     let newArrFBCT: any = [];
     let newArrFBCTCase2: any = [];
@@ -329,8 +332,8 @@ const RenderSeats = ({
     }
     const chooseTheoCT = () => {
       setHiddenChooseAll(true);
-      setShowByCT(true)
-      setMutipleForm(true)
+      setShowByCT(false)
+      setMutipleForm(false)
     }
 
     const closeOption = () => {
@@ -341,9 +344,8 @@ const RenderSeats = ({
     }
 
     const RenderSeatBYDK = () => {
-
       const finshByCT = (val: any) => {
-        findByCharacter(val?.tenHang, val?.batDau, val?.KetThuc, undefined)
+        findByCharacter(val?.tenHang, val?.batDau, val?.KetThuc)
       }
       return (
         <div className="mb-2">
@@ -379,7 +381,10 @@ const RenderSeats = ({
       )
     }
 
+    // mutil form: update ghế rtheo nhiều hàng
     const renderMutipleForm = () => {
+      setHiddenChooseAll(false);
+      setShowByCT(false)
       setMutipleForm(true)
     }
     const FormMutiple = () => {
@@ -473,22 +478,23 @@ const RenderSeats = ({
     return (
       <>
         {hiddenChooseAll && !mutipleForm && <RenderSeatBYDK />}
-        {mutipleForm && !hiddenChooseAll && <FormMutiple />}
+        {!hiddenChooseAll && mutipleForm && <FormMutiple />}
+
         <div className="mb-5  flex gap-3">
-          <Button type="ghost" onClick={chooseTheoCT} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-            Chọn nhanh
-          </Button>
-          <Button type="ghost" onClick={renderMutipleForm} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-            Chọn nhanh 2
-          </Button>
+          {!hiddenChooseAll && !mutipleForm && <Button type="ghost" onClick={chooseTheoCT} icon={<MinusOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            Chọn theo hàng
+          </Button>}
+          {!mutipleForm && !hiddenChooseAll && <Button type="ghost" danger onClick={renderMutipleForm} icon={<OrderedListOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
+            Chọn nhiều hàng
+          </Button>}
           {!hiddenChooseAll && !mutipleForm && (
             <>
               <Button type="primary" onClick={handleChooseAll} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
                 Chọn tất cả ({seats?.length})
               </Button>
 
-              {blockSeat?.length > 0 && <Button type="primary" onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>
-                Chọn tất cả ghế dừng hoạt động ({blockSeat?.length})
+              {blockSeat?.length > 0 && <Button onClick={handleChooseAllBlock} icon={<IoApps />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3, background: "#000", color: "#ffff" }}>
+                Chọn ghế dừng hoạt động ({blockSeat?.length})
               </Button>}
               {seatArr?.length > 0 && (
                 <Button onClick={handleChooseAllExit} icon={<CloseOutlined />} style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 3 }}>Bỏ chọn</Button>
