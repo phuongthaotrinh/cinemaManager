@@ -31,7 +31,7 @@ const Home = (props: Props) => {
       let a = movie?.filter((item:any) => item?.status == 0)
       setMovieActive(a)
     }
-  })
+  },[movie])
   let dateToday = Date.now();
   //  convert date to number
   let data = movieActive.map((item: any) => {
