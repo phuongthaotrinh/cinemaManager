@@ -1,18 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import {
-  Button,
-  Card,
-  DatePicker,
-  Form,
-  FormInstance,
-  Input,
-  message,
-  Modal,
-  Select,
-  Upload,
-  Skeleton,
-} from "antd";
+import { Button, Card, DatePicker, Form, FormInstance, Input, Select, Skeleton } from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload";
@@ -33,20 +20,7 @@ interface UserFormProps {
   showPass: boolean;
   userId: any;
 }
-const UserForm = ({
-  setNewPass,
-  newPass,
-  userId,
-  setAvatarList,
-  avatarList,
-  showPass,
-  form,
-  onFinish,
-  onReset,
-  edit = false,
-  loading = false,
-  editUser = true,
-}: UserFormProps) => {
+const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editUser = true }: UserFormProps) => {
   const { accessToken } = useAppSelector((state) => state.authReducer);
   return (
     <Form

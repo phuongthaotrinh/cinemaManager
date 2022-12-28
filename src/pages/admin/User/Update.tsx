@@ -6,7 +6,7 @@ import { updateUser } from "../../../redux/slice/userSlice";
 import UserForm from "../../../components/admin/Form&Table/UserForm";
 import config from "../../../config";
 import moment from "moment";
-interface Props {}
+interface Props { }
 
 const UserEdit = (props: Props) => {
   const [form] = Form.useForm();
@@ -16,14 +16,11 @@ const UserEdit = (props: Props) => {
   const { id } = useParams();
   const [newPass, setNewPass] = useState<any>("");
   const [showPass, setShowPass] = useState<any>(false);
-  const { users, isSucess, isFetching, isErr, errorMessage } = useAppSelector(
-    (state) => state.userReducer
-  );
+  const { users, errorMessage } = useAppSelector((state) => state.userReducer);
   const dataSelected = users.find((item: any) => item._id === id);
   +useEffect(() => {
-    document.title = `Admin | Edit ${
-      dataSelected?.username ?? dataSelected?._id
-    }`;
+    document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id
+      }`;
     if (dataSelected) {
       setAvatarList(dataSelected?.avatar as any[]);
       form.setFieldsValue({
@@ -68,7 +65,7 @@ const UserEdit = (props: Props) => {
         onReset={onReset}
         edit={true}
         showPass={showPass}
-        userId= {id}
+        userId={id}
       />
     </div>
   );

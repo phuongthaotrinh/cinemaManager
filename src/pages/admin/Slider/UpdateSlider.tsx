@@ -1,28 +1,27 @@
-import { Button, DatePicker, Form, Input, message, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Form, message } from "antd";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateSliderThunk } from "../../../redux/slice/Slider";
-import moment from "moment";
-import ImageUpload from "../../../components/upload";
+import SliderForm from "../../../components/admin/Form&Table/SliderForm";
 
 type Props = {};
 
 const UpdateSlider = (props: Props) => {
-  const [image, setImage] = useState<any[]>([]);
   const { id } = useParams();
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { slider, errMess } = useAppSelector((state) => state.slider);
+  const { slider } = useAppSelector((state) => state.slider);
   const data = slider.find((item: any) => item._id === id);
   const [dataUpdate, setDataUpdate] = useState<any[]>([]);
+  const [avatarList, setAvatarList] = useState<any[]>([]);
 
   useEffect(() => {
     if (data) {
-      setImage(data?.images as any[]);
+      setAvatarList(data?.images as any[]);
       form.setFieldsValue({
         ...data,
       });
@@ -39,22 +38,20 @@ const UpdateSlider = (props: Props) => {
 
   const onFinish = async (values: any) => {
     values._id = id;
-    let imageOld = values.avatarList?.fileList;
-    if (imageOld) values.image = imageOld;
-    else values.image = values?.image;
+    let avatarList = values?.avatarList?.fileList;
+    if (avatarList) values.images = avatarList;
+    else values.images = values?.images;
+
     let checkURL = movie?.filter((item: any) => (item?.slug)?.includes(values?.url));
     if (!checkURL || checkURL?.length > 0) {
       values.url = values.url
     } else {
       values.url = `/post/${values.url}`
     }
-    console.log(values)
-    dispatch(UpdateSliderThunk(values))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Sửa thành công" });
-        navigate(configRoute.routes.adminSlider);
-      })
+    console.log(values);
+    
+    dispatch(UpdateSliderThunk(values)).unwrap()
+      .then(() => { message.success({ content: "Sửa thành công" }); navigate(configRoute.routes.adminSlider) })
       .catch(() => {
         message.error({ content: "Thất bại" });
       });
@@ -65,50 +62,7 @@ const UpdateSlider = (props: Props) => {
       <Button className="mb-3">
         <Link to={configRoute.routes.adminSlider}>DS Slider</Link>
       </Button>
-      <Form
-        form={form}
-        layout="vertical"
-        onFinish={onFinish}
-        autoComplete="off"
-      >
-        <Form.Item label="Image">
-          <ImageUpload imageList={image} limit={1} key={1} />
-        </Form.Item>
-        <Form.Item
-          name="title"
-          label="Tên"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="content"
-          label="Nội dung"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Url"
-          name="url"
-          rules={[{ required: true, message: "Không được để trống! " }]}
-        >
-          <Select>
-            {dataUpdate?.map((item: any) => (
-              <Select.Option value={item.slug} key={item._id}>
-                {item?.name}
-              </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+      <SliderForm form={form} onFinish={onFinish} data={dataUpdate} avatarList={avatarList} setAvatarList={setAvatarList} />
     </>
   );
 };

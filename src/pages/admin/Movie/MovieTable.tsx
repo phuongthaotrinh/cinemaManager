@@ -6,6 +6,7 @@ import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 import { formatDate, convertMovieTime, formatDateString, formatCurrency } from "../../../ultils";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { defaultStatus } from "../../../ultils/data";
+import { useSearch } from "../../../hook";
 
 type Props = {
   data: any
@@ -20,8 +21,7 @@ const ListMovie = ({ data }: Props) => {
     dispatch(UpdateMovie({ _id: id, status: value })).unwrap()
       .then(() => message.success("Thay đổi trạng thái thành công"));
   };
-
-
+  const { getColumnSearchProps } = useSearch()
   const columnUserList: any = [
     {
       title: "Ảnh",
@@ -37,11 +37,13 @@ const ListMovie = ({ data }: Props) => {
     {
       title: "Tên",
       dataIndex: "name",
+      ...getColumnSearchProps('name'),
       render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
     },
     {
       title: "Ngày khởi chiếu",
       key: "releaseDate",
+      ...getColumnSearchProps('releaseDate'),
       render: (_: any, record: any) => (
         <div>
           <p>{formatDate(record?.releaseDate)}</p>
@@ -69,6 +71,7 @@ const ListMovie = ({ data }: Props) => {
     {
       title: "Doanh thu",
       key: "profit",
+      ...getColumnSearchProps('profit'),
       render: (_: any, record: any) => (
         <div>
           <p>{formatCurrency(record?.profit)}</p>

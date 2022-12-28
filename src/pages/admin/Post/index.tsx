@@ -6,10 +6,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
 import { defaultStatus } from '../../../ultils/data';
 import { removeData, updateData, getAlPost } from "../../../redux/slice/PostSlice"
-
 import { formatDate } from '../../../ultils';
-import { getUsers } from '../../../redux/slice/userSlice';
-import { getCategories } from '../../../redux/slice/CategorySlice';
 import configRoute from '../../../config';
 type Props = {}
 const { Text } = Typography;

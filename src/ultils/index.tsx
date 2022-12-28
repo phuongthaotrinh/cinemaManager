@@ -61,4 +61,3 @@ export const convertMovieTime = (seconds: any) => {
   result += s < 10 ? "0" + s : s;
   return result;
 };
-

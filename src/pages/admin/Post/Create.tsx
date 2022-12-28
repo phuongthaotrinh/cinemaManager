@@ -23,7 +23,6 @@ const AddPost = (props: Props) => {
    const onFinish = async (values: any) => {
       values.imagesFile = values?.avatarList?.fileList;
       values.userId = currentUser._id
-      console.log('values', values);
 
       dispatch(createData(values)).unwrap()
          .then(() => { message.success('Tạo thành công'); navigate(config.routes.AdminPosts) })

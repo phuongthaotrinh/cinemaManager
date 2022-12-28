@@ -2,14 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Slide } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 type Props = {
   slider: Array<any>
 };
 
 const SlideShow = (props: Props) => {
-  const dispatch = useAppDispatch();
-
   return (
     <div className="banner">
       <Slide easing="ease">

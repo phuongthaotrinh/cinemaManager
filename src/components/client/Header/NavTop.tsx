@@ -3,7 +3,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { SearchOutlined } from '@ant-design/icons';
 import configRoute from '../../../config';
-import { useAppSelector } from '../../../redux/hook';
 type Props = {}
 
 const NavTop = (props: Props) => {

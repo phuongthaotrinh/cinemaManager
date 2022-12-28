@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Select,
-} from "antd";
+import { useEffect } from "react";
+import { Button, message, Space, Select, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import {
-  removeUser,
-  updateUser,
-  getUsers,
-} from "../../../redux/slice/userSlice";
+import { updateUser, getUsers, } from "../../../redux/slice/userSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { userRole, userStatus } from "../../../ultils/data";
 import { provices } from "../../../redux/slice/Provider";
 
@@ -28,20 +16,9 @@ const AdminUserList = (props: Props) => {
     document.title = "Admin | Users";
     dispatch(getUsers());
   }, [dispatch]);
-  const { users, isFetching, isErr, errorMessage } = useAppSelector(
-    (state: any) => state.userReducer
-  );
+  const { users, isFetching, } = useAppSelector((state: any) => state.userReducer);
   const { currentUser } = useAppSelector((state: any) => state.authReducer);
-  const deleteUser = (data: string | undefined) => {
-    dispatch(removeUser(data))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errorMessage } });
-      });
-  };
+
   const changeRole = (id: any, value: any) => {
     dispatch(updateUser({ _id: id, role: value }))
       .unwrap()
@@ -93,13 +70,7 @@ const AdminUserList = (props: Props) => {
       key: "status",
       render: (_: any, { _id, status }: any) => (
         <Select
-          value={
-            status === 0
-              ? "Chưa xác thực"
-              : status === 1
-              ? "Đang hoạt động"
-              : "Dừng hoạt động"
-          }
+          value={status === 0 ? "Chưa xác thực" : status === 1 ? "Đang hoạt động" : "Dừng hoạt động"}
           onChange={(value: any) => {
             changeStatus(_id, value);
           }}
@@ -190,16 +161,6 @@ const AdminUserList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* {currentUser?._id !== record?._id && (
-            <Popconfirm
-              title={`Xóa ${record?.username ?? record?._id}?`}
-              okText="OK"
-              cancelText="Cancel"
-              onConfirm={() => deleteUser(record?._id)}
-            >
-              <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-            </Popconfirm>
-          )} */}
         </Space>
       ),
       width: 30,
@@ -213,9 +174,7 @@ const AdminUserList = (props: Props) => {
       username: item?.username,
       fullname: item?.fullname,
       email: item?.email,
-      avatar:
-        (item?.avatar[0]?.url || item?.avatar[0]) ??
-        `${import.meta.env.VITE_HIDDEN_SRC}`,
+      avatar: (item?.avatar[0]?.url || item?.avatar[0]) ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       phone: item?.phone,
       address: item?.address,
       role: item?.role,
@@ -228,7 +187,7 @@ const AdminUserList = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="add">Thêm người dùng</Link>
       </Button>
-      <DataTable column={columnUserList} data={data} loading={isFetching} />
+      <Table columns={columnUserList} dataSource={data} loading={isFetching} />
     </div>
   );
 };

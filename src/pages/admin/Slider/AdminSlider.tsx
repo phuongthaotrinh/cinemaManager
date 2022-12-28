@@ -1,66 +1,61 @@
-import React, { useEffect, useState } from "react";
-import {
-  Button,
-  message,
-  Popconfirm,
-  Space,
-  Tag,
-  Pagination,
-  Image,
-} from "antd";
+import { Button, Select, Space, Table, message, } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { removeSliderItem } from "../../../redux/slice/Slider";
+import { EditOutlined } from "@ant-design/icons";
+import { UpdateSliderThunk } from "../../../redux/slice/Slider";
+import { defaultStatus } from "../../../ultils/data";
 type Props = {};
+const { Option } = Select;
 
 const AdminSlider = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { slider, errMess, isFetching } = useAppSelector(
-    (state) => state.slider
-  );
-  const deleteSlider = (data: string | undefined) => {
-    dispatch(removeSliderItem(data))
+  const { slider } = useAppSelector((state) => state.slider);
+  
+  const changeStatus = (id: any, value: any, title: any) => {
+    dispatch(UpdateSliderThunk({ _id: id, status: value, title: title }))
       .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errMess } });
-      });
+      .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const columnUserList: any = [
     {
+      title: "#",
+      dataIndex: "key",
+      width: "50px",
+    },
+    {
       title: "Image",
       dataIndex: "image",
-      fixed: "left",
+
       render: (_: any, record: any) => (
-        <img  src={record?.image}  style={{width: '50px' , height: '50px' }}/>
+        <img src={record?.image} style={{ width: '50px', height: '50px' }} />
       ),
       width: "200px",
     },
     {
       title: "Title",
       dataIndex: "title",
-      render: (_: any, record: any) => <p>{record?.title}</p>,
-      width: "200px",
-    },
-
-    {
-      title: "Nội dung",
-      dataIndex: "content",
-      render: (_: any, record: any) => <p>{record?.content}</p>,
       width: "200px",
     },
     {
       title: "Url",
       dataIndex: "url",
-      render: (_: any, record: any) => <p>{record?.url}</p>,
     },
-   
-    
-
+    {
+      title: "Trạng Thái",
+      dataIndex: "status",
+      key: "status",
+      render: (_: any, { _id, status, title }: any) => (
+        <Select value={status === 0 ? "Hoạt động" : "Dừng hoạt động"} onChange={(value: any) => { changeStatus(_id, value, title) }} >
+          {defaultStatus?.map((item: any) => (
+            <Option value={item?.value} key={item?.value}>
+              {item?.name}
+            </Option>
+          ))}
+        </Select>
+      ),
+      width: "30px",
+      sorter: (a: any, b: any) => a.status - b.status,
+    },
     {
       title: "ACTION",
       key: "action",
@@ -68,19 +63,8 @@ const AdminSlider = (props: Props) => {
       width: "100px",
       render: (_: any, record: any) => (
         <Space size="middle">
-          <Link to={`${record._id}`}>
-            <EditOutlined
-              style={{ color: "var(--primary)", fontSize: "18px" }}
-            />
+          <Link to={`${record._id}`}> <EditOutlined style={{ color: "var(--primary)", fontSize: "18px" }} />
           </Link>
-          <Popconfirm
-            title={`Delete ${record?.title ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteSlider(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm>
         </Space>
       ),
     },
@@ -92,30 +76,19 @@ const AdminSlider = (props: Props) => {
       _id: item?._id,
       image: item?.images[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       title: item?.title,
-      content: item?.content,
       url: item?.url,
+      status: item?.status
     };
   });
 
   return (
-    // <div>
-    //   <Button type="primary" style={{ marginBottom: "20px" }}>
-    //     <Link to="/admin/slider/create">Create Slider</Link>
-    //   </Button>
-    //   <DataTable
-    //     column={columnUserList}
-    //     data={data}
-    //     scrollWidth={{ x: 2000 }}
-    //     loading={isFetching}
-    //   />
-    // </div>
     <div>
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/slider/create">Thêm Slider</Link>
       </Button>
-      <DataTable
-        column={columnUserList}
-        data={data}
+      <Table
+        columns={columnUserList}
+        dataSource={data}
       />
     </div>
   );
