@@ -266,38 +266,23 @@ const RenderSeats = ({
   //
   const findByCharacter = (name: any, start: number, end: number) => {
     let cloneArrFBCT: any[] = JSON.parse(JSON.stringify(seats));
-    let newArrFBCT: any = [];
     let newArrFBCTCase2: any = [];
-
-    if (start == end) { // nếu vị trí bắt đầu = vị trí kết thúc => là 1 ô
-      let seatCase1 = seats?.filter((item: any) => item?.row == name && item?.column == start)
-      for (const key in cloneArrFBCT) {
-        if (cloneArrFBCT[key]?.row == name && cloneArrFBCT[key]?.column == start) {
-          cloneArrFBCT[key]['status'] = 2
+    let viTri: any = [];
+    for (const key in cloneArrFBCT) {
+      for (var i = start; i <= end; i++) {
+        if (cloneArrFBCT[key]?.row == name && cloneArrFBCT[key]?.column == i) {
+          cloneArrFBCT[key]['status'] = 2;
         }
-        newArrFBCT.push(cloneArrFBCT[key])
       }
-      let groupItem = groupBy(newArrFBCT);
-      setSeatDetails(groupItem);
-      setSeatArrSelect(seatCase1);
-      setSeatArr(seatCase1);
-    } else { // nếu vị trí bắt đầu khác vị trí kết thúc => render ra mảng theo vị trí
-      let viTri: any = [];
-      for (const key in cloneArrFBCT) {
-        for (var i = start; i <= end; i++) {
-          if (cloneArrFBCT[key]?.row == name && cloneArrFBCT[key]?.column == i) {
-            cloneArrFBCT[key]['status'] = 2;
-          }
-        }
-        viTri.push(cloneArrFBCT[key]);
-      }
-
-      newArrFBCTCase2 = viTri?.filter((item: any) => item['status'] == 2);
-      let groupItem2 = groupBy(viTri);
-      setSeatDetails(groupItem2);
-      setSeatArrSelect(newArrFBCTCase2);
-      setSeatArr(newArrFBCTCase2);
+      viTri.push(cloneArrFBCT[key]);
     }
+
+    newArrFBCTCase2 = viTri?.filter((item: any) => item['status'] == 2);
+    let groupItem2 = groupBy(viTri);
+    setSeatDetails(groupItem2);
+    setSeatArrSelect(newArrFBCTCase2);
+    setSeatArr(newArrFBCTCase2);
+
   }
 
   const chooseAllSeat = () => {

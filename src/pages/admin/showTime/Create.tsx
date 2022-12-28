@@ -16,7 +16,6 @@ const AdminShowTimesCreate = (_props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { errorMessage } = useAppSelector(state => state.ShowTimeReducer)
   const [form] = Form.useForm();
   const [extraPrice, setExtraprice] = useState();
   const [searchParams, setSearchParams] = useSearchParams();

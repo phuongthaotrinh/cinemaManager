@@ -35,13 +35,7 @@ const NestedTable = (props: Props) => {
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
   let movieSelect = movie.find((item: any) => item?._id === movieId);
-  const showDrawer = () => {
-    setOpen(true);
-  };
 
-  const onClose = () => {
-    setOpen(false);
-  };
   useEffect(() => {
     if (stList) {
       let itemGet = stList?.filter((item: any) => item?.movieId?._id === movieId);

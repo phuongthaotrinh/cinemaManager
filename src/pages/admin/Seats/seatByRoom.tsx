@@ -1,12 +1,14 @@
 import { Button, Collapse, Tabs, message } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import RenderSeats from "../../../components/admin/RenderSeats";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
-import { CaretRightOutlined } from "@ant-design/icons";
+import { OrderedListOutlined } from "@ant-design/icons";
 import { RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { FaUsersCog, FaRegEye, FaExclamation } from "react-icons/fa";
+import ListShowTimeByRoom from "../../../components/admin/ListShowTimeByRoom/ListShowTimeByRoom";
+import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 
 const { Panel } = Collapse;
 type Props = {};
@@ -19,7 +21,7 @@ const SeatByRoom = (props: Props) => {
   const [row, setRow] = useState<number>();
   const [column, setColumn] = useState<number>();
   const [seatFile, setSeatFile] = useState<any>();
-
+  const [stByRoom, setStByRoom] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(id));
@@ -30,6 +32,20 @@ const SeatByRoom = (props: Props) => {
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const roomSelect = rooms?.find((item) => item?._id === id);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
+  useEffect(() => {
+    dispatch(getAlSt({}))
+  }, [dispatch])
+  const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+
+  useEffect(() => {
+    let lea = stList.filter((obj) => {
+      for (let key of obj["roomId"]) {
+        return key["_id"] == id
+      }
+    });
+    setStByRoom(lea);
+  }, [stList, id])
+
   useEffect(() => {
     setColumn(roomSelect?.columns);
     setRow(roomSelect?.rows);
@@ -56,6 +72,7 @@ const SeatByRoom = (props: Props) => {
         </span>
       ),
       children: <RenderInfoRoom />,
+      showSeatType: false
     },
     {
       key: "2",
@@ -77,12 +94,13 @@ const SeatByRoom = (props: Props) => {
           roomId={id}
         />
       ),
+      showSeatType: true
+
     },
     {
       key: "3",
       label: (
         <span style={{ display: "flex", justifyItems: "center", gap: 3 }}>
-          {" "}
           <FaRegEye /> Xem với tư cách khách hàng
         </span>
       ),
@@ -102,16 +120,29 @@ const SeatByRoom = (props: Props) => {
           adminPreview={true}
         />
       ),
+      showSeatType: true
+
+    },
+    {
+      key: "4",
+      label: (
+        <span style={{ display: "flex", justifyItems: "center", gap: 3 }}>
+          <OrderedListOutlined /> Danh sách giờ chiếu của phòng
+        </span>
+      ),
+      children: (
+        <ListShowTimeByRoom data={stByRoom} />
+      ),
+      showSeatType: false
     },
   ];
+
   return (
     <div>
       <Button className="mb-3">
         <Link to="/admin/rooms">DS Phòng chiếu</Link>
       </Button>
-
       <Tabs defaultActiveKey="2" type="card" items={items} />
-
       <div className="mb-10 flex gap-3 mx-20">
         <div className="flex mr-5">
           {seatType?.map((item: any) => (
