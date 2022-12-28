@@ -49,13 +49,14 @@ const ShowTimeForm = ({
    const [priceExtra, setPriceExtra] = useState<any>();
    const [days, setDays] = useState<any>();
    const [timeChose, setTimeChose] = useState<any>();
-   const [sortByTime, setSortByTime] = useState<any>();
+   const [timeStartCreate, setTimeStartCreate] = useState<any>();
    const [hiddenRoom, setHiddenRoom] = useState<any>(false);
    const [stByDays, setStByDays] = useState<any>();
    const [roomList, setRoomList] = useState<any>([]);
    const [stLisst, setStLisst] = useState<any>([]);
    const [startTime, setStartTime] = useState<any>();
    const [disableBtn, setDisableBtn] = useState<any>(false);
+
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
@@ -100,7 +101,15 @@ const ShowTimeForm = ({
    const disabledDate: RangePickerProps["disabledDate"] = (current) => {
       return current && current <= moment().endOf("day");
    };
-
+   useEffect(() => {
+      if (timeStartCreate >= 2 && timeStartCreate <= 7) {
+         setStartTime("không đặt suất chiếu từ 2-7h sáng")
+         setDisableBtn(true)
+      }else{
+         setStartTime("")
+         setDisableBtn(false)
+      }
+   },[timeStartCreate])
    const validRange = (value: any, dateString: any) => {
       setTimeEnd(moment(value).add(movieTime));
       let timeStart = moment(value).hour();
@@ -109,28 +118,26 @@ const ShowTimeForm = ({
       let fullTimeStart = moment(value).format("HH:mm");
       setTimeChose(fullTimeStart)
       setDays(getDayStart);
-      if (timeStart >= 2 && timeStart <= 7) {
-         setStartTime("không đặt suất chiếu từ 2-7h sáng")
-         setDisableBtn(true)
-      } else {
-         if (dayStart >= movieRelease) {
-            if (timeStart >= 9 && timeStart <= 16) {
-               setPriceExtra(20000);
-            } else if (timeStart >= 17 && timeStart <= 21) {
-               setPriceExtra(30000);
-            } else {
-               setPriceExtra(10000);
-            }
+      setTimeStartCreate(timeStart)
+
+      if (dayStart >= movieRelease) {
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(20000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(30000);
          } else {
-            if (timeStart >= 9 && timeStart <= 16) {
-               setPriceExtra(40000);
-            } else if (timeStart >= 17 && timeStart <= 21) {
-               setPriceExtra(50000);
-            } else {
-               setPriceExtra(30000);
-            }
+            setPriceExtra(10000);
+         }
+      } else {
+         if (timeStart >= 9 && timeStart <= 16) {
+            setPriceExtra(40000);
+         } else if (timeStart >= 17 && timeStart <= 21) {
+            setPriceExtra(50000);
+         } else {
+            setPriceExtra(30000);
          }
       }
+
    };
    const watchRoomId = (val: any) => {
       setRoomSelect(val)
