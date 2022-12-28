@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import configRoute from '../../../config';
 import SearchByCate from '../../../components/admin/SearchByCate';
 import { MovieMutipleOption } from '../../../ultils/data'
-
 type Props = {
 }
 
@@ -27,6 +26,7 @@ const MovieTab = ({ }: Props) => {
          setMovieInActive(movie?.filter((item: any) => item?.status !== 0))
       }
    }, [movie])
+
    const items: any[] = [
       {
          key: 1,
@@ -48,8 +48,6 @@ const MovieTab = ({ }: Props) => {
    ]
 
    const onFinish = (val: any) => {
-      console.log("val", val);
-      console.log("movie", movie);
       if (val?.optionData == "name") {
          let a = movie.filter((item: any) => item?.name.toLowerCase().includes(val?.searchValue.toLowerCase()));
          if (a?.length > 0) { setHiddenEl(true); setFindData(a) } else { message.error("Không tìm phim đơn nào"); setFindData([]); setHiddenEl(true) }

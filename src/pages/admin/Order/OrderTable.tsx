@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { Image, InputRef, Tag } from 'antd';
+import { Image, InputRef, Tag, Tooltip } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
 import type { ColumnsType, ColumnType } from 'antd/es/table';
 import type { FilterConfirmProps } from 'antd/es/table/interface';
@@ -119,10 +119,11 @@ const OrderTable = ({ data }: Props) => {
          totalPrice: formatCurrency(item?.totalPrice),
          userId: item?.userId,
          ticket: item?.ticketId?.quantity,
-         code: item?.shortId
+         email: item?.userId?.email,
+         code: item?.shortId,
+         date: formatDate(item?.createdAt)
       };
    });
-
    const columns: ColumnsType<any> = [
       {
          title: 'Mã đơn',
@@ -135,7 +136,7 @@ const OrderTable = ({ data }: Props) => {
          title: 'Ngày đặt',
          dataIndex: 'createdAt',
          key: 'createdAt',
-         ...getColumnSearchProps('createdAt'),
+         ...getColumnSearchProps('date'),
          sortDirections: ['descend', 'ascend'],
          render: (_: any, { createdAt }: any) => <p>{formatDate(createdAt)} {formatTime(createdAt)}</p>
       },
@@ -167,22 +168,13 @@ const OrderTable = ({ data }: Props) => {
          title: 'Người đặt',
          dataIndex: 'userId',
          key: 'userId',
-         ...getColumnSearchProps('userId.username'),
-         sorter: (a, b) => a.userId.username.length - b.userId.username.length,
+         ...getColumnSearchProps("email"),
          sortDirections: ['descend', 'ascend'],
-         render: (_: any, { userId }: any) => <p>{userId?.username}</p>
-      },
-
-      {
-         title: 'QR',
-         dataIndex: 'qrCode',
-         key: 'qrCode',
-         render: (_: any, { qrCode }: any) => <Image
-            width={40}
-            height={40}
-            src="error"
-            fallback={qrCode}
-         />
+         render: (_: any, { userId }: any) => (
+            <Tooltip title={userId?.email}>
+               {userId?.username ?? userId?.email}
+            </Tooltip>
+         )
       },
       {
          title: "ACTION",

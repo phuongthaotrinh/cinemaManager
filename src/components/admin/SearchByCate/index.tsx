@@ -1,4 +1,4 @@
-import { Button, Collapse, Form, Input, Select } from 'antd'
+import { Button, Collapse, DatePicker, Form, Input, Select } from 'antd'
 import { SearchOutlined } from "@ant-design/icons"
 
 type Props = { data: any, onFinish: any, onReset: any, category: any }

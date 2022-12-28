@@ -54,6 +54,8 @@ const ShowTimeForm = ({
    const [stByDays, setStByDays] = useState<any>();
    const [roomList, setRoomList] = useState<any>([]);
    const [stLisst, setStLisst] = useState<any>([]);
+   const [startTime, setStartTime] = useState<any>();
+   const [disableBtn, setDisableBtn] = useState<any>(false);
    useEffect(() => {
       dispatch(getAlSt({}));
    }, []);
@@ -105,25 +107,28 @@ const ShowTimeForm = ({
       let dayStart = moment(value).date();
       let getDayStart = formatDate(dateString);
       let fullTimeStart = moment(value).format("HH:mm");
-
       setTimeChose(fullTimeStart)
       setDays(getDayStart);
-
-      if (dayStart >= movieRelease) {
-         if (timeStart >= 9 && timeStart <= 16) {
-            setPriceExtra(20000);
-         } else if (timeStart >= 17 && timeStart <= 21) {
-            setPriceExtra(30000);
-         } else {
-            setPriceExtra(10000);
-         }
+      if (timeStart >= 2 && timeStart <= 7) {
+         setStartTime("không đặt suất chiếu từ 2-7h sáng")
+         setDisableBtn(true)
       } else {
-         if (timeStart >= 9 && timeStart <= 16) {
-            setPriceExtra(40000);
-         } else if (timeStart >= 17 && timeStart <= 21) {
-            setPriceExtra(50000);
+         if (dayStart >= movieRelease) {
+            if (timeStart >= 9 && timeStart <= 16) {
+               setPriceExtra(20000);
+            } else if (timeStart >= 17 && timeStart <= 21) {
+               setPriceExtra(30000);
+            } else {
+               setPriceExtra(10000);
+            }
          } else {
-            setPriceExtra(30000);
+            if (timeStart >= 9 && timeStart <= 16) {
+               setPriceExtra(40000);
+            } else if (timeStart >= 17 && timeStart <= 21) {
+               setPriceExtra(50000);
+            } else {
+               setPriceExtra(30000);
+            }
          }
       }
    };
@@ -257,7 +262,7 @@ const ShowTimeForm = ({
                         </Form.Item>
                      </div>
                      {messTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={messTime} type="warning" showIcon /></div>}
-
+                     {startTime && <div className="mt-[-10px] mb-3 text-red-600"> <Alert message={startTime} type="error" showIcon /></div>}
                      <Form.Item
                         label="Chọn phòng chiếu"
                         name="roomId"
@@ -356,14 +361,25 @@ const ShowTimeForm = ({
                                     Nhập lại
                                  </Button>
                               )}
-                              <Button
-                                 htmlType="submit"
-                                 type="primary"
-                                 style={{ minWidth: 150 }}
-                              >
-                                 Lưu
-                              </Button>
 
+                              {disableBtn ? (
+                                 <Button
+                                    htmlType="submit"
+                                    type="primary"
+                                    style={{ minWidth: 150 }}
+                                    disabled
+                                 >
+                                    Lưu
+                                 </Button>
+                              ) : (
+                                 <Button
+                                    htmlType="submit"
+                                    type="primary"
+                                    style={{ minWidth: 150 }}
+                                 >
+                                    Lưu
+                                 </Button>
+                              )}
                            </div>
                         </Card>
                      </div>

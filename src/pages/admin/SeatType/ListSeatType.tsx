@@ -13,11 +13,7 @@ const ListSeatType = (props: Props) => {
   const { seatType, isErr, isFetching, isSucess } = useAppSelector(
     (state) => state.seatTypeReducer
   );
-  const deleteUser = (id: any) => {
-    dispatch(removeSeatType(id))
-      .then(() => message.success({ content: "Xóa thành công" }))
-      .catch(() => message.error({ content: "lỗi" }));
-  };
+
   const columnList: any = [
     {
       title: "Tên loại ghế",

@@ -31,8 +31,6 @@ const RenderSeats = ({
   setSeatDetails,
   seatFile,
   roomId,
-  showTable,
-  setSeatFile
 }: Props) => {
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();

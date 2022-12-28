@@ -1,27 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import {
-  Space,
-  Typography,
-  message,
-  Tooltip,
-  Button,
-  Select,
-  Popconfirm,
-  Tag,
-} from "antd";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { Space, Typography, message, Button, Select, Tag } from "antd";
+import { EditOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { defaultStatus } from "../../../ultils/data";
-import {
-  removeData,
-  updateData,
-  getAlVc,
-} from "../../../redux/slice/voucherSlice";
+import { updateData, getAlVc } from "../../../redux/slice/voucherSlice";
 import moment from "moment";
 import { formatCurrency } from "../../../ultils";
-import { formatDistance, isEqual, parseISO } from "date-fns";
+import { formatDistance, parseISO } from "date-fns";
 import isPast from "date-fns/isPast";
 type Props = {};
 const { Text } = Typography;
@@ -34,10 +21,7 @@ const AdminVoucherList = (props: Props) => {
     dispatch(getAlVc());
   }, [dispatch]);
 
-  const { vouchers, errorMessage } = useAppSelector(
-    (state: any) => state.voucherReducer
-  );
-
+  const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
 
   const changeStatus = (id: any, value: any) => {
     dispatch(updateData({ _id: id, status: value }))
@@ -161,7 +145,7 @@ const AdminVoucherList = (props: Props) => {
       _id: item?._id,
       code: item?.code,
       thumbnail:
-      item?.imagesFile[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+        item?.imagesFile[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
       quantity: item?.quantity,
       status: item?.status,
       condition: item?.condition,
