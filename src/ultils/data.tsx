@@ -96,3 +96,7 @@ export const orderMutipleOption = [
   { value: "userName", name: "Theo tên khách hàng" },
   { value: "orderCode", name: "Theo mã đơn" },
 ];
+
+export const MovieMutipleOption = [
+  { value: "name", name: "Theo tên phim" },
+];

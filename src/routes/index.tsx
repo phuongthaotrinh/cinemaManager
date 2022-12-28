@@ -33,11 +33,9 @@ import CreateCategory from "../pages/admin/categories/Create";
 import AdminRoomList from "../pages/admin/Rooms/List";
 import AdminRoomCreate from "../pages/admin/Rooms/Create";
 import AdminRoomEdit from "../pages/admin/Rooms/Edit";
-import AdminShowTimeList from "../pages/admin/showTime/List";
 import AdminShowTimesCreate from "../pages/admin/showTime/Create";
 import FilmFormatList from "../pages/admin/FilmFormat/List";
 import CreateMovie from "../pages/admin/Movie/CreateMovie";
-import ListMovie from "../pages/admin/Movie/ListMovie";
 import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
 import News from "../pages/client/News/News";
 
@@ -67,8 +65,6 @@ import ForgotPass from "../pages/auth/ForgotPassword";
 import Contact from "../components/client/Contact";
 import EditCategory from "../pages/admin/categories/Edit";
 import ListCommentMovie from "../pages/admin/comment";
-
-import PaymentStep from "../components/client/PaymentStep";
 import ChooseCombo from "../components/client/ChooseCombo";
 import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
 import AdminOrdersDetail from "../pages/admin/Order/Detail";
@@ -78,6 +74,7 @@ import OrderTab from "../pages/admin/Order/OrderTab";
 import NestedTable from "../pages/admin/showTime/NestedTable";
 import CancelOrder from "../components/client/CancelOrder";
 import CheckOrder from "../pages/client/CheckOrder";
+import MovieTab from "../pages/admin/Movie/MovieTab";
 type RoutesType = {
   path: string;
   component: any;
@@ -141,7 +138,7 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminCategoryEdit, component: EditCategory },
 
   { path: configRoute.routes.adminMoviecCreat, component: CreateMovie },
-  { path: configRoute.routes.adminMovie, component: ListMovie },
+  { path: configRoute.routes.adminMovie, component: MovieTab },
   { path: configRoute.routes.adminMoviecUpdate, component: UpdateMovies },
 
   { path: configRoute.routes.adminRooms, component: AdminRoomList },
@@ -149,26 +146,18 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.adminRoomEdit, component: AdminRoomEdit },
 
   { path: configRoute.routes.AdminShowTimes, component: NestedTable },
-  {
-    path: configRoute.routes.AdminShowTimesCreate,
-    component: AdminShowTimesCreate,
-  },
+  { path: configRoute.routes.AdminShowTimesCreate, component: AdminShowTimesCreate },
 
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
   { path: configRoute.routes.AdminVouchers, component: AdminVoucherList },
-  {
-    path: configRoute.routes.AdminVouchersCreate,
-    component: AdminVoucherCreate,
-  },
+  { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
   { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
 
   { path: configRoute.routes.AdminPosts, component: AdminPosts },
   { path: configRoute.routes.AdminPostsCreate, component: AdminPostsCreate },
   { path: configRoute.routes.AdminPostsEdit, component: AdminPostsEdit },
-  // { path: configRoute.routes.renderSeatAdmin, component: AdminSeatRenderDetail },
-  // { path: configRoute.routes.chooseCombo, component: ChooseCombo },
 
   { path: configRoute.routes.webConfig, component: WebConfig },
   { path: configRoute.routes.webConfigAdd, component: WebConfigCreate },

@@ -1,43 +1,27 @@
-import { useState } from "react";
-import { Button, message, Modal, notification, Select, Space } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { Button, message, Modal, Select, Space, Table } from "antd";
+import { useAppDispatch } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { UpdateMovie } from "../../../redux/slice/Movie";
-import DataTable from "../../../components/admin/Form&Table/Table";
 import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import {
-  formatDate,
-  convertMovieTime,
-  formatDateString,
-  formatCurrency,
-} from "../../../ultils";
-import configRoute from "../../../config";
+import { formatDate, convertMovieTime, formatDateString, formatCurrency } from "../../../ultils";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { defaultStatus } from "../../../ultils/data";
-type Props = {};
+
+type Props = {
+  data: any
+};
 const { Option } = Select;
 
-const ListMovie = (props: Props) => {
-  const [active, setActive] = useState(true);
+const ListMovie = ({ data }: Props) => {
+  document.title = "Admin | DS Phim";
   const dispatch = useAppDispatch();
-  const { movie, errMess } = useAppSelector((state) => state.movie);
+
   const changeStatus = (id: any, value: any) => {
-    dispatch(UpdateMovie({ _id: id, status: value }))
-      .unwrap()
+    dispatch(UpdateMovie({ _id: id, status: value })).unwrap()
       .then(() => message.success("Thay đổi trạng thái thành công"));
   };
-  const checkSt = (val: any) => {
-    if (val?.status !== 0) {
-      notification.info({
-        message: "Phim đang bị ẩn",
-        description: "Vui lòng đổi trạng thái phim để tạo suất chiếu",
-      });
-      setActive(false);
-    } else {
-      setActive(true);
-    }
-  };
-  document.title = "Admin | DS Phim";
+
+
   const columnUserList: any = [
     {
       title: "Ảnh",
@@ -45,7 +29,6 @@ const ListMovie = (props: Props) => {
       fixed: "left",
       render: (_: any, { image, _id }: any) => (
         <Link to={_id}>
-          {" "}
           <img width="50px" src={image} height="50px" />
         </Link>
       ),
@@ -138,7 +121,7 @@ const ListMovie = (props: Props) => {
     },
   ];
 
-  const data: Props[] = movie?.map((item: any, index: any) => {
+  const dataTable: Props[] = data?.map((item: any, index: any) => {
     return {
       key: index + 1,
       _id: item?._id,
@@ -157,12 +140,10 @@ const ListMovie = (props: Props) => {
     };
   });
   const info = (id: any) => {
-    const movieOne = movie.find((item: any) => item._id === id);
+    const movieOne = data.find((item: any) => item._id === id);
 
     Modal.info({
-      title: `${movieOne?.name} - ( Doanh thu: ${formatCurrency(
-        movieOne?.profit
-      )})`,
+      title: `${movieOne?.name} - ( Doanh thu: ${formatCurrency(movieOne?.profit)})`,
       width: 1000,
       content: (
         <div>
@@ -193,17 +174,7 @@ const ListMovie = (props: Props) => {
   };
   return (
     <div>
-      <div className="flex gap-5">
-        <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies/create">Tạo Phim</Link>
-        </Button>
-        <Button>
-          <Link to={configRoute.routes.adminMovieType}>
-            Quản lí thể loại phim
-          </Link>
-        </Button>
-      </div>
-      <DataTable column={columnUserList} data={data} />
+      <Table columns={columnUserList} dataSource={dataTable} />
     </div>
   );
 };

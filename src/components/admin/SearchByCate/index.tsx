@@ -1,11 +1,10 @@
 import { Button, Collapse, Form, Input, Select } from 'antd'
-import { orderMutipleOption } from '../../../ultils/data'
-import {SearchOutlined} from "@ant-design/icons"
+import { SearchOutlined } from "@ant-design/icons"
 
-type Props = { data: any, onFinish: any,onReset:any }
+type Props = { data: any, onFinish: any, onReset: any, category: any }
 const { Option } = Select;
 const { Panel } = Collapse;
-const SearchByCate = ({ data, onFinish,onReset }: Props) => {
+const SearchByCate = ({ data, onFinish, onReset, category }: Props) => {
    const [form] = Form.useForm();
    return (
       <div className='mb-3'>
@@ -20,7 +19,7 @@ const SearchByCate = ({ data, onFinish,onReset }: Props) => {
                            rules={[{ required: true, message: 'Bắt buộc nhập' }]}
                         >
                            <Select placeholder="Chọn danh mục tìm kiếm" >
-                              {orderMutipleOption?.map((item: any) => (
+                              {category?.map((item: any) => (
                                  <Option value={item?.value} key={item?.value}>
                                     {item?.name}
                                  </Option>

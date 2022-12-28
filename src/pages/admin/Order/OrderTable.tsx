@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import { Image, InputRef, Tag } from 'antd';
 import { Button, Input, Space, Table } from 'antd';
@@ -8,12 +8,8 @@ import Highlighter from 'react-highlight-words'
 import { Link } from 'react-router-dom';
 import { EditOutlined } from "@ant-design/icons";
 import { formatCurrency, formatDate, formatTime } from '../../../ultils';
-import SearchMutiple from './SearchByCate';
 
-
-type Props = {
-   data: any
-}
+type Props = { data: any }
 
 const OrderTable = ({ data }: Props) => {
    const [searchText, setSearchText] = useState('');
@@ -199,7 +195,6 @@ const OrderTable = ({ data }: Props) => {
                      style={{ color: "var(--primary)", fontSize: "18px" }}
                   />
                </Link>
-
             </Space>
          ),
       },
