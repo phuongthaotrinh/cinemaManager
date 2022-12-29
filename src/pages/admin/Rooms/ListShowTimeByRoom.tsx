@@ -2,26 +2,51 @@ import React, { useEffect, useState } from 'react'
 import { Button, Empty, Table, TableColumnsType } from 'antd';
 import { convertDate, formatDate, formatTime } from '../../../ultils';
 import { isPast, parseISO } from 'date-fns';
-import { Link } from 'react-router-dom';
-type Props = {
-  data: any
-}
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
+import { Link, useParams } from 'react-router-dom';
+import configRoute from '../../../config';
+type Props = {}
 interface ExpandedDataType {
   key: React.Key;
   date: string;
   name: string;
   upgradeNum: string;
 }
-const ListShowTimeByRoom = ({ data }: Props) => {
+const ListShowTimeByRoom = ({ }: Props) => {
+  const dispatch = useAppDispatch();
+  let { id } = useParams();
+  let { rooms } = useAppSelector((state) => state.roomReducer);
+
+  const [stByRoom, setStByRoom] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
+  let roomSelect = rooms.find((item: any) => item?._id === id);
+
+
   useEffect(() => {
-    if (data) {
+    dispatch(getAlSt({}))
+  }, [dispatch])
+
+  const { stList } = useAppSelector((state) => state.ShowTimeReducer);
+
+  useEffect(() => {
+    let lea = stList.filter((obj) => {
+      for (let key of obj["roomId"]) {
+        return key["_id"] == id
+      }
+    });
+    setStByRoom(lea);
+  }, [stList, id]);
+
+
+  useEffect(() => {
+    if (stByRoom) {
       handleSubmit()
     }
-  }, []);
+  }, [stByRoom]);
 
   const handleSubmit = () => {
-    let sort: any[] = data?.sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+    let sort: any[] = stByRoom?.sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
     const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
       let rowName = formatDate(arrayItem.date)
       if (accumulator[rowName] == null) {
@@ -32,13 +57,12 @@ const ListShowTimeByRoom = ({ data }: Props) => {
     }, {});
     setShowByDate({ ...groupByDate });
   };
-  console.log(showByDate);
+
   const expandedRowRender = (row: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
       { title: '', dataIndex: 'key', key: 'key', width: 0, className: "", render: (_: any, { key }: any) => <p className='text-white'>{key}</p> },
       { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt', width: 150, render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, },
       { title: 'Tên Phim', dataIndex: 'movieList', key: 'movieList', width: 100, render: (_: any, { movieList }: any) => <p>{movieList?.name}</p> },
-
       { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', width: 100, render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
 
     ];
@@ -77,7 +101,11 @@ const ListShowTimeByRoom = ({ data }: Props) => {
 
   return (
     <>
-      {data?.length > 0 ? (
+      <Button className='mr-3'>
+        <Link to={configRoute.routes.adminRooms}>DS Phòng chiếu</Link>
+      </Button>
+      <h1 className='flex justify-center uppercase'> Phòng chiếu : {roomSelect?.name} </h1>
+      {stByRoom?.length > 0 ? (
         <div className='container'>
           <Table
             columns={columns}

@@ -1,11 +1,10 @@
-import { Button, Form, Input, message, notification, Space } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import { useNavigate } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { AuthApi } from "../../../service/authApi";
 import { useState, useEffect } from 'react'
 import configRoute from '../../../config';
-import { UserApi } from '../../../service/userApi';
 import { updatePass } from '../../../redux/slice/userSlice';
 type Props = {}
 

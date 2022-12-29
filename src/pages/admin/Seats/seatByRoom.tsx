@@ -7,7 +7,7 @@ import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { OrderedListOutlined } from "@ant-design/icons";
 import { RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { FaUsersCog, FaRegEye, FaExclamation } from "react-icons/fa";
-import ListShowTimeByRoom from "../../../components/admin/ListShowTimeByRoom/ListShowTimeByRoom";
+// import ListShowTimeByRoom from "../Rooms/ListShowTimeByRoom";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 
 const { Panel } = Collapse;
@@ -121,19 +121,6 @@ const SeatByRoom = (props: Props) => {
         />
       ),
       showSeatType: true
-
-    },
-    {
-      key: "4",
-      label: (
-        <span style={{ display: "flex", justifyItems: "center", gap: 3 }}>
-          <OrderedListOutlined /> Danh sách giờ chiếu của phòng
-        </span>
-      ),
-      children: (
-        <ListShowTimeByRoom data={stByRoom} />
-      ),
-      showSeatType: false
     },
   ];
 

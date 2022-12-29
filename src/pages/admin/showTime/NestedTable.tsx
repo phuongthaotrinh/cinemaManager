@@ -10,7 +10,6 @@ import { defaultStatus } from '../../../ultils/data';
 import { updateData } from "../../../redux/slice/ShowTimeSlice"
 import configRoute from '../../../config';
 import { convertDate } from '../../../ultils';
-import { PlusOutlined } from '@ant-design/icons';
 import DrawerShowTime from './DrawerShowTime';
 import AdminShowTimesCreate from './Create';
 type Props = {}
@@ -23,7 +22,6 @@ interface ExpandedDataType {
 const NestedTable = (props: Props) => {
   const [payload, setPayload] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
-  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   useEffect(() => {
     document.title = "Admin | Showtime"

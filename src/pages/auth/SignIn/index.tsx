@@ -1,8 +1,6 @@
-import { Form, Input, notification } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Form,  notification } from "antd";
+import { useNavigate } from "react-router-dom";
 import AuthForm from "../../../components/auth/AuthForm";
-import configRoute from "../../../config";
 import config from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncLogin } from "../../../redux/slice/AuthSlice";

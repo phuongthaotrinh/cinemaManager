@@ -75,6 +75,7 @@ import NestedTable from "../pages/admin/showTime/NestedTable";
 import CancelOrder from "../components/client/CancelOrder";
 import CheckOrder from "../pages/client/CheckOrder";
 import MovieTab from "../pages/admin/Movie/MovieTab";
+import ListShowTimeByRoom from "../pages/admin/Rooms/ListShowTimeByRoom";
 type RoutesType = {
   path: string;
   component: any;
@@ -147,6 +148,7 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.AdminShowTimes, component: NestedTable },
   { path: configRoute.routes.AdminShowTimesCreate, component: AdminShowTimesCreate },
+  { path: configRoute.routes.showTimeByRoom, component: ListShowTimeByRoom },
 
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },

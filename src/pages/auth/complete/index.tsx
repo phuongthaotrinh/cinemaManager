@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { notification } from "antd";
 import { AuthApi } from "../../../service/authApi";
-import { useAppSelector, useAppDispatch } from "../../../redux/hook";
+import { useAppSelector } from "../../../redux/hook";
 import configRoute from "../../../config";
 const Complete = () => {
   const navigate = useNavigate();

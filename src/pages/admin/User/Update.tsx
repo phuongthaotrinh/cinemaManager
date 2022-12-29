@@ -18,7 +18,7 @@ const UserEdit = (props: Props) => {
   const [showPass, setShowPass] = useState<any>(false);
   const { users, errorMessage } = useAppSelector((state) => state.userReducer);
   const dataSelected = users.find((item: any) => item._id === id);
-  +useEffect(() => {
+  useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.username ?? dataSelected?._id
       }`;
     if (dataSelected) {

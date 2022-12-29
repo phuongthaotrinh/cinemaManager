@@ -48,22 +48,26 @@ const AdminRoomList = (props: Props) => {
           </Link>
         </div>
       ),
+      width: '200px'
     },
     {
       title: "Tổng ghế",
       dataIndex: "tongGhe",
       key: "tongGhe",
       ...getColumnSearchProps("tongGhe"),
+      width: '100px'
     },
     {
       title: "Số cột",
       dataIndex: "columns",
       key: "columns",
+      width: '100px'
     },
     {
       title: "Số hàng",
       dataIndex: "rows",
       key: "rows",
+      width: '100px'
     },
     {
       title: "Trạng thái",
@@ -83,6 +87,7 @@ const AdminRoomList = (props: Props) => {
           ))}
         </Select>
       ),
+      width: '50px'
     },
     {
       title: "Hành động",
@@ -96,6 +101,7 @@ const AdminRoomList = (props: Props) => {
               />
             </Link>
           </Tooltip>
+
           <Tooltip title="Xem tổng quan phòng ">
             <Link to={`/admin/seatsByRoom/${record?._id}`}>
               <EyeOutlined
@@ -103,6 +109,13 @@ const AdminRoomList = (props: Props) => {
               />
             </Link>
           </Tooltip>
+
+          <Button type="dashed" block>
+            <Link to={`/admin/stByRoom/${record?._id}`}>
+              DS Giờ chiếu theo phòng
+            </Link>
+          </Button>
+
         </Space>
       ),
       width: 130,

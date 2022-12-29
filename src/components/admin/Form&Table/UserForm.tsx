@@ -1,5 +1,14 @@
 import React from "react";
-import { Button, Card, DatePicker, Form, FormInstance, Input, Select, Skeleton } from "antd";
+import {
+  Button,
+  Card,
+  DatePicker,
+  Form,
+  FormInstance,
+  Input,
+  Select,
+  Skeleton,
+} from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload";
@@ -17,10 +26,20 @@ interface UserFormProps {
   edit?: boolean;
   editUser?: boolean;
   loading?: boolean;
-  showPass: boolean;
+  showPass?: boolean;
   userId: any;
+  userEdit?: boolean;
 }
-const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editUser = true }: UserFormProps) => {
+const UserForm = ({
+  userEdit,
+  userId,
+  avatarList,
+  showPass,
+  form,
+  onFinish,
+  onReset,
+  editUser = true,
+}: UserFormProps) => {
   const { accessToken } = useAppSelector((state) => state.authReducer);
   return (
     <Form
@@ -34,7 +53,7 @@ const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editU
           <>
             <Card className="col-6 w-full">
               <Form.Item label="Ảnh">
-                <ImageUpload imageList={avatarList} limit={2} key={1} />
+                <ImageUpload imageList={avatarList} limit={1} key={1} />
                 <small>(Tải lên ít nhất 1 ảnh và tối đa 2 ảnh)</small>
               </Form.Item>
               <Form.Item
@@ -71,13 +90,24 @@ const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editU
               </Form.Item>
             </Card>
             <Card className="col-6 w-full">
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[{ required: true, type: "email" }]}
-              >
-                <Input placeholder="Nhập vào" />
-              </Form.Item>
+              {!userEdit ? (
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[{ required: true, type: "email" }]}
+                  
+                >
+                  <Input placeholder="Nhập vào" disabled />
+                </Form.Item>
+              ) : (
+                <Form.Item
+                  label="Email"
+                  name="email"
+                  rules={[{ required: true, type: "email" }]}
+                >
+                  <Input placeholder="Nhập vào" />
+                </Form.Item>
+              )}
               <Form.Item
                 label="Ngày sinh"
                 name="dob"
@@ -85,24 +115,30 @@ const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editU
               >
                 <DatePicker placeholder="Nhập vào" />
               </Form.Item>
-              <Form.Item label="Trạng thái" name="status">
-                <Select>
-                  {userStatus.map((item: any) => (
-                    <Select.Option key={item.value} value={item.value}>
-                      {item.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-              <Form.Item label="Chức vụ" name="role">
-                <Select>
-                  {userRole.map((item) => (
-                    <Select.Option key={item.value} value={item.value}>
-                      {item.name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
+
+              {userEdit && (
+                <>
+                  <Form.Item label="Trạng thái" name="status">
+                    <Select>
+                      {userStatus.map((item: any) => (
+                        <Select.Option key={item.value} value={item.value}>
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                  <Form.Item label="Chức vụ" name="role">
+                    <Select>
+                      {userRole.map((item) => (
+                        <Select.Option key={item.value} value={item.value}>
+                          {item.name}
+                        </Select.Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                </>
+              )}
+
               <Form.Item label="Địa chỉ" name="address">
                 <Select showSearch>
                   {provices &&
@@ -113,7 +149,7 @@ const UserForm = ({ userId, avatarList, showPass, form, onFinish, onReset, editU
                     ))}
                 </Select>
               </Form.Item>
-              <UpdatePassWord userId={userId} token={accessToken} />
+              {userEdit && <UpdatePassWord userId={userId} token={accessToken} />}
               <div className="col-12">
                 <Card
                   style={{

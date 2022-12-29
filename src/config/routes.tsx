@@ -61,7 +61,7 @@ const routes = {
   adminRooms: "/admin/rooms",
   adminRoomsCreate: "/admin/rooms/create",
   adminRoomEdit: "/admin/rooms/:id",
-
+  showTimeByRoom : "/admin/stByRoom/:id",
   AdminShowTimes: "/admin/showTimes",
   AdminShowTimesCreate: "/admin/showTimes/create",
   AdminShowTimesEdit: "/admin/showTimes/:id",
@@ -76,7 +76,6 @@ const routes = {
   AdminPosts: "/admin/posts",
   AdminPostsCreate: "/admin/posts/add",
   AdminPostsEdit: "/admin/posts/:id",
-  // renderSeatAdmin: "/admin/seats/_v=:id",
   webConfig: "/admin/webConfig",
   webConfigAdd: "/admin/webConfig/create",
   webConfigEdit: "/admin/webConfig/:id",

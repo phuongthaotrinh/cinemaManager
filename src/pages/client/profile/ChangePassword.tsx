@@ -13,10 +13,10 @@ const ChangePassword = (props: Props) => {
   const { accessToken, currentUser } = useAppSelector(
     (state) => state.authReducer
   );
-  const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 8 },
-  };
+  // const layout = {
+  //   labelCol: { span: 8 },
+  //   wrapperCol: { span: 8 },
+  // };
   // console.log(currentUser._id);
 
   const dispatch = useAppDispatch();
@@ -54,49 +54,37 @@ const ChangePassword = (props: Props) => {
         });
       });
   };
+  const reset = () => {
+    form.resetFields();
+  };
   return (
     <>
       <div className="min-h-[200px] pt-5">
-        <Form {...layout} name="nest-messages" onFinish={onFinish} form={form}>
+        <Form
+          name="nest-messages"
+          onFinish={onFinish}
+          form={form}
+          layout="vertical"
+        >
           <Form.Item
             name="oldPassword"
-            label={
-              <label style={{ color: "white", fontSize: "18px" }}>
-                Mật khẩu cũ
-              </label>
-            }
+            label={<label> Mật khẩu cũ </label>}
             rules={[{ required: true, message: "Không được để trống!" }]}
           >
-            <Input.Password
-              style={{
-                height: "40px",
-              }}
-            />
+            <Input.Password />
           </Form.Item>
           <Form.Item
             name="password"
-            label={
-              <label style={{ color: "white", fontSize: "18px" }}>
-                Mật khẩu mới
-              </label>
-            }
+            label={<label> Mật khẩu mới </label>}
             rules={[{ required: true, message: "Không được để trống!" }]}
           >
-            <Input.Password
-              style={{
-                height: "40px",
-              }}
-            />
+            <Input.Password />
           </Form.Item>
           <Form.Item
             dependencies={["password"]}
             hasFeedback
             name="confirm"
-            label={
-              <label style={{ color: "white", fontSize: "18px" }}>
-                Nhập lại mật khẩu
-              </label>
-            }
+            label={<label> Nhập lại mật khẩu </label>}
             rules={[
               { required: true, message: "Không được để trống!" },
               ({ getFieldValue }) => ({
@@ -111,26 +99,15 @@ const ChangePassword = (props: Props) => {
               }),
             ]}
           >
-            <Input.Password
-              style={{
-                height: "40px",
-              }}
-            />
+            <Input.Password />
           </Form.Item>
 
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                margin: "20px 0",
-                width: "150px",
-                height: "50px",
-                backgroundColor: "#151f32",
-                fontSize: "17px",
-              }}
-            >
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
               Đổi mật khẩu
+            </Button>
+            <Button htmlType="submit" onClick={reset} className="ml-5">
+              Nhập lại
             </Button>
           </Form.Item>
         </Form>

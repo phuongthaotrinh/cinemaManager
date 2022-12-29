@@ -134,6 +134,9 @@
 .showFilmListItemImg img{
     width: 100%;
     transition: all ease 0.6s;
+     min-height: 265px;
+    max-height: 265px;
+    object-fit: fill;
 }
 .showFilmListItemInfo h3{
     color: white;
