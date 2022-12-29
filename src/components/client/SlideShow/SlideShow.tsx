@@ -14,7 +14,7 @@ const SlideShow = (props: Props) => {
           <div className="each-slide" key={item?._id}>
             <div >
               <Link to={item.url} title={item.title}>
-                <img src={item.images[0].url} alt="" /></Link>
+                <img src={item.images[0].url} style={{width: "100%"}} /></Link>
             </div>;
           </div>
         )}

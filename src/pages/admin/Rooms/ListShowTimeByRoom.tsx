@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Empty, Table, TableColumnsType } from 'antd';
-import { convertDate, formatDate, formatTime } from '../../../ultils';
-import { isPast, parseISO } from 'date-fns';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
-import { Link, useParams } from 'react-router-dom';
-import configRoute from '../../../config';
-type Props = {}
+import React, { useEffect, useState } from "react";
+import { Button, Empty, Table, TableColumnsType } from "antd";
+import { convertDate, formatDate, formatTime } from "../../../ultils";
+import { isPast, parseISO } from "date-fns";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
+import { Link, useParams } from "react-router-dom";
+import configRoute from "../../../config";
+type Props = {};
 interface ExpandedDataType {
   key: React.Key;
   date: string;
   name: string;
   upgradeNum: string;
 }
-const ListShowTimeByRoom = ({ }: Props) => {
+const ListShowTimeByRoom = ({}: Props) => {
   const dispatch = useAppDispatch();
   let { id } = useParams();
   let { rooms } = useAppSelector((state) => state.roomReducer);
@@ -22,33 +22,33 @@ const ListShowTimeByRoom = ({ }: Props) => {
   const [showByDate, setShowByDate] = useState<any[]>([]);
   let roomSelect = rooms.find((item: any) => item?._id === id);
 
-
   useEffect(() => {
-    dispatch(getAlSt({}))
-  }, [dispatch])
+    dispatch(getAlSt({}));
+  }, [dispatch]);
 
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
 
   useEffect(() => {
     let lea = stList.filter((obj) => {
       for (let key of obj["roomId"]) {
-        return key["_id"] == id
+        return key["_id"] == id;
       }
     });
     setStByRoom(lea);
   }, [stList, id]);
 
-
   useEffect(() => {
     if (stByRoom) {
-      handleSubmit()
+      handleSubmit();
     }
   }, [stByRoom]);
 
   const handleSubmit = () => {
-    let sort: any[] = stByRoom?.sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+    let sort: any[] = stByRoom?.sort(
+      (a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt)
+    );
     const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = formatDate(arrayItem.date)
+      let rowName = formatDate(arrayItem.date);
       if (accumulator[rowName] == null) {
         accumulator[rowName] = [];
       }
@@ -60,18 +60,48 @@ const ListShowTimeByRoom = ({ }: Props) => {
 
   const expandedRowRender = (row: any) => {
     const columns: TableColumnsType<ExpandedDataType> = [
-      { title: '', dataIndex: 'key', key: 'key', width: 0, className: "", render: (_: any, { key }: any) => <p className='text-white'>{key}</p> },
-      { title: 'Thời gian chiếu ', dataIndex: 'startAt', key: 'startAt', width: 150, render: (_: any, { startAt, endAt }: any) => <p>Từ {startAt} đến {endAt}</p>, },
-      { title: 'Tên Phim', dataIndex: 'movieList', key: 'movieList', width: 100, render: (_: any, { movieList }: any) => <p>{movieList?.name}</p> },
-      { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', width: 100, render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
-
+      {
+        title: "",
+        dataIndex: "key",
+        key: "key",
+        width: 0,
+        className: "",
+        render: (_: any, { key }: any) => <p className="text-white">{key}</p>,
+      },
+      {
+        title: "Thời gian chiếu ",
+        dataIndex: "startAt",
+        key: "startAt",
+        width: 150,
+        render: (_: any, { startAt, endAt }: any) => (
+          <p>
+            Từ {startAt} đến {endAt}
+          </p>
+        ),
+      },
+      {
+        title: "Tên Phim",
+        dataIndex: "movieList",
+        key: "movieList",
+        width: 100,
+        render: (_: any, { movieList }: any) => <p>{movieList?.name}</p>,
+      },
+      {
+        title: "Trạng thái truy cập",
+        dataIndex: "status2",
+        key: "status2",
+        width: 100,
+        render: (_: any, { status2 }: any) => (
+          <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p>
+        ),
+      },
     ];
 
     const data: any[] = [];
     for (let showKey in showByDate) {
       showByDate[showKey]?.map((item: any, index: any) => {
         if (formatDate(item?.date) == row?.date) {
-          let checkTime = isPast(parseISO(item?.date))
+          let checkTime = isPast(parseISO(item?.date));
           data.push({
             key: index,
             startAt: formatTime(item?.startAt),
@@ -79,17 +109,22 @@ const ListShowTimeByRoom = ({ }: Props) => {
             _id: item?._id,
             status: item?.status,
             movieList: item?.movieId,
-            status2: checkTime
-          })
+            status2: checkTime,
+          });
         }
-
       });
     }
     return <Table columns={columns} dataSource={data} pagination={false} />;
   };
   const columns: TableColumnsType<any[]> = [
-    { title: 'Ngày chiếu', dataIndex: 'date', key: 'date' },
-    { title: '', dataIndex: 'key', key: 'key', width: 3, render: (_: any, { key }: any) => <p className='text-white'>{key}</p> },
+    { title: "Ngày chiếu", dataIndex: "date", key: "date" },
+    {
+      title: "",
+      dataIndex: "key",
+      key: "key",
+      width: 3,
+      render: (_: any, { key }: any) => <p className="text-white">{key}</p>,
+    },
   ];
   const dataTable: any[] = [];
   for (let key in showByDate) {
@@ -101,25 +136,27 @@ const ListShowTimeByRoom = ({ }: Props) => {
 
   return (
     <>
-      <Button className='mr-3'>
+      <Button className="mr-3">
         <Link to={configRoute.routes.adminRooms}>DS Phòng chiếu</Link>
       </Button>
-      <h1 className='flex justify-center uppercase'> Phòng chiếu : {roomSelect?.name} </h1>
+      <h1 className="flex justify-center uppercase">
+        Phòng chiếu : {roomSelect?.name}
+      </h1>
       {stByRoom?.length > 0 ? (
-        <div className='container'>
+        <div className="container">
           <Table
             columns={columns}
-            expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
+            expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
             dataSource={dataTable}
           />
         </div>
       ) : (
-        <div className='h-[300px] container'>
+        <div className="h-[300px] container">
           <Empty description="Chưa có suất chiếu nào" />
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
-export default ListShowTimeByRoom
+export default ListShowTimeByRoom;

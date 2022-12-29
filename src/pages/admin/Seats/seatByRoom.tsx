@@ -1,13 +1,11 @@
-import { Button, Collapse, Tabs, message } from "antd";
+import { Button, Collapse, Tabs } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import RenderSeats from "../../../components/admin/RenderSeats";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
-import { OrderedListOutlined } from "@ant-design/icons";
 import { RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { FaUsersCog, FaRegEye, FaExclamation } from "react-icons/fa";
-// import ListShowTimeByRoom from "../Rooms/ListShowTimeByRoom";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 
 const { Panel } = Collapse;
@@ -21,7 +19,6 @@ const SeatByRoom = (props: Props) => {
   const [row, setRow] = useState<number>();
   const [column, setColumn] = useState<number>();
   const [seatFile, setSeatFile] = useState<any>();
-  const [stByRoom, setStByRoom] = useState<any[]>([]);
   useEffect(() => {
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(id));
@@ -35,16 +32,6 @@ const SeatByRoom = (props: Props) => {
   useEffect(() => {
     dispatch(getAlSt({}))
   }, [dispatch])
-  const { stList } = useAppSelector((state) => state.ShowTimeReducer);
-
-  useEffect(() => {
-    let lea = stList.filter((obj) => {
-      for (let key of obj["roomId"]) {
-        return key["_id"] == id
-      }
-    });
-    setStByRoom(lea);
-  }, [stList, id])
 
   useEffect(() => {
     setColumn(roomSelect?.columns);

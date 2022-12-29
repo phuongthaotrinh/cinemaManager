@@ -348,7 +348,7 @@ const RenderSeats = ({
               <InputNumber placeholder="bắt đầu" min={1} max={column} />
             </Form.Item>
             <Form.Item name="KetThuc">
-              <InputNumber placeholder="kết thúc" max={column} />
+              <InputNumber placeholder="kết thúc" min={1} max={column} />
             </Form.Item>
             <Form.Item >
               <Button htmlType="submit" type="primary">Submit</Button>

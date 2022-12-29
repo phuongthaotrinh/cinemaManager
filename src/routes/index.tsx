@@ -12,10 +12,9 @@ import Home from "../pages/client/home/Home";
 import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Complete from "../pages/auth/complete";
+
 // admin
 import Dashboard from "../pages/admin/Dashboard/DashBoard";
-
-import AdminUserList from "../pages/admin/User/List";
 import UserCreate from "../pages/admin/User/Create";
 import UserEdit from "../pages/admin/User/Update";
 
@@ -76,6 +75,7 @@ import CancelOrder from "../components/client/CancelOrder";
 import CheckOrder from "../pages/client/CheckOrder";
 import MovieTab from "../pages/admin/Movie/MovieTab";
 import ListShowTimeByRoom from "../pages/admin/Rooms/ListShowTimeByRoom";
+import UserTab from "../pages/admin/User/UserTab";
 type RoutesType = {
   path: string;
   component: any;
@@ -114,7 +114,7 @@ export const publicRoutes: RoutesType[] = [
 export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.dashboard, component: Dashboard },
 
-  { path: configRoute.routes.adminUserList, component: AdminUserList },
+  { path: configRoute.routes.adminUserList, component: UserTab },
   { path: configRoute.routes.adminUserAdd, component: UserCreate },
   { path: configRoute.routes.adminUserUpdate, component: UserEdit },
 

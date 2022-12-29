@@ -162,14 +162,6 @@ const MovieDetail = (props: Props) => {
           <div className={`styles.showTimesListItem`}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                // <span
-                //   key={index}
-                //   onClick={() => onDate(item)}
-                //   className="cursor-pointer"
-                // >
-                //   <PlusOutlined />
-                //   {formatDate(item)}
-                // </span>
                 <Button
                   style={{ margin: "10px", color: "white" }}
                   type="ghost"

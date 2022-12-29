@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import styles from "../movieDetail/MovieDetail.module.css";
 type Props = {

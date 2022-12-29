@@ -1,23 +1,21 @@
-import { useEffect } from "react";
-import { Button, message, Space, Select, Table } from "antd";
+import { message, Space, Select, Table } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { updateUser, getUsers, } from "../../../redux/slice/userSlice";
-import DataTable from "../../../components/admin/Form&Table/Table";
+import { updateUser } from "../../../redux/slice/userSlice";
 import { EditOutlined } from "@ant-design/icons";
 import { userRole, userStatus } from "../../../ultils/data";
 import { provices } from "../../../redux/slice/Provider";
+import { useSearch } from "../../../hook";
 
-type Props = {};
+type Props = {
+  data: any
+};
 const { Option } = Select;
-const AdminUserList = (props: Props) => {
+const AdminUserList = ({ data }: Props) => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    document.title = "Admin | Users";
-    dispatch(getUsers());
-  }, [dispatch]);
-  const { users, isFetching, } = useAppSelector((state: any) => state.userReducer);
-  const { currentUser } = useAppSelector((state: any) => state.authReducer);
+  const { getColumnSearchProps } = useSearch()
+
+  const { isFetching } = useAppSelector((state: any) => state.userReducer);
 
   const changeRole = (id: any, value: any) => {
     dispatch(updateUser({ _id: id, role: value }))
@@ -50,7 +48,7 @@ const AdminUserList = (props: Props) => {
       title: "EMAIL",
       dataIndex: "email",
       key: "email",
-
+      ...getColumnSearchProps("email"),
       render: (_: any, record: any) => (
         <div className="overflow-auto surface-overlay">
           <Link
@@ -110,6 +108,7 @@ const AdminUserList = (props: Props) => {
       title: "Tên",
       dataIndex: "username",
       key: "username",
+      ...getColumnSearchProps("username"),
       render: (_: any, record: any) => (
         <div className="overflow-auto surface-overlay">
           <Link
@@ -128,6 +127,7 @@ const AdminUserList = (props: Props) => {
       dataIndex: "phone",
       key: "phone",
       sorter: (a: any, b: any) => a.phone - b.phone,
+      ...getColumnSearchProps("phone"),
     },
     {
       title: "Địa chỉ",
@@ -167,7 +167,7 @@ const AdminUserList = (props: Props) => {
     },
   ];
 
-  const data: Props[] = users?.map((item: any, index: any) => {
+  const dataSource: Props[] = data?.map((item: any, index: any) => {
     return {
       key: index + 1,
       _id: item?._id,
@@ -184,10 +184,7 @@ const AdminUserList = (props: Props) => {
 
   return (
     <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Thêm người dùng</Link>
-      </Button>
-      <Table columns={columnUserList} dataSource={data} loading={isFetching} />
+      <Table columns={columnUserList} dataSource={dataSource} loading={isFetching} />
     </div>
   );
 };
