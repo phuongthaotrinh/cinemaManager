@@ -1,4 +1,3 @@
-import React, { PropsWithChildren, Fragment } from "react";
 import configRoute from "../config";
 import { AuthTheme } from "../themes";
 
