@@ -9,6 +9,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import { CloseOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
 import { MinusOutlined, OrderedListOutlined } from "@ant-design/icons";
+import { useGroupBy } from "../../../hook";
 type Props = {
   row?: any;
   column?: any;
@@ -44,8 +45,8 @@ const RenderSeats = ({
   const [blockSeat, setBlockSeat] = useState<any>([]);
   const [parseCharac, setParseCharac] = useState<any>([]);
   const [mutipleForm, setMutipleForm] = useState(false);
-
-
+  const { groupByRow } = useGroupBy();
+  
   useEffect(() => {
     handleSubmit();
     let blockS = seats?.filter((item: any) => item?.status == 1);
@@ -82,21 +83,9 @@ const RenderSeats = ({
     return `${styles.seats} ${dynamicClass}`;
   };
 
-  const groupBy = (data: any) => {
-    const groupByRowName = data?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = arrayItem.row;
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
-    return groupByRowName;
-  };
-
   const handleSubmit = () => {
     if (seats) {
-      let groupItem = groupBy(seats);
+      let groupItem = groupByRow(seats);
       setSeatDetails({ ...groupItem });
     }
   };
@@ -276,7 +265,7 @@ const RenderSeats = ({
     }
 
     newArrFBCTCase2 = viTri?.filter((item: any) => item['status'] == 2);
-    let groupItem2 = groupBy(viTri);
+    let groupItem2 = groupByRow(viTri);
     setSeatDetails(groupItem2);
     setSeatArrSelect(newArrFBCTCase2);
     setSeatArr(newArrFBCTCase2);
@@ -288,7 +277,7 @@ const RenderSeats = ({
       let cloneArr: any[] = JSON.parse(JSON.stringify(seats));
       cloneArr?.map((val: any) => (val["status"] = 2));
       let redc = [...cloneArr];
-      let groupItem = groupBy(redc);
+      let groupItem = groupByRow(redc);
       setSeatDetails({ ...groupItem });
       setSeatArrSelect({ ...groupItem });
       setSeatArr(redc);
@@ -308,7 +297,7 @@ const RenderSeats = ({
         }
         newArr.push(cloneArr[key])
       }
-      let groupItem = groupBy(newArr);
+      let groupItem = groupByRow(newArr);
       setSeatDetails(groupItem);
       setSeatArrSelect(blockSeat);
       setSeatArr(blockSeat);
@@ -389,7 +378,7 @@ const RenderSeats = ({
         }
 
         newArr = newArrFBCTCase2?.filter((item: any) => item['status'] == 2);
-        let groupItem2 = groupBy(newArrFBCTCase2);
+        let groupItem2 = groupByRow(newArrFBCTCase2);
         setSeatDetails(groupItem2)
         setSeatArrSelect(newArr)
         setSeatArr(newArr)

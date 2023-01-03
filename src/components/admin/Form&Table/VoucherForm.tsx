@@ -16,11 +16,11 @@ interface VoucherFormProps {
    editData?: boolean;
    loading?: boolean;
    isCreate?: boolean;
-   voucherId?:any;
-   userId?:any;
+   voucherId?: any;
+   userId?: any;
 }
 const { Option } = Select;
-const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, form, onFinish, onReset, edit = false, loading = false, editData = true }: VoucherFormProps) => {
+const VoucherForm = ({ setAvatarList, userId, voucherId, isCreate, avatarList, form, onFinish, onReset, edit = false, loading = false, editData = true }: VoucherFormProps) => {
 
    return (
       <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages}>
@@ -86,7 +86,7 @@ const VoucherForm = ({ setAvatarList,userId,voucherId, isCreate, avatarList, for
                            {defaultStatus.map((item: any) => <Select.Option key={item.value} value={item.value}>{item.name}</Select.Option>)}
                         </Select>
                      </Form.Item>
-                     {!isCreate && <VoucherUserUsed voucherId={voucherId} userId={userId}/>}
+                     {!isCreate && <VoucherUserUsed voucherId={voucherId} userId={userId} />}
                      <div className="col-12">
                         <Card style={{ position: "sticky", bottom: "0", left: "0", width: "100%", border: 'none' }}>
                            <div style={{ display: "flex", justifyContent: "start", gap: "5px" }}>

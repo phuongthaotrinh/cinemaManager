@@ -4,6 +4,7 @@ import { validateMessages } from "../../../ultils/FormMessage";
 import ImageUpload from "../../upload"
 import TextArea from 'antd/lib/input/TextArea';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { N } from 'chart.js/dist/chunks/helpers.core';
 interface WebConfigFormProps {
    form: FormInstance<any>;
    onFinish: (values: any) => void;

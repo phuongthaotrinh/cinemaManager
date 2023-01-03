@@ -1,29 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Card,
-  DatePicker,
-  FormInstance,
-  Select,
-  Skeleton,
-  InputNumber,
-  Form,
-  Alert,
-} from "antd";
+import { Button, Card, DatePicker, FormInstance, Select, Skeleton, InputNumber, Form, Alert } from "antd";
 import type { RangePickerProps } from "antd/es/date-picker";
 import { validateMessages } from "../../../ultils/FormMessage";
 import moment from "moment";
 import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import "antd/dist/antd.css";
-import {
-  formatTime,
-  convertMovieTime,
-  formatCurrency,
-  formatDate,
-} from "../../../ultils";
+import { convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-
+import { useGroupBy } from "../../../hook";
 interface ShowTimeFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -66,7 +51,7 @@ const ShowTimeForm = ({
     dispatch(getAlSt({}));
   }, []);
   const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
-
+  const { groupByTime, groupByDate } = useGroupBy()
   let movieSelect = movie?.find((item: any) => item?._id === movieId);
   let movieTime = convertMovieTime((movieSelect?.runTime) + 15);
   let movieRelease = moment(movieSelect?.releaseDate).date();
@@ -107,7 +92,7 @@ const ShowTimeForm = ({
     return current && current <= moment().endOf("day");
   };
   useEffect(() => {
-    if (timeStartCreate >= 2 && timeStartCreate <= 7) {
+    if (timeStartCreate >= 2 && timeStartCreate < 7) {
       setStartTime("không đặt suất chiếu từ 2-7h sáng");
       setDisableBtn(true);
     } else {
@@ -116,7 +101,6 @@ const ShowTimeForm = ({
     }
   }, [timeStartCreate]);
   const validRange = (value: any, dateString: any) => {
-    console.log("Thời gain ", movieTime)
     setTimeEnd(moment(value).add(movieTime));
     let timeStart = moment(value).hour();
     let dayStart = moment(value).date();
@@ -148,14 +132,7 @@ const ShowTimeForm = ({
     setRoomSelect(val);
   };
   useEffect(() => {
-    const sortStByDay = stLisst?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = formatDate(arrayItem.date);
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
+    const sortStByDay = groupByDate(stLisst);
     setStByDays(sortStByDay);
   }, [stLisst]);
 
@@ -167,45 +144,10 @@ const ShowTimeForm = ({
 
   const validateST = () => {
     for (let key in stByDays) {
-      if (key == days) {
-        let sortByTime = stByDays[key]?.reduce(
-          (accumulator: any, arrayItem: any) => {
-            let rowName = formatTime(arrayItem.startAt);
-            if (accumulator[rowName] == null) {
-              accumulator[rowName] = [];
-            }
-            accumulator[rowName].push(arrayItem);
-            return accumulator;
-          },
-          {}
-        );
+      let arrTimeStart = groupByTime(stByDays[key], "startAt")
 
-        for (let time in sortByTime) {
-          if (time == timeChose) {
-            setMessTime("Cảnh báo: Khung giờ này đang tồn tại trên hệ thống");
-            let roomExist = flatten(sortByTime[time]);
-            let kiemtraphongtrong = roomList.filter((cv: any) => {
-              return !roomExist.find((e: any) => {
-                return e?._id == cv?._id;
-              });
-            });
-            setRoomList(kiemtraphongtrong);
-            if (kiemtraphongtrong?.length > 0) {
-              setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
-            } else {
-              setMessRoom("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
-              setHiddenRoom(true);
-            }
-          } else {
-            console.log("est", sortByTime[time])
-            setMessRoom("");
-            setMessTime("");
-            setHiddenRoom(false);
-          }
-        }
-      } else {
-        console.log("khác ngày");
-      }
+
+
     }
   };
 
@@ -278,13 +220,12 @@ const ShowTimeForm = ({
                 </div>
                 {messTime && (
                   <div className="mt-[-10px] mb-3 text-red-600">
-            
+
                     <Alert message={messTime} type="warning" showIcon />
                   </div>
                 )}
                 {startTime && (
                   <div className="mt-[-10px] mb-3 text-red-600">
-            
                     <Alert message={startTime} type="error" showIcon />
                   </div>
                 )}
@@ -313,7 +254,6 @@ const ShowTimeForm = ({
                 </Form.Item>
                 {messRoom && (
                   <div className="mt-[-10px] mb-3 text-red-600">
-            
                     <Alert message={messRoom} type="error" showIcon />
                   </div>
                 )}
@@ -345,7 +285,7 @@ const ShowTimeForm = ({
                   ]}
                 >
                   <InputNumber
-                    disabled
+                    readOnly
                     min={10000}
                     formatter={(value) =>
                       `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
