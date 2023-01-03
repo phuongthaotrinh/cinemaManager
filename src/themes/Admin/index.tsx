@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import MenuAdminLayout from "./Menu";
-import { Dropdown, message, Layout, Badge, Avatar, Button, Divider, Card } from "antd";
+import { Dropdown, message, Layout, Badge, Button } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import configRoute from "../../config";
