@@ -32,9 +32,7 @@ const Comente = ({ data }: Props) => {
   useEffect(() => {
     if (data) {
       setMovie(data?.movie);
-      let commentActive = data?.comment?.filter(
-        (item: any) => item?.status === 0
-      );
+      let commentActive = data?.comment?.filter((item: any) => item?.status === 0);
       setAllCmt(commentActive);
     }
   }, [data]);
@@ -65,9 +63,7 @@ const Comente = ({ data }: Props) => {
       notification.info({
         message: "Bạn cần đăng nhập để thực hiện chức năng này",
       });
-      setTimeout(() => {
-        navigate(configRoute.routes.signin);
-      }, 2000);
+      setTimeout(() => { navigate(configRoute.routes.signin) }, 2000);
     } else {
       if (haveUserCurrCmt) {
         message.error("Bạn đã comment cho phim này");
@@ -78,7 +74,7 @@ const Comente = ({ data }: Props) => {
 
         dispatch(comenteCreate(values))
           .unwrap()
-          .then((payload: any) => {
+          .then(() => {
             message.success("Thêm comment thành công");
             dispatch(getOneMovie(slug));
             form.resetFields();
@@ -101,22 +97,14 @@ const Comente = ({ data }: Props) => {
                   <Avatar
                     src={currentUser?.avatar[0]?.url || currentUser?.avatar[0]}
                   />
-                ) : (
-                  <Avatar size="large" icon={<UserOutlined />} />
-                )}
+                ) : (<Avatar size="large" icon={<UserOutlined />} />)}
               </div>
             </>
           ) : (
-            <>
-              <Avatar size="large" icon={<UserOutlined />} />
-            </>
+            <Avatar size="large" icon={<UserOutlined />} />
           )}
           <div className="mt-2 w-full">
-            <Form.Item
-              name="content"
-              label="Nhập nội dung"
-              rules={[{ required: true, message: "Không được để trống! " }]}
-            >
+            <Form.Item name="content" label="Nhập nội dung" rules={[{ required: true, message: "Không được để trống! " }]} >
               <TextArea
                 id="content"
                 name="content"
@@ -136,15 +124,8 @@ const Comente = ({ data }: Props) => {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              style={{
-                backgroundColor: "#094196",
-                outline: "none",
-                marginTop: "10px",
-              }}
-            >
+            <Button type="primary" htmlType="submit"
+              style={{ backgroundColor: "#094196", outline: "none", marginTop: "10px", }} >
               Gửi
             </Button>
           </Form.Item>
@@ -157,12 +138,8 @@ const Comente = ({ data }: Props) => {
             Nội dung bình luận chỉ mang tính chất tham khảo
           </p>
           {allCmt?.length > 0 ? (
-            <p>
-              Điểm đánh giá: {avgPoint} điểm / {allCmt?.length} lượt
-            </p>
-          ) : (
-            ""
-          )}
+            <p>  Điểm đánh giá: {avgPoint} điểm / {allCmt?.length} lượt   </p>
+          ) : ("")}
         </div>
         <div className="showAllComment">
           <div className="info">
@@ -172,18 +149,10 @@ const Comente = ({ data }: Props) => {
                   <Comment
                     key={item?._id}
                     author={<a>{item?.userId?.username}</a>}
-                    avatar={
-                      item?.avatar ? (
-                        <Avatar size="large" icon={<UserOutlined />} />
-                      ) : (
-                        <Avatar
-                          src={
-                            item?.userId?.avatar[0]?.url ||
-                            item?.userId?.avatar[0]
-                          }
-                        />
-                      )
-                    }
+                    avatar={item?.avatar ? (<Avatar size="large" icon={<UserOutlined />} />
+                    ) : (
+                      <Avatar src={item?.userId?.avatar[0]?.url || item?.userId?.avatar[0]} />
+                    )}
                     content={
                       <div className="">
                         <Rate
@@ -191,16 +160,12 @@ const Comente = ({ data }: Props) => {
                           disabled
                           style={{ fontSize: "12px" }}
                           allowHalf
-                        />{" "}
-                        <br />
+                        />  <br />
                         {item?.content}
                       </div>
                     }
                     datetime={
-                      <>
-                        {formatTime(item?.createdAt)},
-                        {formatDateString(item?.createdAt)}
-                      </>
+                      <> {formatTime(item?.createdAt)},   {formatDateString(item?.createdAt)} </>
                     }
                   />
                 ))}

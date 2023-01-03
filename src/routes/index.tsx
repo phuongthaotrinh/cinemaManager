@@ -9,7 +9,6 @@ import NotFoundPage from "../pages/NotFound";
 
 import BookChair from "../pages/client/bookChair/BookChair";
 import Home from "../pages/client/home/Home";
-import MovieDetail from "../pages/client/movieDetail/MovieDetail";
 import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
 import Complete from "../pages/auth/complete";
 
@@ -76,6 +75,7 @@ import CheckOrder from "../pages/client/CheckOrder";
 import MovieTab from "../pages/admin/Movie/MovieTab";
 import ListShowTimeByRoom from "../pages/admin/Rooms/ListShowTimeByRoom";
 import UserTab from "../pages/admin/User/UserTab";
+import DetailMovie from "../pages/client/movieDetail/DetailMovie";
 type RoutesType = {
   path: string;
   component: any;
@@ -87,7 +87,7 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.signin, component: SignIn, layout: AuthTheme },
   { path: configRoute.routes.signup, component: SignUp, layout: AuthTheme },
   { path: configRoute.routes.home, component: Home },
-  { path: configRoute.routes.detail, component: MovieDetail },
+  { path: configRoute.routes.detail, component: DetailMovie },
   { path: configRoute.routes.bookChair, component: BookChair },
   { path: configRoute.routes.tickitPrice, component: TickitPrice },
   { path: configRoute.routes.news, component: News },
@@ -107,7 +107,6 @@ export const publicRoutes: RoutesType[] = [
   { path: configRoute.routes.findOrder, component: FindOrder },
   { path: configRoute.routes.cancelOrder, component: CancelOrder },
   { path: configRoute.routes.checkOrder, component: CheckOrder },
-
   { path: "*", component: NotFoundPage, layout: null },
 ];
 
@@ -167,8 +166,5 @@ export const privateRoutes: RoutesType[] = [
   { path: configRoute.routes.AdminSeatByRoom, component: SeatByRoom },
   { path: configRoute.routes.adminOrders, component: OrderTab },
   { path: configRoute.routes.adminOrdersDetail, component: AdminOrdersDetail },
-  {
-    path: configRoute.routes.adminListCommentMovie,
-    component: ListCommentMovie,
-  },
+  { path: configRoute.routes.adminListCommentMovie, component: ListCommentMovie }
 ];

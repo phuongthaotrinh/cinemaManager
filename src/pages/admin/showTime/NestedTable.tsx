@@ -49,7 +49,7 @@ const NestedTable = (props: Props) => {
   }, [payload]);
 
   const handleSubmit = () => {
-    let sort: any[] = payload?.sort((a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt))
+    let sort: any[] = payload?.sort((a: any, b: any) => convertDate(b.startAt) - convertDate(a.startAt))
     const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
       let rowName = formatDate(arrayItem.date)
       if (accumulator[rowName] == null) {
@@ -62,9 +62,11 @@ const NestedTable = (props: Props) => {
   };
   const changeStatus = (_id: any, val: any) => {
     dispatch(updateData({ _id: _id, status: val })).unwrap()
-      .then(() => { message.success("Thay đổi trạng thái thành công"); setTimeout(() => {
-        window.location.reload();
-      }, 1000); })
+      .then(() => {
+        message.success("Thay đổi trạng thái thành công"); setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
       .catch(() => message.error("Lỗi"))
   };
 
