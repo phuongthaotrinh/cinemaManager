@@ -1,16 +1,12 @@
-import { Button, Rate, Space, Switch, Table, Tag, message, Tooltip } from "antd";
+import { Button, Rate, Switch, message, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { useAppSelector } from "../../../redux/hook";
-import { useAppDispatch } from "../../../redux/hook";
 import { Comenter } from "../../../service/commenApi";
 import { formatDate, formatTime } from "../../../ultils";
 type Props = {};
 
 function ListCommentMovie({ }: Props) {
-  const dispatch = useAppDispatch();
-  const data = useAppSelector((state: any) => state);
   const [comments, setComments] = useState<any>([]);
   const { id } = useParams();
   useEffect(() => {

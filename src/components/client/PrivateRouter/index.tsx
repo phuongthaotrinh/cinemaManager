@@ -1,9 +1,8 @@
 import { notification } from "antd";
-import React, { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppSelector } from "../../../redux/hook";
-import Contact from "../Contact";
 
 type PrivateRouteProps = {
    children: JSX.Element;

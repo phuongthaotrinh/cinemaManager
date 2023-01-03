@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { publicRoutes, privateRoutes } from "./routes";
 import { ClientTheme, AdminTheme } from "./themes";
 import "antd/dist/antd.css";

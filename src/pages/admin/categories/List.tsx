@@ -1,8 +1,7 @@
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { Button, message, Popconfirm, Space } from "antd";
+import { Button, message, Space } from "antd";
 import { Link } from "react-router-dom";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {  EditOutlined } from "@ant-design/icons";
 import configRoute from "../../../config";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import { removeCategory } from "../../../redux/slice/CategorySlice";
@@ -40,14 +39,6 @@ const ListCategories = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <Popconfirm
-            title={`Delete ${item?.title ?? item?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => remove(item?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
         </Space>
       ),
       width: 30,

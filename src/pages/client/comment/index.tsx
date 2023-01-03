@@ -1,15 +1,6 @@
-import {
-  Button,
-  Form,
-  Rate,
-  Comment,
-  Tooltip,
-  Avatar,
-  message,
-  notification,
-} from "antd";
+import { Button, Form, Rate, Comment, Avatar, message, notification, } from "antd";
 import TextArea from "antd/lib/input/TextArea";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";

@@ -1,5 +1,4 @@
-import React from "react";
-import { Button, Form, Input, message, Space } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createMovieType } from "../../../redux/slice/movieTypeSlice";
 import { Link, useNavigate } from "react-router-dom";

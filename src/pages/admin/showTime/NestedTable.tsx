@@ -12,6 +12,7 @@ import configRoute from '../../../config';
 import { convertDate } from '../../../ultils';
 import DrawerShowTime from './DrawerShowTime';
 import AdminShowTimesCreate from './Create';
+import { useGroupBy } from '../../../hook';
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;
@@ -23,6 +24,7 @@ const NestedTable = (props: Props) => {
   const [payload, setPayload] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
   const dispatch = useAppDispatch();
+  const { groupByDate } = useGroupBy()
   useEffect(() => {
     document.title = "Admin | Showtime"
     dispatch(getAlSt({}));
@@ -50,15 +52,8 @@ const NestedTable = (props: Props) => {
 
   const handleSubmit = () => {
     let sort: any[] = payload?.sort((a: any, b: any) => convertDate(b.startAt) - convertDate(a.startAt))
-    const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = formatDate(arrayItem.date)
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
-    setShowByDate({ ...groupByDate });
+    const groupDate = groupByDate(sort)
+    setShowByDate({ ...groupDate });
   };
   const changeStatus = (_id: any, val: any) => {
     dispatch(updateData({ _id: _id, status: val })).unwrap()

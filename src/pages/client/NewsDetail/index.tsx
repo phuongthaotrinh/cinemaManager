@@ -1,10 +1,5 @@
-import moment from "moment";
-import Skeleton from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
-import NewsSidebar from "../../../components/client/NewsSidebar";
-import config from "../../../config";
+import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hook";
-import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import NewsDetailComponent from "../../../components/client/NewsDetailComponent";
 
 const NewsDetail = () => {

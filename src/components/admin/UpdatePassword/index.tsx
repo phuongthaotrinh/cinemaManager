@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, message, Modal, Radio } from "antd";
-import { UserApi } from "../../../service/userApi";
+import { Button, Form, Input, message, Modal } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { updatePass } from "../../../redux/slice/userSlice";
 interface Values {
@@ -91,7 +90,7 @@ const UpdatePassWord = ({ userId, token }: updatePassProps) => {
         message.success("Đổi mật khẩu thành công");
       })
       .catch((err: any) => {
-        console.log(err);
+       message.error(err);
       });
   };
   return (

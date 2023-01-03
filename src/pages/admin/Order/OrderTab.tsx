@@ -1,5 +1,5 @@
 import { Tabs, message } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../../redux/hook";
 import OrderTable from "./OrderTable";
 import SearchByCate from "../../../components/admin/SearchByCate";
@@ -11,9 +11,8 @@ type Props = {};
 const OrderTab = ({ }: Props) => {
    document.title = "Admin | Orders";
    const dispatch = useDispatch<any>();
-   useEffect(() => {
-      dispatch(getAllOrders({}));
-   }, [dispatch]);
+   useEffect(() => { dispatch(getAllOrders({})) }, [dispatch]);
+
    const { orders } = useAppSelector((state: any) => state.OrderReducer);
    const [orderSuccess, setOrderSuccess] = useState<any[]>([]);
    const [orderFailed, setOrderFailed] = useState<any[]>([]);

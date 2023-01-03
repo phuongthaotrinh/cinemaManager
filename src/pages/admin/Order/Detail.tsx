@@ -1,5 +1,5 @@
 import { Button, message } from "antd";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link,useParams } from "react-router-dom";
 import Ticket from "../../../components/client/Ticket";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -21,7 +21,7 @@ const AdminOrdersDetail = (props: Props) => {
    if (!order) {
       message.error("Lấy thông tin đơn hàng thất bại");
    }
-   console.log(order)
+ 
    useEffect(() => {
       if (order) {
          setOrderDetail(order?.order);

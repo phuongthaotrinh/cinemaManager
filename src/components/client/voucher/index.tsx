@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getAlVc } from "../../../redux/slice/voucherSlice";
-import { Link } from "react-router-dom";
 import NewsContent from "../NewsContent";
 type Props = {};
 

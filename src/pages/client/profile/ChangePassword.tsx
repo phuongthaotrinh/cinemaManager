@@ -10,14 +10,7 @@ type Props = {};
 
 const ChangePassword = (props: Props) => {
   const [form] = Form.useForm();
-  const { accessToken, currentUser } = useAppSelector(
-    (state) => state.authReducer
-  );
-  // const layout = {
-  //   labelCol: { span: 8 },
-  //   wrapperCol: { span: 8 },
-  // };
-  // console.log(currentUser._id);
+  const { accessToken } = useAppSelector( (state) => state.authReducer);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

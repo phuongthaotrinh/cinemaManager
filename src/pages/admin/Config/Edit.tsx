@@ -1,7 +1,6 @@
 import { Button, Form, message } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
 import WebConfigForm from "../../../components/admin/Form&Table/WebConfigForm";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -16,7 +15,7 @@ const WebConfigEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const { webConfigs } = useAppSelector( (state:any) => state.WebConfigReducer);
+  const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const dataSelected = webConfigs.find((item: any) => item._id === id);
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.code ?? dataSelected?._id}`;
@@ -38,11 +37,11 @@ const WebConfigEdit = (props: Props) => {
   const onFinish = async (values: any) => {
     let address = [{ text: values.address_text, iframe: values.map }]
     let logo = values?.avatarList?.fileList;
-    values._id  = id;
+    values._id = id;
     let upload = { ...values, address, logo }
     dispatch(updateData(upload)).unwrap()
-       .then(() => { message.success('Update thành công'); navigate(configRoute.routes.webConfig) })
-       .catch(() => message.error('Tạo thất bại'))
+      .then(() => { message.success('Update thành công'); navigate(configRoute.routes.webConfig) })
+      .catch(() => message.error('Tạo thất bại'))
   };
 
   return (

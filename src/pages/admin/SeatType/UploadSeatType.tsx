@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -12,16 +12,12 @@ const UploadSeatType = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { seatType, isErr, isFetching, isSucess } = useAppSelector(
-    (state) => state.seatTypeReducer
-  );
+  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
   const data = seatType?.find((item) => item._id === id);
 
   useEffect(() => {
     if (data) {
-      form.setFieldsValue({
-        ...data,
-      });
+      form.setFieldsValue({ ...data });
     }
   }, [data]);
 

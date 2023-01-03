@@ -1,6 +1,5 @@
 import moment from "moment";
-import React, { useState, useEffect } from "react";
-import { convertDate, convertDateToNumber } from "../../../ultils";
+import { convertDate } from "../../../ultils";
 import CountdownComp from "../Countdown";
 
 type Props = {
@@ -12,7 +11,6 @@ type Props = {
   send?:any
 };
 const PaymentStep = ({
-  nextStep,
   children,
   rightContent,
   name,

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import {
-  RenderInfoSeats,
-  RenderSeatClient,
-} from "../../../components/admin/RenderSeats/RenderSeatClient";
+import { RenderInfoSeats, RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getRooms } from "../../../redux/slice/roomSlice";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
@@ -14,7 +11,6 @@ type Props = {};
 
 const BookChair = (props: Props) => {
   const dispatch = useAppDispatch();
-  // let id = useSearchParams();
   const [searchParams, setSearchParams] = useSearchParams();
   let idRoom = searchParams.get("room");
   let idShowtime = searchParams.get("showtime");
@@ -26,12 +22,11 @@ const BookChair = (props: Props) => {
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const { stList } = useAppSelector((state) => state.ShowTimeReducer);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
-  const showtime = stList.find((item: any) => item._id === idShowtime);  
-  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);  
-  React.useEffect(() => {
+  const showtime = stList.find((item: any) => item._id === idShowtime);
+  const roomSelect = rooms?.find((item: any) => item?._id === idRoom);
+  useEffect(() => {
     dispatch(getAlSt({}));
     dispatch(getRooms());
-
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(idRoom));
       setSeats(payload);
@@ -126,14 +121,6 @@ const BookChair = (props: Props) => {
               />
             </div>
             <RenderInfoSeats
-              row={undefined}
-              column={undefined}
-              seatDetails={undefined}
-              setSeatDetails={undefined}
-              seatFile={undefined}
-              setSeatFile={undefined}
-              seats={undefined}
-              setSeats={undefined}
               roomId={roomSelect}
               showtime={showtime}
               userId={currentUser}

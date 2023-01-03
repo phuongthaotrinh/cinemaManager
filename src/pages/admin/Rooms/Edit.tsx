@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -22,7 +22,6 @@ const AdminRoomEdit = (props: Props) => {
   const [colFile, setSColFile] = useState<any>(dataSelected?.columns);
   const [seatsEdit, setSeatsEdit] = useState<any>([])
   const [showSeatTye, setShowSeatTye] = useState(true)
-  const [adminRenderSeat, setAdminRenderSeat] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -89,7 +88,7 @@ const AdminRoomEdit = (props: Props) => {
         seats={seatsEdit}
         setSeats={setSeatsEdit}
         showSeatTye={showSeatTye}
-        adminRenderSeat={adminRenderSeat}
+        adminRenderSeat={false}
         showTable={false}
       />
     </div>

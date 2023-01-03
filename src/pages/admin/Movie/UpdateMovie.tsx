@@ -1,11 +1,10 @@
-import { Button, DatePicker, Form, Input, message, Select } from "antd";
+import { Button,  Form,  message } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
 import moment from "moment";
-import ImageUpload from "../../../components/upload";
 import MovieForm from "../../../components/admin/Form&Table/MovieForm";
 
 type Props = {};

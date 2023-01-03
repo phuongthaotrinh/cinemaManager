@@ -1,8 +1,8 @@
-import { Card, notification } from "antd";
+import {  notification } from "antd";
 import { useEffect, useState } from "react";
 import Ticket from "../../../components/client/Ticket";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getByShortId, getOneOrder } from "../../../redux/slice/OrdersSlice";
+import { getByShortId } from "../../../redux/slice/OrdersSlice";
 type Props = {}
 
 
@@ -10,7 +10,6 @@ const FindOrder = (props: Props) => {
   const [orderId, setOrderId] = useState("");
   const [showlog, setShowlog] = useState(false);
   const [detail, setDetail] = useState<any>();
-  const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
   const [orderDetail, setOrderDetail] = useState<any>();
   const [id, setId] = useState<any>("")
   const { orders } = useAppSelector((state: any) => state.OrderReducer);
@@ -42,11 +41,8 @@ const FindOrder = (props: Props) => {
 
   useEffect(() => {
     if (order) {
-      // console.log(order);
       setOrderDetail(order?.order);
       setDetail(order?.detail);
-      let price = (order?.order?.foodDetailId?.totalPrice || 0) + (order?.order?.totalPrice);
-      setTotalPriceFinal(price);
     }
   }, [order]);
 

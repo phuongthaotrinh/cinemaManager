@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { formatCurrency, formatDateString, formatTime } from '../../../ultils'
 import "./order.scss"
-import { Button, Skeleton, message, notification } from "antd"
+import { Button, Skeleton, notification } from "antd"
 import { useAppDispatch } from '../../../redux/hook'
-import { orderApi } from '../../../service/orders'
-import { exportTicketThunk, getAllOrders, getOneOrder } from '../../../redux/slice/OrdersSlice'
-import { useNavigate } from 'react-router-dom'
-import configRoute from '../../../config';
-import { Spin } from 'antd';
+import {  getAllOrders, getOneOrder } from '../../../redux/slice/OrdersSlice'
+
 type Props = {
    detail?: any,
    order?: any,

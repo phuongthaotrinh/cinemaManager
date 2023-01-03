@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { MdEmail, MdOutlineFacebook } from 'react-icons/md'
-import { FaGooglePlus, FaFacebook } from 'react-icons/fa'
+import { FaGooglePlus } from 'react-icons/fa'
 import { BsYoutube } from 'react-icons/bs'
 import { useAppSelector } from '../../../redux/hook'
 type Props = {}

@@ -1,5 +1,5 @@
 import { Button, Tabs, message } from 'antd';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useAppSelector } from '../../../redux/hook';
 import MovieTable from './MovieTable';
 import { useDispatch } from 'react-redux';

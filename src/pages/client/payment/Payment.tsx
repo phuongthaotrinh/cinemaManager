@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
 import PaymentStep from "../../../components/client/PaymentStep";
+import { useUpperText } from "../../../hook";
 const layout = {
   labelCol: { span: 12 },
   wrapperCol: { span: 12 },
@@ -43,9 +44,7 @@ const Payment = ({ }: Props) => {
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
   const navigate = useNavigate()
-  const upperText = (text: any) => {
-    return text.toUpperCase();
-  };
+  const { upper } = useUpperText()
   const { state } = useLocation();
 
   let movieSelect = movie?.find(
@@ -92,8 +91,8 @@ const Payment = ({ }: Props) => {
 
   const handle = () => {
     if (CODE) {
-      let upper = upperText(CODE);
-      let item = voucherActive.find((item: any) => item?.code === upper);
+      let upperCode = upper(CODE);
+      let item = voucherActive.find((item: any) => item?.code === upperCode);
       let checkUsed = item?.userId?.find(
         (val: any) => val?._id === currentUser?._id
       );

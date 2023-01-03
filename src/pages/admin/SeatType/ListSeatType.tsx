@@ -1,9 +1,7 @@
-import { message, Space, Popconfirm, Button } from "antd";
-import React from "react";
+import { Space, Button } from "antd";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { removeSeatType } from "../../../redux/slice/SeatTypeSlice";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import configRoute from "../../../config";
 type Props = {};
@@ -50,14 +48,6 @@ const ListSeatType = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <Popconfirm
-            title={`Delete ${item?.movieName ?? item?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteUser(item?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
         </Space>
       ),
       width: 30,

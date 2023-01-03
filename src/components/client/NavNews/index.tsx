@@ -1,16 +1,14 @@
-import { useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import config from "../../../config";
 import { ImNewspaper } from 'react-icons/im'
 import { useAppSelector } from "../../../redux/hook";
+import { Skeleton } from "antd"
 type Props = {};
 
 const NavNews = (props: Props) => {
 
   const { categories, isFetching } = useAppSelector((state: any) => state.categoriesReducer);
-  
+
   return (
     <section className="container max-w-6xl px-3 mx-auto flex mt-8 justify-center">
       {!isFetching && (
@@ -43,7 +41,7 @@ const NavNews = (props: Props) => {
 
       {isFetching &&
         Array.apply(null, new Array(4)).map((_, index) => (
-          <Skeleton width={75} height={75} className="rounded-full mx-2" key={index} />
+          <Skeleton key={index}/>
         ))}
     </section>
   );

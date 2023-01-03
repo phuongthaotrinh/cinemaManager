@@ -1,28 +1,18 @@
 import { Button, Modal, Spin } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
 import { GiFilmSpool } from "react-icons/gi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import {
-  convertDate,
-  convertDateToNumber,
-  formatDate,
-  formatTime,
-} from "../../../ultils";
+import { convertDate, convertDateToNumber, formatDate, formatTime, } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import type { DatePickerProps } from "antd";
-import { DatePicker, Space } from "antd";
-import styled from "styled-components";
 import RelateMovie from "../RelateMovie";
-import moment from "moment";
 import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -33,18 +23,7 @@ const MovieDetail = (props: Props) => {
   const [relateArr, setRelateArr] = useState([]);
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
-  const Toggle = (number: any) => {
-    setActive(number);
-  };
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const Toggle = (number: any) => { setActive(number)};
   const navigate = useNavigate();
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
@@ -164,21 +143,21 @@ const MovieDetail = (props: Props) => {
           <div className="grid grid-cols-3 gap-2">
             {getOneShowtime
               ? getOneShowtime.roomId
-                  .filter((x: any) => x.status == false)
-                  .map((item: any) => (
-                    <div
-                      key={item._id}
-                      className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
+                .filter((x: any) => x.status == false)
+                .map((item: any) => (
+                  <div
+                    key={item._id}
+                    className="border border-black px-3 py-2 hover:bg-[#f7f8f9] text-center"
+                  >
+                    <Link
+                      to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
                     >
-                      <Link
-                        to={`/book-chair?room=${item._id}&showtime=${getOneShowtime._id}`}
-                      >
-                        <div className="font-bold uppercase text-black hover:text-gray-600">
-                          {item.name} - {item.formatId?.name}
-                        </div>
-                      </Link>
-                    </div>
-                  ))
+                      <div className="font-bold uppercase text-black hover:text-gray-600">
+                        {item.name} - {item.formatId?.name}
+                      </div>
+                    </Link>
+                  </div>
+                ))
               : ""}
           </div>
         </Modal>
@@ -186,15 +165,15 @@ const MovieDetail = (props: Props) => {
           <div className={`styles.showTimesListItem`}>
             {showTimeList
               ? arrDate?.map((item: any, index: any) => (
-                  <Button
-                    style={{ margin: "10px", color: "white" }}
-                    type="ghost"
-                    key={index}
-                    onClick={() => onDate(item)}
-                  >
-                    {formatDate(item)}
-                  </Button>
-                ))
+                <Button
+                  style={{ margin: "10px", color: "white" }}
+                  type="ghost"
+                  key={index}
+                  onClick={() => onDate(item)}
+                >
+                  {formatDate(item)}
+                </Button>
+              ))
               : "Không có suất chiếu nào"}
           </div>
 

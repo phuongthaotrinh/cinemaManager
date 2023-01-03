@@ -10,7 +10,6 @@ type Props = {
  
 }
 
-
 const ImageUpload = (props: Props) => {
   const [previewVisible, setPreviewVisible] = React.useState<boolean>(false);
   const [previewImage, setPreviewImage] = React.useState<string>('');

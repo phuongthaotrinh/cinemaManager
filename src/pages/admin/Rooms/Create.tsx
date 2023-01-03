@@ -1,9 +1,9 @@
 import { Form, Button, message } from "antd";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RoomForm from "../../../components/admin/Form&Table/RoomForm";
 import config from "../../../config";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { useAppDispatch } from "../../../redux/hook";
 import { createRooms } from "../../../redux/slice/roomSlice";
 
 type Props = {};
@@ -12,20 +12,16 @@ const AdminRoomCreate = (props: Props) => {
   const [seatFile, setSeatFile] = useState({});
   const [rowFile, setRowFile] = useState(0);
   const [colFile, setSColFile] = useState(0);
-  const [blockSeat, setBlockSeat] = useState(0);
   const [showSeatTye, setShowSeatTye] = useState(true);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { errorMessage } = useAppSelector((state) => state.roomReducer);
   const [seats, setSeats] = useState();
-  const [adminRenderSeat, setAdminRenderSeat] = useState(false);
 
   const onFinish = (val: any) => {
     dispatch(createRooms(val))
       .unwrap()
-      .then((payload:any) => {
-        
+      .then(() => {
         message.success("tạo thành công");
         navigate(config.routes.adminRooms);
       })
@@ -52,8 +48,8 @@ const AdminRoomCreate = (props: Props) => {
         seats={seats}
         setSeats={setSeats}
         showSeatTye={showSeatTye}
-        adminRenderSeat={adminRenderSeat}
-      
+        adminRenderSeat={false}
+
 
       />
     </div>

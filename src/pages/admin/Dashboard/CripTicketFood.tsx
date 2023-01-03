@@ -17,19 +17,19 @@ const CripTicketFood = (props: Props) => {
         data: [
           dashboard.length !== 0
             ? (
-                (dashboard?.companyProfit[0]?.ticketTotal /
-                  (dashboard?.companyProfit[0]?.ticketTotal +
-                    dashboard?.companyProfit[0]?.foodTotal)) *
-                100
-              ).toFixed(2)
+              (dashboard?.companyProfit[0]?.ticketTotal /
+                (dashboard?.companyProfit[0]?.ticketTotal +
+                  dashboard?.companyProfit[0]?.foodTotal)) *
+              100
+            ).toFixed(2)
             : "",
           dashboard.length !== 0
             ? (
-                (dashboard?.companyProfit[0]?.foodTotal /
-                  (dashboard?.companyProfit[0]?.ticketTotal +
-                    dashboard?.companyProfit[0]?.foodTotal)) *
-                100
-              ).toFixed(2)
+              (dashboard?.companyProfit[0]?.foodTotal /
+                (dashboard?.companyProfit[0]?.ticketTotal +
+                  dashboard?.companyProfit[0]?.foodTotal)) *
+              100
+            ).toFixed(2)
             : "",
         ],
         backgroundColor: [
@@ -54,8 +54,9 @@ const CripTicketFood = (props: Props) => {
       render: (item: any) => formatCurrency(item?.foodTotal),
     },
   ];
-  const dataTable: any = dashboard?.companyProfit?.map((item: any) => {
+  const dataTable: any = dashboard?.companyProfit?.map((item: any, index: any) => {
     return {
+      key: index + 1,
       foodTotal: item.foodTotal,
       ticketTotal: item.ticketTotal,
     };

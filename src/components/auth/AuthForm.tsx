@@ -1,5 +1,4 @@
 import { Form, Input } from 'antd'
-import React from 'react'
 import { Link } from 'react-router-dom'
 import configRoute from '../../config'
 
@@ -30,7 +29,7 @@ const AuthForm = ({ onFinish, form, name, isSignUp, sign }: Props) => {
                   <Input />
                </Form.Item>
 
-             {!isSignUp &&   <Form.Item
+               {!isSignUp && <Form.Item
                   label="Username"
                   name="username"
                   rules={[{ required: true, message: "Please input your username!" }]}

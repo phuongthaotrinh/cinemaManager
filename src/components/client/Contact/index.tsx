@@ -6,12 +6,8 @@ import { BsFillArrowRightCircleFill } from "react-icons/bs"
 type Props = {};
 
 const Contact = (props: Props) => {
-  const navigate = useNavigate();
-  const { webConfigs: inforWeb } = useAppSelector(
-    (state: any) => state.WebConfigReducer
-  );
+  const { webConfigs: inforWeb } = useAppSelector( (state: any) => state.WebConfigReducer);
   const [webConfig] = inforWeb;
-  let logo = webConfig?.logo[0]?.url;
   const requiredField = "*";
 
   return (

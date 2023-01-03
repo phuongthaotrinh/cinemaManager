@@ -1,54 +1,35 @@
-import { async } from "@firebase/util";
-import { Collapse, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import configRoute from "../../../config";
+import { message } from "antd";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { addSeats, removeArrSeats } from "../../../redux/slice/SeatSlice";
-import {
-  createTicketDetail,
-  ticketDetailByShowTime,
-} from "../../../redux/slice/TicketDetailSlice";
+import { ticketDetailByShowTime } from "../../../redux/slice/TicketDetailSlice";
 import { createTicket } from "../../../redux/slice/ticketSlice";
 import { formatCurrency } from "../../../ultils";
 import styles from "../Form&Table/room.module.scss";
+import { useGroupBy } from "../../../hook";
 
 type Props = {
-  row: any;
-  column: any;
-  seatDetails: any;
-  setSeatDetails: any;
-  seatFile: any;
-  setSeatFile: any;
-  seats: any;
-  setSeats: any;
-  roomId: any;
-  showtime: any;
-  userId: any;
+  row?: any;
+  column?: any;
+  seatDetails?: any;
+  setSeatDetails?: any;
+  seatFile?: any;
+  setSeatFile?: any;
+  seats?: any;
+  setSeats?: any;
+  roomId?: any;
+  showtime?: any;
+  userId?: any;
   adminPreview?: any
 };
-export const RenderInfoSeats = ({
-  row,
-  column,
-  seats,
-  setSeats,
-  seatDetails,
-  setSeatDetails,
-  seatFile,
-  setSeatFile,
-  roomId,
-  showtime,
-  userId,
-}: Props) => {
+export const RenderInfoSeats = ({ roomId }: Props) => {
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const { arrSeats } = useAppSelector((state) => state.SeatsReducer);
   let idShowtime = searchParams.get("showtime");
   let i = 0;
-  const sum = (a: any, b: any) => {
-    i++;
-    return a + b.totalPriceSeat;
-  };
+  const sum = (a: any, b: any) => { i++; return a + b.totalPriceSeat; };
   const total = arrSeats.reduce(sum, 0);
   let cart: any = [];
 
@@ -77,8 +58,7 @@ export const RenderInfoSeats = ({
         dispatch(removeArrSeats());
       })
       .catch((err: any) => {
-        console.log(err.message);
-        alert(err);
+        message.error(err);
       });
   };
   useEffect(() => {
@@ -120,20 +100,8 @@ export const RenderInfoSeats = ({
     </>
   );
 };
-export const RenderSeatClient = ({
-  row,
-  column,
-  seats,
-  setSeats,
-  seatDetails,
-  setSeatDetails,
-  seatFile,
-  setSeatFile,
-  roomId,
-  showtime,
-  adminPreview
-}: Props) => {
-  const [elClick, setElClick] = useState();
+export const RenderSeatClient = ({ seats, seatDetails, setSeatDetails, setSeatFile, roomId, showtime, adminPreview }: Props) => {
+  const { groupByRow } = useGroupBy()
   const dispatch = useAppDispatch();
   const { ticketByShowTime } = useAppSelector(
     (state) => state.TicketDetailReducer
@@ -144,7 +112,6 @@ export const RenderSeatClient = ({
   useEffect(() => {
     clearSelectedSeats();
   }, []);
-  const [classSeatChoose, setClassSeatChoose] = useState("");
 
   const clearSelectedSeats = () => { };
 
@@ -169,15 +136,7 @@ export const RenderSeatClient = ({
   };
 
   const handleSubmit = () => {
-    const groupByRowName = seats?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = arrayItem.row;
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
-
+    const groupByRowName = groupByRow(seats)
     setSeatDetails({ ...groupByRowName });
     setSeatFile({ ...groupByRowName });
   };
@@ -215,7 +174,6 @@ export const RenderSeatClient = ({
       item["status"] = 0;
       dispatch(addSeats(seatValue));
     }
-
     seatDetails[key][rowIndex] = { ...item };
     setSeatDetails({ ...seatDetails });
   };
@@ -262,4 +220,4 @@ export const RenderSeatClient = ({
     </div>
   );
 };
-// export default RenderSeatClient;
+

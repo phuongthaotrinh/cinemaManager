@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Statistic } from "antd";
 import { useNavigate } from "react-router-dom";
-import configRoute from "../../../config";
 type Props = {
   deadline: any;
   info?: any;

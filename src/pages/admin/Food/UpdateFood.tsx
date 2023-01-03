@@ -1,5 +1,5 @@
 import { Button, Form, message } from "antd";
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -14,7 +14,7 @@ const UpdateFood = (props: Props) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { food, errMess } = useAppSelector((state) => state.food);
+  const { food } = useAppSelector((state) => state.food);
   const data = food.find((item: any) => item._id === id);
   const [avatarList, setAvatarList] = useState<any>([])
 

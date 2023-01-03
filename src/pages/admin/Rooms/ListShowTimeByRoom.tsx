@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
+import { useGroupBy } from "../../../hook";
 type Props = {};
 interface ExpandedDataType {
   key: React.Key;
@@ -13,15 +14,14 @@ interface ExpandedDataType {
   name: string;
   upgradeNum: string;
 }
-const ListShowTimeByRoom = ({}: Props) => {
+const ListShowTimeByRoom = ({ }: Props) => {
   const dispatch = useAppDispatch();
   let { id } = useParams();
-  let { rooms } = useAppSelector((state) => state.roomReducer);
-
+  const { rooms } = useAppSelector((state) => state.roomReducer);
   const [stByRoom, setStByRoom] = useState<any[]>([]);
   const [showByDate, setShowByDate] = useState<any[]>([]);
   let roomSelect = rooms.find((item: any) => item?._id === id);
-
+  const { groupByDate } = useGroupBy()
   useEffect(() => {
     dispatch(getAlSt({}));
   }, [dispatch]);
@@ -44,18 +44,9 @@ const ListShowTimeByRoom = ({}: Props) => {
   }, [stByRoom]);
 
   const handleSubmit = () => {
-    let sort: any[] = stByRoom?.sort(
-      (a: any, b: any) => convertDate(a.startAt) - convertDate(b.startAt)
-    );
-    const groupByDate = sort?.reduce((accumulator: any, arrayItem: any) => {
-      let rowName = formatDate(arrayItem.date);
-      if (accumulator[rowName] == null) {
-        accumulator[rowName] = [];
-      }
-      accumulator[rowName].push(arrayItem);
-      return accumulator;
-    }, {});
-    setShowByDate({ ...groupByDate });
+    let sort: any[] = stByRoom?.sort( (a: any, b: any) => convertDate(b.startAt) - convertDate(a.startAt)  );
+    const group = groupByDate(sort)
+    setShowByDate({ ...group });
   };
 
   const expandedRowRender = (row: any) => {

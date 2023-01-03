@@ -1,5 +1,4 @@
-import { Button, message, Popconfirm, Select, Space, Tag } from "antd";
-import React from "react";
+import { Button, message, Space, Tag } from "antd";
 import { Link } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import configRoute from "../../../config";
@@ -11,9 +10,6 @@ const WebConfig = (props: Props) => {
   const { loading, webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const quantity = webConfigs?.length
   document.title = "Cài đặt trang web"
-  const confirm = () => {
-    message.info('Chỉ có thể update, không cho phép xóa')
-  }
   const columns: any[] = [
     {
       title: "Logo",
@@ -74,14 +70,6 @@ const WebConfig = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <Popconfirm
-            title={`Xóa ${record?.storeName ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={confirm}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
         </Space>
       ),
       width: 130,

@@ -46,8 +46,9 @@ const YearRevenue = (props: Props) => {
       render: (item: any) => formatCurrency(item?.profit),
     },
   ];
-  const dataTable: any = dashboard?.profitByYear?.map((item: any) => {
+  const dataTable: any = dashboard?.profitByYear?.map((item: any, index:any) => {
     return {
+      key: index + 1,
       profit: item.profit,
       date: item.date,
     };

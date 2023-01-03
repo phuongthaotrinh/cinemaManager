@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Button, message, Popconfirm, Space } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { Button, Space } from "antd";
+import {  useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import { removeFoodItem } from "../../../redux/slice/FoodSlice";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import {  EditOutlined } from "@ant-design/icons";
 import { formatCurrency } from "../../../ultils";
 
 type Props = {};
 
 const FoodList = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const { food, errMess } = useAppSelector((state) => state.food); //
-  const deleteFood = (data: string | undefined) => {
-    dispatch(removeFoodItem(data))
-      .unwrap()
-      .then(() => {
-        message.success({ content: "Xoá thành công", key: "handling" });
-      })
-      .catch(() => {
-        message.error({ content: { errMess } });
-      });
-  };
+  const { food } = useAppSelector((state) => state.food); //
+
   const columnUserList: any = [
     {
       title: "Ảnh",
@@ -71,14 +59,7 @@ const FoodList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <Popconfirm
-            title={`Xóa ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => deleteFood(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
+          
         </Space>
       ),
     },
@@ -95,7 +76,6 @@ const FoodList = (props: Props) => {
       image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
     };
   });
-  console.log(data);
 
   return (
     <div>

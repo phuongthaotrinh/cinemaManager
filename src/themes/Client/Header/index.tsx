@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./header.module.css";
 import { BiSearch } from "react-icons/bi";
@@ -12,9 +11,7 @@ import NavTop from "./NavTop";
 type Props = {};
 
 const ClientHeader = (props: Props) => {
-  const { currentUser, isLogged } = useAppSelector(
-    (state) => state.authReducer
-  );
+  const { currentUser, isLogged } = useAppSelector(  (state) => state.authReducer  );
   const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
   const logo = webConfigs[0]?.logo[0]?.url;
   const dispatch = useAppDispatch();

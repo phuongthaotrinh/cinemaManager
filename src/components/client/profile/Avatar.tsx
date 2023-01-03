@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAppSelector } from "../../../redux/hook";
-import { Button, Form, Modal } from "antd";
+import { Form, Modal } from "antd";
 import ImageUpload from "../../upload";
 type Props = {};
 
 const Avatar = (props: Props) => {
   const [image, setImage] = useState<any[]>([]);
-  const { currentUser, isLogged } = useAppSelector(
-    (state) => state.authReducer
-  );
+  const { currentUser } = useAppSelector(   (state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
   const id = currentUser._id;
   const user = users?.find((item: any) => item._id === id);
@@ -21,7 +19,6 @@ const Avatar = (props: Props) => {
 
   const handleOk = (values: any) => {
     setIsModalOpen(false);
-    console.log(values);
   };
 
   const handleCancel = () => {
@@ -48,7 +45,6 @@ const Avatar = (props: Props) => {
       >
         <Form
           layout="vertical"
-          // onFinish={onFinish}
           autoComplete="off"
         >
           <Form.Item label="Avatar">

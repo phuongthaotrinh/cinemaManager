@@ -3,7 +3,6 @@ import { Button, message, Space, Select, Tooltip, Table, } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { updateRoom, getRooms } from "../../../redux/slice/roomSlice";
-import DataTable from "../../../components/admin/Form&Table/Table";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { defaultStatus } from "../../../ultils/data";
 import configRoute from "../../../config";

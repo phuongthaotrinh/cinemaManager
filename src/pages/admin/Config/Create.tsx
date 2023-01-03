@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
-import { Button, Form, Image, Input, message, Switch, TimePicker, Upload } from "antd";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+import { Button, Form, message } from "antd";
+import { useAppDispatch } from "../../../redux/hook";
 import { createData } from "../../../redux/slice/webConfig"
 import WebConfigForm from "../../../components/admin/Form&Table/WebConfigForm";
 import configRoute from "../../../config";
 import { Link, useNavigate } from "react-router-dom";
-
-const { TextArea } = Input;
 
 type Props = {};
 
@@ -15,7 +13,6 @@ const WebConfigCreate = (props: Props) => {
    const dispatch = useAppDispatch();
    const navigate = useNavigate()
    const [avatarList, setAvatarList] = useState([]);
-   const [hiddenBtn, setHiddenBtn] = useState(true)
    useEffect(() => { document.title = "Admin | Config Store - Create" }, []);
 
    const onFinish = (values: any) => {
@@ -39,7 +36,7 @@ const WebConfigCreate = (props: Props) => {
             onReset={onReset}
             avatarList={avatarList}
             setAvatarList={setAvatarList}
-            hiddenBtn={hiddenBtn}
+            hiddenBtn={true}
          />
       </>
    );

@@ -1,27 +1,10 @@
-import {
-  Button,
-  Card,
-  Form,
-  FormInstance,
-  Input,
-  Select,
-  Skeleton,
-  InputNumber,
-  message,
-  Space,
-  Popconfirm,
-} from "antd";
-import React, { useState, useEffect } from "react";
+import { Button, Card, Form, Input, InputNumber, message, Space } from "antd";
+import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import DataTable from "../../../components/admin/Form&Table/Table";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { formatCurrency } from "../../../ultils";
-import {
-  removeData,
-  updateData,
-  createData,
-  getAllData,
-} from "../../../redux/slice/FilmFormatSlice";
+import { updateData, createData, getAllData } from "../../../redux/slice/FilmFormatSlice";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { Link } from "react-router-dom";
 import configRoute from "../../../config";
@@ -29,24 +12,12 @@ import configRoute from "../../../config";
 type Props = {};
 
 const FilmFormatList = (props: Props) => {
-  const { filmFormats, isFetching, errorMessage } = useAppSelector(
-    (state) => state.FormatReducer
-  );
+  const { filmFormats, isFetching, errorMessage } = useAppSelector((state) => state.FormatReducer);
   const [form] = Form.useForm();
   const [flag, setFlag] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  //remove
-  const removeFormat = (data: string | undefined) => {
-    dispatch(removeData(data))
-      .unwrap()
-      .then(() => {
-        message.success("Xóa thành công");
-      });
-  };
-  useEffect(() => {
-    setFlag(flag);
-  }, [flag]);
+  useEffect(() => { setFlag(flag)}, [flag]);
 
   useEffect(() => {
     document.title = "Admin | FilmFormat Manager";
@@ -125,14 +96,6 @@ const FilmFormatList = (props: Props) => {
             style={{ color: "var(--primary)", fontSize: "18px" }}
             onClick={() => onFinish(record?._id)}
           />
-          {/* <Popconfirm
-            title={`Delete ${record?.name ?? record?._id}?`}
-            okText="OK"
-            cancelText="Cancel"
-            onConfirm={() => removeFormat(record?._id)}
-          >
-            <DeleteOutlined style={{ color: "red", fontSize: "18px" }} />
-          </Popconfirm> */}
         </Space>
       ),
       width: 30,

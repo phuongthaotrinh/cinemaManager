@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/client/Footer/Footer";
-import ClientHeader from "../../components/client/Header";
+import Footer from "./Footer/Footer";
+import ClientHeader from "./Header";
 
 type ClientLayoutProps = {
   children: any;

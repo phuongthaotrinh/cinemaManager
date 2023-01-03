@@ -1,9 +1,8 @@
 import moment from "moment";
-import Skeleton from "react-loading-skeleton";
+import { Skeleton } from "antd"
 import { Link, NavLink, useParams } from "react-router-dom";
 import NewsSidebar from "../../../components/client/NewsSidebar";
 import { useEffect, useState } from 'react'
-import { useAppSelector } from "../../../redux/hook";
 import { FaFacebook, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { formatCurrency, formatDate, formatDateString } from '../../../ultils';
 type Props = {
@@ -49,7 +48,7 @@ const NewsDetailComponent = ({ data, dataName, loading, dataArr }: Props) => {
           {loading && (
             <div className="container max-w-6xl mx-auto px-3 text-center pt-7 border-b border-dashed pb-7">
               <Skeleton className="w-[20%]" />
-              <Skeleton height={25} className="my-1" />
+              <Skeleton  className="my-1" />
               <Skeleton className="w-[40%]" />
             </div>
           )}
@@ -86,7 +85,7 @@ const NewsDetailComponent = ({ data, dataName, loading, dataArr }: Props) => {
               {loading && (
                 <div>
                   <Skeleton className="pt-[50%]" />
-                  <Skeleton count={10} />
+                  <Skeleton  />
                 </div>
               )}
 
@@ -141,9 +140,9 @@ const NewsDetailComponent = ({ data, dataName, loading, dataArr }: Props) => {
               {loading && (
                 <div className="flex justify-center py-7">
                   <div className="mt-2 flex">
-                    <Skeleton circle width={32} height={32} className="mr-2" />
-                    <Skeleton circle width={32} height={32} className="mr-2" />
-                    <Skeleton circle width={32} height={32} className="mr-2" />
+                    <Skeleton />
+                    <Skeleton />
+                    <Skeleton />
                   </div>
                 </div>
               )}
@@ -196,7 +195,7 @@ const NewsDetailComponent = ({ data, dataName, loading, dataArr }: Props) => {
               {loading && (
                 <div>
                   <Skeleton className="pt-[50%]" />
-                  <Skeleton count={10} />
+                  <Skeleton  />
                 </div>
               )}
 
@@ -278,7 +277,7 @@ const NewsDetailComponent = ({ data, dataName, loading, dataArr }: Props) => {
                     ))}
 
                     {loading &&
-                      Array.apply(null, new Array(10)).map((_: any, index: any) => <Skeleton className="my-2" height={22} key={index} />)}
+                      Array.apply(null, new Array(10)).map((_: any, index: any) => <Skeleton className="my-2" key={index} />)}
                   </ul>
                 </section>
               </aside>

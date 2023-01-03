@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Button, Form, message } from "antd";
-import { useDispatch } from "react-redux";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import VoucherForm from "../../../components/admin/Form&Table/VoucherForm";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
 import moment from "moment";
+import { useUpperText } from "../../../hook";
 
 type Props = {};
 
@@ -16,15 +16,10 @@ const AdminVoucherEdit = (props: Props) => {
   const dispatch = useAppDispatch();
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
-  const { vouchers, errorMessage } = useAppSelector(
-    (state) => state.voucherReducer
-  );
-  const upperText = (text: any) => {
-    return text.toUpperCase();
-  };
-  const dataSelected = vouchers.find((item: any) => item._id === id);
-  // console.log(dataSelected);
+  const { vouchers } = useAppSelector((state) => state.voucherReducer);
+  const { upper} = useUpperText()
 
+  const dataSelected = vouchers.find((item: any) => item._id === id);
   useEffect(() => {
     document.title = `Admin | Edit ${dataSelected?.code ?? dataSelected?._id}`;
     if (dataSelected) {
@@ -49,7 +44,7 @@ const AdminVoucherEdit = (props: Props) => {
       const [x, y] = timeValid;
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
-      values.code = upperText(values.code);
+      values.code = upper(values.code);
       await dispatch(
         updateData({ ...values, _id: id, timeStart, timeEnd })
       ).unwrap();

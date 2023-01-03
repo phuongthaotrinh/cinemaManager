@@ -1,44 +1,17 @@
-import { Button, message, Popconfirm, Space } from "antd";
+import { Button, Space } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import DataTable from "../../../components/admin/Form&Table/Table";
 import configRoute from "../../../config";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { removeMovieTypeItem } from "../../../redux/slice/movieTypeSlice";
-import Swal from "sweetalert2";
+import { useAppSelector } from "../../../redux/hook";
+import { EditOutlined } from "@ant-design/icons";
 type Props = {};
 
 const ListMovieType = (props: Props) => {
-  const dispatch = useAppDispatch();
-  const { movieType, isErr, isFetching, isSucess } = useAppSelector(
+  const { movieType, isFetching } = useAppSelector(
     (state) => state.movieTypeReducer
   );
-  const deleteUser = (id: any) => {
-    Swal.fire({
-      title: "Bạn có muốn xóa không",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Đồng ý",
-      cancelButtonText: "Hủy",
-    }).then((willDelete) => {
-      if (willDelete.isConfirmed) {
-        dispatch(removeMovieTypeItem(id))
-          .unwrap()
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Xóa thành công",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          })
-          .catch((err: any) => alert(err));
-      }
-    });
-  };
+
   const columnList: any = [
     {
       title: "Tên",
@@ -56,10 +29,6 @@ const ListMovieType = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          {/* <DeleteOutlined
-            onClick={() => deleteUser(item?._id)}
-            style={{ color: "red", fontSize: "18px" }}
-          /> */}
         </Space>
       ),
       width: 30,

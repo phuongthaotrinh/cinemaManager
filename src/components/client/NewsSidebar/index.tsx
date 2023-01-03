@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Skeleton from "react-loading-skeleton";
+import { Skeleton } from "antd";
 import { Link, NavLink } from "react-router-dom";
 import config from "../../../config";
 import { useAppSelector, useAppDispatch } from "../../../redux/hook";
@@ -34,7 +34,7 @@ const NewsSidebar = (props: Props) => {
                      ))}
 
                   {isFetching &&
-                     Array.apply(null, new Array(5)).map((_, index) => <Skeleton className="my-2" height={22} key={index} />)}
+                     Array.apply(null, new Array(5)).map((_, index) => <Skeleton className="my-2"  key={index} />)}
                </ul>
             </section>
             <section className="mt-5">
@@ -56,7 +56,7 @@ const NewsSidebar = (props: Props) => {
                      ))}
 
                   {loading &&
-                     Array.apply(null, new Array(10)).map((_: any, index: any) => <Skeleton className="my-2" height={22} key={index} />)}
+                     Array.apply(null, new Array(10)).map((_: any, index: any) => <Skeleton className="my-2" key={index} />)}
                </ul>
             </section>
          </aside>

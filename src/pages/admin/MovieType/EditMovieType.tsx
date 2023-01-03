@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
@@ -12,16 +12,12 @@ const EditMovieType = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { movieType, isErr, isFetching, isSucess } = useAppSelector(
-    (state) => state.movieTypeReducer
-  );
+  const { movieType } = useAppSelector((state) => state.movieTypeReducer);
 
   const data = movieType?.find((item: any) => item._id === id);
   useEffect(() => {
     if (data) {
-      form.setFieldsValue({
-        ...data,
-      });
+      form.setFieldsValue({ ...data });
     }
   }, [data]);
 
