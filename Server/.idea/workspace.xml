@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bd81ef0a-e813-437b-a577-cf4d6f6b181f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/controllers/room.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/room.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/users.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/webConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/webConfig.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2GzPRULP39tHNSFvLljxWxLlnDD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/datn/SunMovie_React",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.customizations",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd81ef0a-e813-437b-a577-cf4d6f6b181f" name="Changes" comment="" />
+      <created>1667388431604</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667388431604</updated>
+      <workItem from="1667388433108" duration="4367000" />
+      <workItem from="1667551557651" duration="779000" />
+      <workItem from="1667552359411" duration="11315000" />
+      <workItem from="1667806327703" duration="6643000" />
+      <workItem from="1667908060232" duration="1220000" />
+      <workItem from="1667924762826" duration="378000" />
+      <workItem from="1667957384221" duration="747000" />
+      <workItem from="1667980287921" duration="5421000" />
+      <workItem from="1668072124813" duration="594000" />
+      <workItem from="1668094105536" duration="693000" />
+      <workItem from="1668445920158" duration="594000" />
+      <workItem from="1668576455329" duration="208000" />
+      <workItem from="1668703954606" duration="146000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

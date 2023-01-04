@@ -143,12 +143,34 @@ const ShowTimeForm = ({
   }, [days, timeChose, stLisst]);
 
   const validateST = () => {
-    for (let key in stByDays) {
-      let arrTimeStart = groupByTime(stByDays[key], "startAt")
+    // for (let key in stByDays) {
+    //   let arrTimeStart = groupByTime(stByDays[key], "startAt")
+    //   let arrTimeEnd = groupByTime(stByDays[key], "endAt");
+    //   let newTimeEnd = moment(timeEnd).format("HH:mm")
 
+    //   for (let inputStart in arrTimeStart) {
+    //     for (let inputEnd in arrTimeEnd) {
+    //       if (timeChose < inputEnd && newTimeEnd  < inputStart) {
+    //         let roomExist = arrTimeStart[inputStart]
+    //         let data = flatten(roomExist)
+            
+    //         let kiemtraphongtrong = roomList.filter((cv: any) => {
+    //           return !data.find((e: any) => {
+    //             return e?._id == cv?._id;
+    //           });
+    //         });
+    //         setRoomList(kiemtraphongtrong);
+    //         if (kiemtraphongtrong?.length > 0) {
+    //           setMessRoom(`Phòng đang trống: ${kiemtraphongtrong?.map((item: any) => item?.name)}`);
+    //         } else {
+    //           console.log("Không còn phòng nào trống, vui lòng chọn khung giờ khác");
+    //           setHiddenRoom(true);
+    //         }
+    //       }
+    //     }
+    //   }
 
-
-    }
+    // }
   };
 
   return (
@@ -198,7 +220,7 @@ const ShowTimeForm = ({
                     <DatePicker
                       disabledDate={disabledDate}
                       showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
-                      format="YYYY-MM-DD HH:mm"
+                      format="DD-MM-YYYY HH:mm"
                       onChange={validRange}
                       showNow={false}
                     />
@@ -213,7 +235,7 @@ const ShowTimeForm = ({
                       disabled
                       showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
                       showNow={false}
-                      format="YYYY-MM-DD HH:mm"
+                      format="DD-MM-YYYY HH:mm"
                       onChange={validRange}
                     />
                   </Form.Item>
