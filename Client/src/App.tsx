@@ -90,11 +90,11 @@ function App() {
               key={index}
               path={route.path}
               element={
-                <PrivateRoute acceptRole={1}>
+                // <PrivateRoute acceptRole={1}>
                   <Layout>
                     <Page />
                   </Layout>
-                 </PrivateRoute>
+                // </PrivateRoute>
               }
             />
           );
