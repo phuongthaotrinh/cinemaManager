@@ -61,7 +61,7 @@ const MovieTab = ({ }: Props) => {
          <div className="flex gap-5">
             <Button type="primary" style={{ marginBottom: "20px" }}>
                <Link to="/admin/movies/create">Tạo Phim</Link>
-            </Button>
+               </Button>
             <Button>
                <Link to={configRoute.routes.adminMovieType}>
                   Quản lí thể loại phim

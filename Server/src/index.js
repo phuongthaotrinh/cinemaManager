@@ -182,7 +182,7 @@ mongoose
   .then(() => console.log("Kết nối MongoDB thành công"))
   .catch((err) => console.log(err));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log("Hệ thống đang chạy trên cổng: ", PORT);
 });

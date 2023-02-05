@@ -28,15 +28,15 @@ const CreateMovie = (props: Props) => {
     }
   };
 
-const onReset = () => {
-  form.resetFields();
-  setImage([]);
-}
+  const onReset = () => {
+    form.resetFields();
+    setImage([]);
+  }
   return (
     <>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="/admin/movies">DS phim</Link>
-      </Button>
+        <Button type="primary" style={{ marginBottom: "20px" }}>
+          <Link to="/admin/movies">DS phim</Link>
+        </Button>
       <MovieForm image={image} setImage={setImage} form={form} onFinish={onFinish} onReset={onReset}/>
     </>
   );

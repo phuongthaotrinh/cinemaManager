@@ -51,6 +51,7 @@ const UserCreate = (props: Props) => {
         newPass={newPass}
         setNewPass={setNewPass}
         showPass={showPass}
+        userEdit={false}
         userId={undefined} />
     </div>
   )

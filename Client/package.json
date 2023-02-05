@@ -31,7 +31,8 @@
     "redux-thunk": "2.4.1",
     "sass": "1.54.9",
     "styled-components": "5.3.6",
-    "sweetalert2": "11.6.8"
+    "sweetalert2": "11.6.8",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-react": "5.0.2",

@@ -13,8 +13,7 @@ export const register = async (req, res) => {
     await sendEmail(newUser.email, "Xác nhận tài khoản", message, `${process.env.CLIENT_URL}/verify?token=${accessToken}`);
     res.status(200).json(newUser);
   } catch (error) {
-    console.log(error);
-    res.status(400).json("Đăng ký thất bại");
+    res.status(400).json("Đăng ký thất bại", error);
   }
 }
 

@@ -61,3 +61,15 @@ export const convertMovieTime = (seconds: any) => {
   result += s < 10 ? "0" + s : s;
   return result;
 };
+
+
+export const formatTime2 = (dateString: any) => {
+  const date = moment(new Date(dateString || "")).format("HH:mm");
+  return date;
+};
+
+export const formatDate2 = (dateString: any) => {
+  let a = new Date(dateString);
+  let data = moment(a).format("DD/MM/YYYY");
+  return data;
+};

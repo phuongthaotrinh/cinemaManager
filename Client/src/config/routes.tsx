@@ -49,6 +49,8 @@ const routes = {
   adminMoviecCreat: "/admin/movies/create",
   adminMovie: "/admin/movies",
   adminMoviecUpdate: "/admin/movies/:id",
+  adminMoviecCreatFromExel: "/admin/movies/create-from-exel",
+
 
   adminFood: "/admin/food",
   adminFoodCreate: "/admin/food/create",

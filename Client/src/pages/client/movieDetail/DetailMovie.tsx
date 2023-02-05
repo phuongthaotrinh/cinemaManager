@@ -6,13 +6,14 @@ import { GiFilmSpool } from "react-icons/gi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
-import { convertDate, convertDateToNumber, formatDate, formatTime, } from "../../../ultils";
+import { convertDate, convertDateToNumber, formatDate, formatTime, formatTime2, } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import RelateMovie from "../RelateMovie";
 import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { useGroupBy } from "../../../hook";
 type Props = {};
 
 const MovieDetail = (props: Props) => {
@@ -23,12 +24,13 @@ const MovieDetail = (props: Props) => {
   const [relateArr, setRelateArr] = useState([]);
   const { currentUser } = useAppSelector((state) => state.authReducer);
   const { users } = useAppSelector((state) => state.userReducer);
-  const Toggle = (number: any) => { setActive(number)};
+  const Toggle = (number: any) => { setActive(number) };
   const navigate = useNavigate();
   const { slug } = useParams();
   const { oneMovie: data } = useAppSelector((state: any) => state.movie);
   const { movie } = useAppSelector((state) => state.movie);
   let movieSelectId = data?.movie?._id;
+  const { groupByDate2, groupByTime2 } = useGroupBy()
   document.title = `${slug}`;
   useEffect(() => {
     if (movie) {
@@ -54,6 +56,7 @@ const MovieDetail = (props: Props) => {
   const handleCancel2 = () => {
     setIsModalOpen2(false);
   };
+
   const RenderShowTime = () => {
     const [idShowtime, setIdShowtime] = useState();
     const [dateChoose, setDateChoose] = useState();
@@ -298,6 +301,7 @@ const MovieDetail = (props: Props) => {
               <span>Đánh giá phim</span>
             </button>
           </div>
+          {/* <RRenderST /> */}
           <RenderShowTime />
           <div className={isActive == 2 ? styles.showFilmList : "hidden"}>
             <RelateMovie data={relateArr} />

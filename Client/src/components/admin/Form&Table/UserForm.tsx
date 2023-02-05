@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Card,
-  DatePicker,
-  Form,
-  FormInstance,
-  Input,
-  Select,
-  Skeleton,
-} from "antd";
+import { Button, Card, DatePicker, Form, FormInstance, Input, Select, Skeleton } from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { provices } from "../../../redux/slice/Provider";
 import ImageUpload from "../../upload";
@@ -30,24 +21,10 @@ interface UserFormProps {
   userId: any;
   userEdit?: boolean;
 }
-const UserForm = ({
-  userEdit,
-  userId,
-  avatarList,
-  showPass,
-  form,
-  onFinish,
-  onReset,
-  editUser = true,
-}: UserFormProps) => {
+const UserForm = ({ userEdit, userId, avatarList, showPass, form, onFinish, onReset, editUser = true }: UserFormProps) => {
   const { accessToken } = useAppSelector((state) => state.authReducer);
   return (
-    <Form
-      layout="vertical"
-      form={form}
-      onFinish={onFinish}
-      validateMessages={validateMessages}
-    >
+    <Form layout="vertical" form={form} onFinish={onFinish} validateMessages={validateMessages} >
       <div className="grid grid-flow-col">
         {editUser ? (
           <>
@@ -95,7 +72,7 @@ const UserForm = ({
                   label="Email"
                   name="email"
                   rules={[{ required: true, type: "email" }]}
-                  
+
                 >
                   <Input placeholder="Nhập vào" disabled />
                 </Form.Item>
@@ -113,7 +90,7 @@ const UserForm = ({
                 name="dob"
                 rules={[{ required: true }]}
               >
-                <DatePicker placeholder="Nhập vào" />
+                <DatePicker placeholder="Nhập vào" format={"DD/MM/YYYY"} />
               </Form.Item>
 
               {userEdit && (
@@ -156,6 +133,7 @@ const UserForm = ({
                     position: "sticky",
                     bottom: "0",
                     left: "0",
+                    top: "100",
                     width: "100%",
                     border: "none",
                   }}
