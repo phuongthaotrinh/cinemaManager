@@ -10,7 +10,7 @@ const SignUpSocial = (props: Props) => {
    return (
       <div className="flex justify-between">
          <button type="button" className={styles.loginGG} >
-         <a href={`${import.meta.env.VITE_API_URL}/auth/google`}>Đăng nhập google</a>
+         <a href={`${import.meta.env.VITE_API_ONLINE}/auth/google`}>Đăng nhập google</a>
          </button>
          <button type="button" className={styles.loginFb} onClick={loginFb} >
             Sign in with Facebook
