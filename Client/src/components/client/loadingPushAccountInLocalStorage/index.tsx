@@ -8,6 +8,7 @@ import { getCurrentUser } from "../../../redux/slice/AuthSlice";
 type Props = {};
 
 const LoadingPushAccountInLocalStorage = (props: Props) => {
+
    const dispatch = useAppDispatch();
    const navigate = useNavigate();
    dispatch(getCurrentUser({})).unwrap()
@@ -15,13 +16,16 @@ const LoadingPushAccountInLocalStorage = (props: Props) => {
          message.success("Đăng Nhập thành công")
          navigate('/')
       })
-      .catch((err: any) =>{
-         notification.error({message: "Đăng nhập thất bại"});
+      .catch((err: any) => {
+         notification.error({ message: "Đăng nhập thất bại" });
          navigate(configRoute.routes.signin)
       }
       )
    return (
-      <Spin size="large" />
+      <div style={{ position: "absolute", height: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }} >
+         <Spin size="large" />
+      </div>
+
    )
 };
 

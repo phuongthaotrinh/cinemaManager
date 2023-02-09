@@ -8,6 +8,7 @@ import { convertDateToNumber, formatDate } from "../../../ultils";
 import Voucher from "../../../components/client/voucher";
 import News from "../News/News";
 import { Spin } from "antd";
+import Loading from "../../../components/Loading";
 
 type Props = {};
 
@@ -49,7 +50,9 @@ const Home = (props: Props) => {
 
   return (
     <>
-      {isFetching ? <Spin size="large" /> : <SlideShow slider={sliderActive} />}
+      {isFetching ? (
+       <Loading />
+      ) : <SlideShow slider={sliderActive} />}
       <div className={styles.content}>
         <div className={styles.content_btn}>
           <button
