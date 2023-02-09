@@ -26,7 +26,7 @@ export const create = async (req, res) => {
     await Ticket.updateOne({ _id: req.body.ticketId }, { $unset: { expireAt: "" } });
     await TicketDetail.updateMany({ ticketId: req.body.ticketId }, { $unset: { expireAt: "" } });
     req.body.shortId = shortid.generate();
-    req.body.qrCode = await QRCode.toDataURL(`${process.env.CLIENT_URL}/order/${req.body.shortId}`);
+    req.body.qrCode = await QRCode.toDataURL(`${process.env.CLIENT_URL_ONLINE}/order/${req.body.shortId}`);
     const order = await new Order(req.body).save();
     return res.status(200).json(order);
   } catch (error) {
@@ -472,7 +472,7 @@ export const createPaymentUrl = async (req, res, next) => {
     const duplicateOrder = await Order.findOne({ ticketId: req.body.ticketId }).exec();
     if (duplicateOrder) return res.status(400).json("Vé này đã được đặt, vui lòng đặt lại");
     req.body.shortId = shortid.generate();
-    req.body.qrCode = await QRCode.toDataURL(`${process.env.CLIENT_URL}/checkOrder/${req.body.shortId}`);
+    req.body.qrCode = await QRCode.toDataURL(`${process.env.CLIENT_URL_ONLINE}/checkOrder/${req.body.shortId}`);
     const order = await new Order(req.body).save();
     var ipAddr = req.headers['x-forwarded-for'] ||
       req.connection.remoteAddress ||
@@ -584,15 +584,15 @@ export const vnpayReturn = async (req, res, next) => {
       }];
       // res.status(200).json({ message: "Thanh toán thành công", updateOrder });
       await sendEmail(updateOrder.userId.email, "Đơn hàng được đặt thành công", "", "", payload);
-      res.redirect(`${process.env.CLIENT_URL}/payment-status?status=success&orderId=${updateOrder._id}`)
+      res.redirect(`${process.env.CLIENT_URL_ONLINE}/payment-status?status=success&orderId=${updateOrder._id}`)
     }
     else {
       const updateOrder = await Order.findOneAndUpdate({ _id: orderId }, { status: 2 }, { new: true }).exec();
-      res.redirect(`${process.env.CLIENT_URL}/payment-status?status=failed`)
+      res.redirect(`${process.env.CLIENT_URL_ONLINE}/payment-status?status=failed`)
     }
   } else {
     const updateOrder = await Order.findOneAndUpdate({ _id: orderId }, { status: 2 }, { new: true }).exec();
-    res.redirect(`${process.env.CLIENT_URL}/payment-status?status=failed`)
+    res.redirect(`${process.env.CLIENT_URL_ONLINE}/payment-status?status=failed`)
   }
 };
 export const vnpIpn = (req, res, next) => {

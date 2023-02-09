@@ -10,7 +10,7 @@ export const register = async (req, res) => {
     const accessToken = jwt.sign(newUser.toJSON(), process.env.ACCESS_TOKEN_SECRET);
     const message = `Đăng ký thành công, vui lòng truy cập vào đường link dưới đây để xác thực tài khoản: 
     `;
-    await sendEmail(newUser.email, "Xác nhận tài khoản", message, `${process.env.CLIENT_URL}/verify?token=${accessToken}`);
+    await sendEmail(newUser.email, "Xác nhận tài khoản", message, `${process.env.CLIENT_URL_ONLINE}/verify?token=${accessToken}`);
     res.status(200).json(newUser);
   } catch (error) {
     res.status(400).json("Đăng ký thất bại", error);
@@ -99,7 +99,7 @@ export const forgotPassword = async (req, res) => {
     const existUser = await User.findOne({ email: email }).exec();
     const accessToken = jwt.sign(existUser.toJSON(), process.env.ACCESS_TOKEN_SECRET);
     const message = `Chào ${email}, vui lòng truy cập vào đường link dưới đây để đặt lại mật khẩu `;
-    await sendEmail(email, "Reset Account Password", message, `${process.env.CLIENT_URL}/reset-password?token=${accessToken}`);
+    await sendEmail(email, "Reset Account Password", message, `${process.env.CLIENT_URL_ONLINE}/reset-password?token=${accessToken}`);
     res.status(200).json({ email, accessToken });
   } catch (error) {
     res.status(400).json(`Có lỗi xảy ra, vui lòng thử lại sau`);

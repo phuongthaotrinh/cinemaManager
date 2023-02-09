@@ -107,7 +107,7 @@ app.get("/api/auth/google", passport.authenticate("google", {
 app.get("/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
-    res.redirect(`${process.env.CLIENT_URL}/loading`);
+    res.redirect(`${process.env.CLIENT_URL_ONLINE}/loading`);
   }
 );
 
