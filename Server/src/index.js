@@ -79,7 +79,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "https://cinema-manager-eeiz.vercel.app/auth/google/callback",
+  callbackURL: "https://cinema-manager-vol3.vercel.app/auth/google/callback",
   passReqToCallback: true
 },
   function (request, accessToken, refreshToken, profile, done) {
@@ -172,10 +172,6 @@ app.post("/api/upload/images", fileUpload.array("images", 8), function (req, res
 });
 const swaggerJSDocs = YAML.load(__dirname + "/configs/api.yaml")
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
-
-
-
-
 
 mongoose
   .connect(process.env.MONGODB_ONLINE)
