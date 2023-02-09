@@ -23,7 +23,10 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const movie = await Movie.find({}).populate(["movieTypeId"]).exec();
+    const movie = await Movie.find({})
+      .populate(["movieTypeId"])
+      .sort({ createdAt: -1 })
+      .exec();
     return res.status(200).json(movie);
   } catch (error) {
     return res.status(400).json({
@@ -85,7 +88,9 @@ export const searchByMovieName = async (req, res) => {
     const searchString = req.query.q ? req.query.q : "";
     const result = await Movie.find({
       name: new RegExp(searchString, "i"),
-    }).populate(["movieTypeId"]).exec();
+    })
+      .populate(["movieTypeId"])
+      .exec();
     res.json(result);
   } catch (error) {
     res.status(400).json({
@@ -103,7 +108,9 @@ export const update = async (req, res) => {
       { _id: req.params.id },
       req.body,
       { new: true }
-    ).populate(["movieTypeId"]).exec();
+    )
+      .populate(["movieTypeId"])
+      .exec();
     return res.status(200).json(movie);
   } catch (error) {
     return res.status(400).json({
@@ -125,5 +132,18 @@ export const pagination = async (req, res) => {
         message: "Don't find",
       });
     }
+  }
+};
+
+export const updateMulti = async (req, res) => {
+  try {
+   
+   const newData =  await Movie.updateMany(
+      { _id: { $in: req.body.data} },
+      { $set: { status: req.body.status } }
+    );
+    return res.status(200).json(newData);
+  } catch (error) {
+    console.log(error)
   }
 };

@@ -39,7 +39,7 @@ export const list = async (req, res) => {
   try {
     const ticket = await Ticket.find({})
       .exec();
-    return res.status(200).json(ticket);
+    return res.status(200).sort({createdAt: -1}).json(ticket);
   } catch (error) {
     return res.status(400).json({
       message: "Don't find all!",

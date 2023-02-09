@@ -26,7 +26,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const setByShowTime = await SetByShowTime.find({}).populate("movieId").populate("roomId").populate("showTimeId")
+    const setByShowTime = await SetByShowTime.find({}).populate("movieId").populate("roomId").populate("showTimeId").sort({createdAt: -1})
       .exec();
     return res.status(200).json(setByShowTime);
   } catch (error) {

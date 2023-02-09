@@ -17,7 +17,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const foodDetail = await FoodDetail.find({}).populate({ path: "food", populate: "foodId" }).exec()
+        const foodDetail = await FoodDetail.find({}).populate({ path: "food", populate: "foodId" }).sort({createdAt: -1}).exec()
         res.json(foodDetail)
     } catch (error) {
         res.status(400).json({

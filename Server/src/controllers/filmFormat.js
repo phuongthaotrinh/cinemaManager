@@ -28,7 +28,7 @@ export const getOne = async (req, res) => {
 
 export const getAll = async (req, res) => {
     try {
-        const filmFormat = await FilmFormat.find({}).exec()
+        const filmFormat = await FilmFormat.find({}).sort({createdAt: -1}).exec()
         res.json(filmFormat)
     } catch (error) {
         res.status(400).json({

@@ -36,7 +36,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const rooms = await Room.find({}).populate("formatId").exec();
+    const rooms = await Room.find({}).populate("formatId").sort({createdAt: -1}).exec();
     return res.status(200).json(rooms);
   } catch (error) {
     return res.status(400).json({

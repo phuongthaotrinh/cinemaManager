@@ -17,6 +17,7 @@ export const list = async (req, res) => {
     const seats = await Seat.find({})
       .populate("roomId")
       .populate("seatTypeId")
+      .sort({createdAt: -1})
       .exec();
     return res.status(200).json(seats);
   } catch (error) {
@@ -67,6 +68,7 @@ export const update = async (req, res) => {
   }
 };
 export const updateSeatByRoom = async (req, res) => {
+  console.log(' req.body',  req.body)
   try {
     const activeRoom = await showTime.findOne({ roomId: req.params.roomId, date: { $gte: Date.now() }, status: 0 });
     if (activeRoom) return res.status(404).json("Phòng này đang có suất chiếu, không thể cập nhật")

@@ -35,7 +35,7 @@ export const login = async (req, res) => {
 }
 export const list = async (req, res) => {
   try {
-    const users = await User.find({}).exec();
+    const users = await User.find({}).sort({createdAt: -1}).exec();
     res.status(200).json(users);
   } catch (error) {
     console.log(error);

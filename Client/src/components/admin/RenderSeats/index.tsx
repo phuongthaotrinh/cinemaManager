@@ -169,9 +169,9 @@ const RenderSeats = ({
         dispatch(getOneSBSTById(roomId));
         setIsModalOpen(false);
         message.success("Thay đổi trạng thái thành công");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       })
       .catch((err: any) => message.error(err));
   };
@@ -183,9 +183,9 @@ const RenderSeats = ({
       .then(() => {
         dispatch(getOneSBSTById(roomId));
         message.success("Thay đổi loại ghế thành công");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       })
       .catch((error: any) => message.error(error));
   };
@@ -248,6 +248,7 @@ const RenderSeats = ({
       );
       setSeatArrSelect(arrToUpdate);
     }
+    
   };
 
   //
@@ -506,10 +507,10 @@ const RenderSeats = ({
         .unwrap()
         .then(() => {
           message.success("Update thành công");
-          setTimeout(() => {
-            window.location.reload();
-            onReset();
-          }, 2000);
+          // setTimeout(() => {
+          //   window.location.reload();
+          //   onReset();
+          // }, 2000);
         })
         .catch((error: any) => {
           handleSubmit();
@@ -605,6 +606,11 @@ const RenderSeats = ({
             rowSelection={rowSelection}
             columns={columns}
             dataSource={data}
+            pagination={{
+              defaultPageSize:5,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "20", "30"],
+            }}
           />
         </div>
       </div>

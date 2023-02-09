@@ -23,7 +23,7 @@ export const list = async (req, res) => {
   try {
     const showTimes = await ShowTime.find({})
       .populate("movieId")
-      .populate({ path: "roomId", populate: { path: "formatId" } })
+      .populate({ path: "roomId", populate: { path: "formatId" } }).sort({createdAt: -1})
       .exec();
     return res.status(200).json(showTimes);
   } catch (error) {

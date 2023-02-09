@@ -1,3 +1,5 @@
+import { formatDistance, parseISO } from "date-fns";
+import { isPast } from "date-fns/esm";
 import moment from "moment";
 
 export const formatCurrency = (money?: number) => {
@@ -38,7 +40,7 @@ export const formatTime = (dateString: Date) => {
 
 export const discountPercent = (money?: any, discount?: any) => {
   let moneyPrice = (money * discount) / 100;
-  return moneyPrice
+  return moneyPrice;
 };
 
 export const convertMovieTime = (seconds: any) => {
@@ -62,7 +64,6 @@ export const convertMovieTime = (seconds: any) => {
   return result;
 };
 
-
 export const formatTime2 = (dateString: any) => {
   const date = moment(new Date(dateString || "")).format("HH:mm");
   return date;
@@ -73,3 +74,59 @@ export const formatDate2 = (dateString: any) => {
   let data = moment(a).format("DD/MM/YYYY");
   return data;
 };
+
+
+
+
+//Select Table
+export type ConditionType = "releaseDate" | "timeEnd";
+
+export type CompareType = {
+  inputData: string | object[],
+}
+
+export const compareDate = (inputData: CompareType, condition?: ConditionType) => {
+  if (typeof inputData == "string") {
+    let newDate = new Date(inputData);
+    let a = moment(newDate, "YYYYMMDD").fromNow();
+    if (a == "a month ago") {
+      a = "1 month ago";
+    }
+    return a;
+  } else if (typeof inputData == "object") {
+    if (condition == "releaseDate") {
+      let before = ["month", "year"];
+      let cloneDate = JSON.parse(JSON.stringify(inputData));
+      let data: any[] = [];
+      for (let item of cloneDate) {
+        for (let hash of before) {
+          let newDate = new Date(item[condition]);
+          let a = moment(newDate, "YYYYMMDD").fromNow();
+          if (a.includes(hash)) {
+            data.push(item);
+          }
+        }
+      }
+      return data;
+    } else if (condition == "timeEnd") {
+      let cloneDate = JSON.parse(JSON.stringify(inputData));
+      let data: any[] = [];
+      for (let item of cloneDate) {
+        let pastOrFeature = isPast(parseISO(item[condition]));
+        if (pastOrFeature == true) {
+          data.push(item)
+        }
+      }
+      return data;
+    } else { return [] }
+  } else {
+    return [];
+  }
+};
+
+export const compareBtwDate = (start?: any, end?: any, condition?: any) => {
+  let distanceV = formatDistance(parseISO(start), parseISO(end));
+  return distanceV;
+};
+
+

@@ -18,7 +18,7 @@ export const create = async (req, res) => {
 
 export const read = async (req, res) => {
   try {
-    const movieType = await MovieType.findOne({ _id: req.params.id }).exec();
+    const movieType = await MovieType.findOne({ _id: req.params.id }).sort({createdAt: -1}).exec();
     res.json(movieType);
   } catch (error) {
     res.status(400).json({

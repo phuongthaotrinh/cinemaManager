@@ -22,7 +22,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const post = await Post.find({}).populate("userId").populate("categoryId").exec()
+        const post = await Post.find({}).populate("userId").populate("categoryId").sort({createdAt: -1}).exec()
         res.status(200).json(post)
     } catch (error) {
         res.status(400).json({

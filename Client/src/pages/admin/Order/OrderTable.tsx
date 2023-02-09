@@ -28,6 +28,11 @@ const OrderTable = ({ data }: Props) => {
    });
    const columns: ColumnsType<any> = [
       {
+         title: '#',
+         dataIndex: 'key',
+         key: 'key',
+      },
+      {
          title: 'Mã đơn',
          dataIndex: 'code',
          key: 'code',
@@ -95,7 +100,7 @@ const OrderTable = ({ data }: Props) => {
    ];
    return (
       <div>
-         <Table columns={columns} dataSource={dataSource} />
+         <Table columns={columns} dataSource={dataSource}  />
       </div>
    )
 }

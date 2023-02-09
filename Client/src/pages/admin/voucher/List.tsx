@@ -1,27 +1,31 @@
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import DataTable from "../../../components/admin/Form&Table/Table";
-import { Space, Typography, message, Button, Select, Tag } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { message, Select, Space, Typography, Tag } from "antd";
+import { useAppDispatch } from "../../../redux/hook";
 import { Link } from "react-router-dom";
+import { UpdateMultiMovie, getAlVc, updateData } from "../../../redux/slice/voucherSlice";
+import { EditOutlined } from "@ant-design/icons";
+import {
+  formatCurrency,
+  compareBtwDate,
+} from "../../../ultils";
 import { defaultStatus } from "../../../ultils/data";
-import { updateData, getAlVc } from "../../../redux/slice/voucherSlice";
+import { useSearch } from "../../../hook";
+import SelectTable from "../../../components/admin/SelectTable";
 import moment from "moment";
-import { formatCurrency } from "../../../ultils";
-import { formatDistance, parseISO } from "date-fns";
-import isPast from "date-fns/isPast";
-type Props = {};
-const { Text } = Typography;
+import { isPast, parseISO } from "date-fns";
+type Props = {
+  data: any;
+  isLoading?: boolean;
+  statusUpdate?: any;
+  currStatus?: any
+};
 const { Option } = Select;
+const { Text } = Typography
 
-const AdminVoucherList = (props: Props) => {
+const AdminVoucherList = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
+  document.title = "Admin | DS Phim";
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    document.title = "Admin | List Voucher";
-    dispatch(getAlVc());
-  }, [dispatch]);
 
-  const { vouchers } = useAppSelector((state: any) => state.voucherReducer);
+  const { getColumnSearchProps } = useSearch();
 
   const changeStatus = (id: any, value: any) => {
     dispatch(updateData({ _id: id, status: value }))
@@ -29,6 +33,12 @@ const AdminVoucherList = (props: Props) => {
       .then(() => message.success("Thay đổi trạng thái thành công"));
   };
   const columns: any[] = [
+    {
+      title: "#",
+      key: "key",
+      dataIndex: "key",
+      width: 10
+    },
     {
       title: "Thumbnail",
       key: "thumbnail",
@@ -48,6 +58,7 @@ const AdminVoucherList = (props: Props) => {
       title: "code",
       key: "code",
       dataIndex: "code",
+      ...getColumnSearchProps("code"),
       render: (item: any, record: any) => (
         <Link to={`${record._id}`}>
           <Text className="text-[#1890ff]">
@@ -109,13 +120,14 @@ const AdminVoucherList = (props: Props) => {
     {
       title: "Thời hạn ",
       key: "distance",
+      ...getColumnSearchProps("distance"),
       render: (_: any, record: any) => <Text>{record.distance}</Text>,
       width: 80
     },
     {
       title: "Còn Hoạt động ?",
       key: "distance",
-      render: (_: any, { isActive }: any) => <Text>{isActive ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</Text>,
+      render: (_: any, { isActive }: any) => <Text>{isActive ? "Hết hạn" : "Đang hoạt động"}</Text>,
       width: 80
     },
     {
@@ -134,12 +146,10 @@ const AdminVoucherList = (props: Props) => {
     },
   ];
 
-  const data: Props[] = vouchers?.map((item: any, index: any) => {
-    let distanceV = formatDistance(
-      parseISO(item?.timeStart),
-      parseISO(item?.timeEnd)
-    );
+  const dataTable: Props[] = data?.map((item: any, index: any) => {
+    let distanceV = compareBtwDate(item?.timeStart, item?.timeEnd)
     let checkTime = isPast(parseISO(item?.timeEnd));
+
     return {
       key: index + 1,
       _id: item?._id,
@@ -153,19 +163,26 @@ const AdminVoucherList = (props: Props) => {
       timeStart: item?.timeStart,
       timeEnd: item?.timeEnd,
       conditionNumber: item?.conditionNumber,
-      activeQuantity: item?.quantity, // số lượng còn (sau khi trừ của user đã dùng)
       distance: distanceV,
       isActive: checkTime
     };
   });
 
+  const api = {
+    read: getAlVc,
+    update: UpdateMultiMovie
+  }
   return (
-    <div>
-      <Button type="primary" style={{ marginBottom: "20px" }}>
-        <Link to="add">Thêm Voucher</Link>
-      </Button>
-      <DataTable column={columns} data={data} />
-    </div>
+    <>
+      <SelectTable
+        columns={columns}
+        data={dataTable}
+        statusUpdate={statusUpdate}
+        currStatus={currStatus}
+        type="timeEnd"
+        api={api} />
+
+    </>
   );
 };
 

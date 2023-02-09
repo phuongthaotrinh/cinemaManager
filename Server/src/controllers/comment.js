@@ -14,7 +14,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
   try {
-    const comments = await Comment.find().exec();
+    const comments = await Comment.find().sort({createdAt: -1}).exec();
     return res.status(200).json(comments);
   } catch (error) {
     return res.status(400).json({

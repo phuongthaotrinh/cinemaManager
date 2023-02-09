@@ -8,6 +8,7 @@ import {
   remove,
   update,
   searchByMovieName,
+  updateMulti,
 } from "../controllers/movie";
 
 const router = Router();
@@ -16,6 +17,7 @@ router.get("/movie", list);
 router.get("/movie/:id", getOne);
 router.get("/movies/:slug", getSlug);
 router.delete("/movie/:id", remove);
+router.patch("/movie/updateMore", updateMulti);
 router.patch("/movie/:id", update);
 router.get("/movies", pagination);
 router.get("/searchByMovieName", searchByMovieName);

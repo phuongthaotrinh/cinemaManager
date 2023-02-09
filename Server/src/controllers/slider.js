@@ -15,7 +15,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const slider = await Slider.find({}).exec()
+        const slider = await Slider.find({}).sort({createdAt: -1}).exec()
         res.status(200).json(slider)
     } catch (error) {
         res.status(400).json({

@@ -19,4 +19,8 @@ export const MovieApi = {
   search(key: any) {
     return AxiosRequest.get(`/searchByMovieName?q=${key}`);
   },
+ updateMulti(input:any) {
+  return AxiosRequest.patch(`/movie/updateMore`, input);
+
+ }
 };

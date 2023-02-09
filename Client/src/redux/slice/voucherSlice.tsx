@@ -44,15 +44,28 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
       }
    }
 );
+export const UpdateMultiMovie = createAsyncThunk(
+   "movie/editMulti",
+   async (items: any, { rejectWithValue }) => {
+     try {
+       const { data } = await voucherApi.updateMulti(items);
+       return data;
+     } catch (error: any) {
+       return rejectWithValue(error.response.data);
+     }
+   }
+ );
 type VoucherSliceState = {
    vouchers: any[];
    errorMessage: string | undefined;
-   discountVoucher:any
+   discountVoucher:any;
+   isLoading: boolean
 };
 const initialState: VoucherSliceState = {
    vouchers: [],
    errorMessage: "",
-   discountVoucher: 0
+   discountVoucher: 0,
+   isLoading: false
 };
 
 const VoucherSlice = createSlice({
@@ -68,15 +81,19 @@ const VoucherSlice = createSlice({
 
       builder.addCase(getAlVc.fulfilled, (state, { payload }) => {
          state.vouchers = payload;
+         state.isLoading = false
       });
       builder.addCase(getAlVc.rejected, (state, { payload }) => {
          state.errorMessage = payload;
+         state.isLoading = false
       });
+      builder.addCase(getAlVc.pending, (state, {payload}) => {
+         state.isLoading = true
+      })
 
       // delete
 
       builder.addCase(removeData.fulfilled, (state, action) => {
-
          state.vouchers = state.vouchers.filter((item) => item._id !== action.meta.arg);
       });
       builder.addCase(removeData.rejected, (state, { payload }) => {
@@ -91,7 +108,9 @@ const VoucherSlice = createSlice({
       builder.addCase(createData.rejected, (state, { payload }) => {
          state.errorMessage = payload;
       });
-
+      builder.addCase(createData.pending, (state, { payload }) => {
+         state.isLoading = true
+      });
       //update
 
       builder.addCase(updateData.fulfilled, (state, action) => {

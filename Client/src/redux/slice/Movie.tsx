@@ -18,6 +18,7 @@ export const getMovie = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await MovieApi.getAll();
+
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -41,6 +42,17 @@ export const UpdateMovie = createAsyncThunk(
   async (items: any, { rejectWithValue }) => {
     try {
       const { data } = await MovieApi.edit(items);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+export const UpdateMultiMovie = createAsyncThunk(
+  "movie/editMulti",
+  async (items: any, { rejectWithValue }) => {
+    try {
+      const { data } = await MovieApi.updateMulti(items);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -80,6 +92,7 @@ const initialState: any = {
   oneMovie: [],
   errMess: false,
   movieSearch: [],
+  isLoading: false
 };
 const movieSlice = createSlice({
   name: "movie",
@@ -106,16 +119,15 @@ const movieSlice = createSlice({
     // list
     builder.addCase(getMovie.pending, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
+      state.isLoading = true
     });
     builder.addCase(getMovie.fulfilled, (state, action) => {
       state.movie = action.payload;
+      state.isLoading = false
     });
     builder.addCase(getMovie.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
+      state.isLoading = false
     });
     // remove
     builder.addCase(removeMovieItem.fulfilled, (state, action) => {
@@ -128,14 +140,10 @@ const movieSlice = createSlice({
     });
     builder.addCase(UpdateMovie.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     // update
     builder.addCase(UpdateMovie.fulfilled, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
       state.movie = state.movie.map((item: any) => {
         if (item._id !== action.payload._id) {
           return item;
@@ -143,6 +151,7 @@ const movieSlice = createSlice({
         return action.payload;
       });
     });
+
     builder.addCase(getOneMovie.pending, (state, action) => {
       state.errMess = false;
       state.isFetching = true;

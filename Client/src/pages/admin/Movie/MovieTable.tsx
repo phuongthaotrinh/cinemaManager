@@ -1,32 +1,47 @@
-import { Button, message, Modal, Select, Space, Table } from "antd";
+import { Button, message, Modal, Select, Tooltip } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
-import { Link } from "react-router-dom";
-import { UpdateMovie } from "../../../redux/slice/Movie";
-import { EditOutlined, PlusOutlined } from "@ant-design/icons";
-import { formatDate, convertMovieTime, formatDateString, formatCurrency } from "../../../ultils";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
+import { getMovie, UpdateMovie, UpdateMultiMovie } from "../../../redux/slice/Movie";
+import { EditOutlined } from "@ant-design/icons";
+import {
+  formatDate,
+  convertMovieTime,
+  formatDateString,
+  formatCurrency,
+  compareDate,
+} from "../../../ultils";
+import { AiOutlineInfoCircle, AiOutlineMore } from "react-icons/ai";
 import { defaultStatus } from "../../../ultils/data";
 import { useSearch } from "../../../hook";
+import SelectTable from "../../../components/admin/SelectTable";
 
 type Props = {
-  data: any
+  data: any;
+  isLoading: boolean;
+  statusUpdate?: any;
+  currStatus?: any
 };
 const { Option } = Select;
 
-const ListMovie = ({ data }: Props) => {
+const ListMovie = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
   document.title = "Admin | DS Phim";
   const dispatch = useAppDispatch();
-
+  const navigate = useNavigate();
   const changeStatus = (id: any, value: any) => {
-    dispatch(UpdateMovie({ _id: id, status: value })).unwrap()
+    dispatch(UpdateMovie({ _id: id, status: value }))
+      .unwrap()
       .then(() => message.success("Thay đổi trạng thái thành công"));
   };
-  const { getColumnSearchProps } = useSearch()
-  const columnUserList: any = [
+  const { getColumnSearchProps } = useSearch();
+
+  const column: any = [
+    {
+      title: "#",
+      dataIndex: "key",
+    },
     {
       title: "Ảnh",
       dataIndex: "image",
-      fixed: "left",
       render: (_: any, { image, _id }: any) => (
         <Link to={_id}>
           <img width="50px" src={image} height="50px" />
@@ -37,16 +52,30 @@ const ListMovie = ({ data }: Props) => {
     {
       title: "Tên",
       dataIndex: "name",
-      ...getColumnSearchProps('name'),
-      render: (_: any, { name, _id }: any) => <Link to={_id}>{name}</Link>,
+      ...getColumnSearchProps("name"),
+      render: (_: any, { name, _id }: any) => (
+        <Link to={_id} className="capitalize font-semibold">
+          {name}
+        </Link>
+      ),
     },
     {
       title: "Ngày khởi chiếu",
       key: "releaseDate",
-      ...getColumnSearchProps('releaseDate'),
+      ...getColumnSearchProps("releaseDate"),
       render: (_: any, record: any) => (
         <div>
           <p>{formatDate(record?.releaseDate)}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Time Compare",
+      key: "compareNow",
+      ...getColumnSearchProps("compareNow"),
+      render: (_: any, record: any) => (
+        <div>
+          <p>{record?.compareNow}</p>
         </div>
       ),
     },
@@ -71,7 +100,7 @@ const ListMovie = ({ data }: Props) => {
     {
       title: "Doanh thu",
       key: "profit",
-      ...getColumnSearchProps('profit'),
+      ...getColumnSearchProps("profit"),
       render: (_: any, record: any) => (
         <div>
           <p>{formatCurrency(record?.profit)}</p>
@@ -79,74 +108,60 @@ const ListMovie = ({ data }: Props) => {
       ),
       width: "150px",
     },
+
     {
-      title: "Hành động",
+      title: "",
       key: "action",
       fixed: "right",
-      render: (item: any, record: any) => (
-        <Space size="middle">
-          <Link to={`${record._id}`}>
-            <EditOutlined
-              style={{ color: "var(--primary)", fontSize: "18px" }}
+      render: (item: any, { _id, status, name }: any) => (
+        <div className="cursor-pointer flex items-center gap-3 justify-around text-[--primary] text-lg	">
+          <Tooltip title="Xem chi tiết">
+            <Link to={`${_id}`}>
+              <EditOutlined />
+            </Link>
+          </Tooltip>
+          <Tooltip title="Xem nhanh">
+            <AiOutlineInfoCircle onClick={() => info(_id)} />
+          </Tooltip>
+          <Tooltip title="More">
+            <AiOutlineMore
+              onClick={() => {
+                moreOption(_id, status, name);
+              }}
             />
-          </Link>
-          <AiOutlineInfoCircle
-            onClick={() => info(item._id)}
-            style={{
-              color: "var(--primary)",
-              fontSize: "18px,",
-              cursor: "pointer",
-            }}
-          />
-          {record?.status == 0 && (
-            <Button type="dashed" block >
-              <Link to={`/admin/showTimes/create?movieId=${record?._id}`}>
-                <PlusOutlined
-                  style={{ color: "var(--primary)", fontSize: "18px" }}
-                />
-                Tạo suất chiếu
-              </Link>
-            </Button>
-          )}
-          <Button type="dashed" block>
-            <Link to={`/admin/showTimes?movieId=${record?._id}`}>
-              Danh sách giờ chiếu
-            </Link>
-          </Button>
-          <Button type="dashed" block>
-            <Link to={`/admin/movieComment/${record?._id}`}>
-              Đánh giá về phim
-            </Link>
-          </Button>
-        </Space>
+          </Tooltip>
+        </div>
       ),
-      width: 250,
+      width: 100,
     },
   ];
+    const dataTable: Props[] = data?.map((item: any, index: any) => {
+      let compare = compareDate(item?.releaseDate);
+      return {
+        key: index + 1,
+        _id: item?._id,
+        image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+        name: item?.name,
+        actor: item?.actor,
+        runTime: item?.runTime,
+        releaseDate: item?.releaseDate,
+        ageLimit: item?.ageLimit,
+        languages: item?.languages,
+        country: item?.country,
+        director: item?.director,
+        description: item?.description,
+        status: item?.status,
+        profit: item?.profit,
+        compareNow: compare,
+      };
+    });
 
-  const dataTable: Props[] = data?.map((item: any, index: any) => {
-    return {
-      key: index + 1,
-      _id: item?._id,
-      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
-      name: item?.name,
-      actor: item?.actor,
-      runTime: item?.runTime,
-      releaseDate: item?.releaseDate,
-      ageLimit: item?.ageLimit,
-      languages: item?.languages,
-      country: item?.country,
-      director: item?.director,
-      description: item?.description,
-      status: item?.status,
-      profit: item?.profit,
-    };
-  });
   const info = (id: any) => {
     const movieOne = data.find((item: any) => item._id === id);
-
     Modal.info({
-      title: `${movieOne?.name} - ( Doanh thu: ${formatCurrency(movieOne?.profit)})`,
+      title: `${movieOne?.name} - ( Doanh thu: ${formatCurrency(
+        movieOne?.profit
+      )})`,
       width: 1000,
       content: (
         <div>
@@ -157,7 +172,7 @@ const ListMovie = ({ data }: Props) => {
             <div>
               <p></p>
               <p>
-                Loại phim:{" "}
+                Loại phim:
                 {movieOne?.movieTypeId?.map(
                   (item: any) => item.movieName + ", "
                 )}
@@ -175,10 +190,69 @@ const ListMovie = ({ data }: Props) => {
       onOk() { },
     });
   };
+
+  //modal show more
+  const moreOption = (id: any, status: any, name: any) => {
+    Modal.info({
+      title: `Phim:  ${name}`,
+      width: 300,
+      icon: null,
+      content: (
+        <div className="button_admin_group	">
+          {status == 0 && (
+            <Button
+              type="link"
+              onClick={() => {
+                navigate(`/admin/showTimes/create?movieId=${id}`);
+                Modal.destroyAll();
+              }}
+            >
+              Tạo suất chiếu
+            </Button>
+          )}
+          <Button
+            type="link"
+            onClick={() => {
+              navigate(`/admin/showTimes?movieId=${id}`);
+              Modal.destroyAll();
+            }}
+          >
+            Danh sách giờ chiếu
+          </Button>
+          <Button
+            type="link"
+            onClick={() => {
+              navigate(`/admin/movieComment/${id}`);
+              Modal.destroyAll();
+            }}
+          >
+            Đánh giá về phim
+          </Button>
+        </div>
+      ),
+
+      onOk() { },
+    });
+  };
+
+  const api ={
+    read: getMovie,
+    update: UpdateMultiMovie
+  }
+    
+  
   return (
-    <div>
-      <Table columns={columnUserList} dataSource={dataTable} />
-    </div>
+    <>
+      <SelectTable
+        columns={column}
+        data={dataTable}
+        loading={isLoading}
+        statusUpdate={statusUpdate}
+        currStatus={currStatus}
+        type={"releaseDate"}
+        api={api}
+      />
+    </>
   );
 };
 

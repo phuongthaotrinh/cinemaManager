@@ -75,6 +75,7 @@ import MovieTab from "../pages/admin/Movie/MovieTab";
 import ListShowTimeByRoom from "../pages/admin/Rooms/ListShowTimeByRoom";
 import UserTab from "../pages/admin/User/UserTab";
 import DetailMovie from "../pages/client/movieDetail/DetailMovie";
+import AdminVoucherTab from "../pages/admin/voucher/Tab"
 type RoutesType = {
   path: string;
   component: any;
@@ -151,7 +152,7 @@ export const privateRoutes: RoutesType[] = [
 
   { path: configRoute.routes.AdminFilmFormat, component: FilmFormatList },
 
-  { path: configRoute.routes.AdminVouchers, component: AdminVoucherList },
+  { path: configRoute.routes.AdminVouchers, component: AdminVoucherTab },
   { path: configRoute.routes.AdminVouchersCreate, component: AdminVoucherCreate },
   { path: configRoute.routes.AdminVouchersEdit, component: AdminVoucherEdit },
 

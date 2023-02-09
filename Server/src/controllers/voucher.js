@@ -19,7 +19,7 @@ export const create = async (req, res) => {
 
 export const list = async (req, res) => {
     try {
-        const voucher = await Voucher.find({}).populate(["userId"]).exec()
+        const voucher = await Voucher.find({}).populate(["userId"]).sort({createdAt: -1}).exec()
         res.status(200).json(voucher)
     } catch (error) {
         res.status(400).json({
@@ -78,3 +78,16 @@ export const reedeem = async (req, res) => {
         })
     }
 }
+
+export const updateMulti = async (req, res) => {
+    try {
+     
+     const newData =  await Voucher.updateMany(
+        { _id: { $in: req.body.data} },
+        { $set: { status: req.body.status } }
+      );
+      return res.status(200).json(newData);
+    } catch (error) {
+      console.log(error)
+    }
+  };

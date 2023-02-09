@@ -31,7 +31,7 @@ export const getOne = async (req, res) => {
 
 export const getAll = async (req, res) => {
     try {
-        const food = await Food.find({}).exec()
+        const food = await Food.find({}).sort({createdAt: -1}).exec()
         res.json(food)
     } catch (error) {
         res.status(400).json({

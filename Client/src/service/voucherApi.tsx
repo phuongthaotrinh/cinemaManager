@@ -1,5 +1,5 @@
 
-import axiosClient from "./instance";
+import axiosClient  from "./instance";
 
 
 export const voucherApi = {
@@ -17,5 +17,8 @@ export const voucherApi = {
   },
   create(data: any): Promise<any> {
     return axiosClient.post("/voucher", data);
-  }
+  },
+  updateMulti(input:any) {
+    return axiosClient.patch(`/voucher/updateMore`, input);
+   }
 };

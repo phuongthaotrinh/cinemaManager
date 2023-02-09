@@ -21,7 +21,7 @@ export const create = async (req, res) => {
 
 export const read = async (req, res) => {
     try {
-        const seatType = await SeatType.findOne({_id: req.params.id}).exec()
+        const seatType = await SeatType.findOne({_id: req.params.id}).sort({createdAt: -1}).exec()
         res.json(seatType)
     } catch (error) {
         res.status(400).json({
