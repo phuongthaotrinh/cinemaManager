@@ -53,6 +53,9 @@ const ListMovie = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
       title: "Tên",
       dataIndex: "name",
       ...getColumnSearchProps("name"),
+      onFilter: (value: string, record: any) => console.log('value, record', value, record),
+      compare: (a: any, b: any) => a.name - b.name,
+
       render: (_: any, { name, _id }: any) => (
         <Link to={_id} className="capitalize font-semibold">
           {name}
@@ -135,26 +138,26 @@ const ListMovie = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
       width: 100,
     },
   ];
-    const dataTable: Props[] = data?.map((item: any, index: any) => {
-      let compare = compareDate(item?.releaseDate);
-      return {
-        key: index + 1,
-        _id: item?._id,
-        image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
-        name: item?.name,
-        actor: item?.actor,
-        runTime: item?.runTime,
-        releaseDate: item?.releaseDate,
-        ageLimit: item?.ageLimit,
-        languages: item?.languages,
-        country: item?.country,
-        director: item?.director,
-        description: item?.description,
-        status: item?.status,
-        profit: item?.profit,
-        compareNow: compare,
-      };
-    });
+  const dataTable: Props[] = data?.map((item: any, index: any) => {
+    let compare = compareDate(item?.releaseDate);
+    return {
+      key: index + 1,
+      _id: item?._id,
+      image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
+      name: item?.name,
+      actor: item?.actor,
+      runTime: item?.runTime,
+      releaseDate: item?.releaseDate,
+      ageLimit: item?.ageLimit,
+      languages: item?.languages,
+      country: item?.country,
+      director: item?.director,
+      description: item?.description,
+      status: item?.status,
+      profit: item?.profit,
+      compareNow: compare,
+    };
+  });
 
   const info = (id: any) => {
     const movieOne = data.find((item: any) => item._id === id);
@@ -235,12 +238,12 @@ const ListMovie = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
     });
   };
 
-  const api ={
+  const api = {
     read: getMovie,
     update: UpdateMultiMovie
   }
-    
-  
+
+
   return (
     <>
       <SelectTable

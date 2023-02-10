@@ -3,7 +3,7 @@ type Props = {}
 
 const useGroupBy = () => {
 
-   const groupByTime = (data: any, conditon: any) => {
+   const groupByTime =  (data: any, conditon: any) => {
       const groupByTimeFn = data?.reduce((acc: any, arrayItem: any) => {
          let rowName = formatTime(arrayItem[conditon]);
          if (acc[rowName] == null) { acc[rowName] = []; }

@@ -7,6 +7,7 @@ import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";
 import { FaUsersCog, FaRegEye, FaExclamation } from "react-icons/fa";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
+import { getSeatType } from "../../../redux/slice/SeatTypeSlice";
 
 const { Panel } = Collapse;
 type Props = {};
@@ -20,18 +21,21 @@ const SeatByRoom = (props: Props) => {
   const [column, setColumn] = useState<number>();
   const [seatFile, setSeatFile] = useState<any>();
   useEffect(() => {
+    dispatch(getAlSt({}));
+    dispatch(getSeatType())
+  }, [dispatch])
+
+  useEffect(() => {
     (async () => {
       const { payload } = await dispatch(getOneSBSTById(id));
       setSeats(payload);
     })();
   }, [id]);
 
-  const { rooms } = useAppSelector((state) => state.roomReducer);
+  const { rooms, isFetching } = useAppSelector((state) => state.roomReducer);
   const roomSelect = rooms?.find((item) => item?._id === id);
   const { seatType } = useAppSelector((state) => state.seatTypeReducer);
-  useEffect(() => {
-    dispatch(getAlSt({}))
-  }, [dispatch])
+
 
   useEffect(() => {
     setColumn(roomSelect?.columns);

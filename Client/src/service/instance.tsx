@@ -10,7 +10,7 @@ try {
 }
 
 const axiosClient = axios.create({
-  baseURL: `${import.meta.env.VITE_API_ONLINE}/`,
+  baseURL: `${import.meta.env.VITE_API_URL}/`,
   timeout: 90000,
   headers: {
     Authorization: `Bearer ${accessToken}`,

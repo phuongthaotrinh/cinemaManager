@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import SlideShow from "../../../components/client/SlideShow/SlideShow";
 import styles from "./Home.module.scss";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { useAppSelector } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { convertDateToNumber, formatDate } from "../../../ultils";
 import Voucher from "../../../components/client/voucher";
 import News from "../News/News";
 import { Spin } from "antd";
 import Loading from "../../../components/Loading";
+import { getSlider } from "../../../redux/slice/Slider";
+import { getMovie } from "../../../redux/slice/Movie";
 
 type Props = {};
 
@@ -19,7 +21,11 @@ const Home = (props: Props) => {
   const [movieActive, setMovieActive] = useState<any>([]);
   const [sliderActive, setSliderActive] = useState<any>([]);
   const { slider, isFetching } = useAppSelector((state) => state.slider);
-
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getSlider());
+    dispatch(getMovie())
+  }, [dispatch])
   const Toggle = (number: number) => {
     setActive(number);
   };
@@ -51,7 +57,7 @@ const Home = (props: Props) => {
   return (
     <>
       {isFetching ? (
-       <Loading />
+        <Loading />
       ) : <SlideShow slider={sliderActive} />}
       <div className={styles.content}>
         <div className={styles.content_btn}>
@@ -111,6 +117,7 @@ const Home = (props: Props) => {
                         item?.image[0]?.url ??
                         `${import.meta.env.VITE_HIDDEN_SRC}`
                       }
+
                       alt=""
                     />
                   </div>

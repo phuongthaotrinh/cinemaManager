@@ -15,10 +15,10 @@ type Props = {
   columns: any;
   data: any;
   loading?: boolean;
-  statusUpdate: any;
-  currStatus: any;
-  type: ConditionType;
-  api: {
+  statusUpdate?: any;
+  currStatus?: any;
+  type?: ConditionType;
+  api?: {
     read: AsyncThunk<any, void, {}>;
     update: AsyncThunk<any, any, {}>
   } | any

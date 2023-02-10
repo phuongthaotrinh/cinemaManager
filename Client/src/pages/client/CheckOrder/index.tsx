@@ -1,6 +1,6 @@
-import { Button, message } from "antd";
-import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import {  message } from "antd";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getByShortId } from "../../../redux/slice/OrdersSlice";
@@ -16,7 +16,7 @@ const CheckOrder = (props: Props) => {
   const [orderDetail, setOrderDetail] = useState<any>();
   const [detail, setDetail] = useState<any>();
   const { isLogged, currentUser } = useAppSelector((state) => state.authReducer);
-  const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
+  // const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
   useEffect(() => {
     dispatch(getByShortId(id));
   }, [id]);
@@ -29,7 +29,7 @@ const CheckOrder = (props: Props) => {
       setOrderDetail(order?.order);
       setDetail(order?.detail);
       let price = (order?.order?.foodDetailId?.totalPrice) + (order?.order?.totalPrice);
-      setTotalPriceFinal(price);
+      // setTotalPriceFinal(price);
     }
   }, [order]);
   return (

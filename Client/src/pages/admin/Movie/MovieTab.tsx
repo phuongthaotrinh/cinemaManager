@@ -8,14 +8,18 @@ import { Link } from 'react-router-dom';
 import configRoute from '../../../config';
 import SearchByCate from '../../../components/admin/SearchByCate';
 import { MovieMutipleOption } from '../../../ultils/data'
+import { getMovie } from '../../../redux/slice/Movie';
 type Props = {
 }
 
 const MovieTab = ({ }: Props) => {
    document.title = "Admin | Orders";
    const dispatch = useDispatch<any>();
-   useEffect(() => { dispatch(getAllOrders({})) }, [dispatch])
-   const {movie, isLoading} = useAppSelector((state) => state.movie)
+   useEffect(() => { dispatch(getAllOrders({})) }, [dispatch]);
+   useEffect(() => { dispatch(getMovie()) }, [dispatch]);
+
+   
+   const { movie, isLoading } = useAppSelector((state) => state.movie)
    const [movieActive, setMovieActive] = useState<any[]>([]);
    const [movieInActive, setMovieInActive] = useState<any[]>([]);
    const [hiddenEl, setHiddenEl] = useState<any>(false)
@@ -31,19 +35,19 @@ const MovieTab = ({ }: Props) => {
       {
          key: 1,
          label: `Phim đang chiếu (${movieActive?.length})`,
-         children: <MovieTable data={movieActive} isLoading={isLoading} statusUpdate={1} currStatus={0}/>
+         children: <MovieTable data={movieActive} isLoading={isLoading} statusUpdate={1} currStatus={0} />
       },
       {
          key: 2,
          label: `Phim đã dừng hoạt động(${movieInActive?.length}) `,
-         children: <MovieTable data={movieInActive} isLoading={isLoading} statusUpdate={0} currStatus={1}/>
+         children: <MovieTable data={movieInActive} isLoading={isLoading} statusUpdate={0} currStatus={1} />
       },
    ]
    const SearchItems: any[] = [
       {
          key: 4,
          label: ` Phim tìm thấy (${findData?.length})`,
-         children: <MovieTable data={findData} isLoading={isLoading}/>
+         children: <MovieTable data={findData} isLoading={isLoading} />
       },
    ]
 

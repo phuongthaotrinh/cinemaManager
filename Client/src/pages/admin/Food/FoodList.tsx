@@ -1,22 +1,31 @@
-import { Button, Space } from "antd";
-import {  useAppSelector } from "../../../redux/hook";
+import { Button, Space, Table } from "antd";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
-import {  EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import { formatCurrency } from "../../../ultils";
-
+import { useEffect } from "react"
+import { getFood } from "../../../redux/slice/FoodSlice";
 type Props = {};
 
 const FoodList = (props: Props) => {
-  const { food } = useAppSelector((state) => state.food); //
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getFood())
+  }, [])
+  const { food, isLoading } = useAppSelector((state) => state.food); //
 
   const columnUserList: any = [
+    {
+      title: "#",
+      dataIndex: "key",
+      width: 5
+    },
     {
       title: "Ảnh",
       dataIndex: "image",
       render: (_: any, { image, _id }: any) => (
         <Link to={_id}>
-          <img src={image} style={{ width: "100px" , height: "60px"}} />
+          <img src={image} style={{ width: "100px", height: "60px" }} />
         </Link>
       ),
       width: 120,
@@ -59,7 +68,7 @@ const FoodList = (props: Props) => {
               style={{ color: "var(--primary)", fontSize: "18px" }}
             />
           </Link>
-          
+
         </Space>
       ),
     },
@@ -75,6 +84,7 @@ const FoodList = (props: Props) => {
       status: item?.status,
       image: item?.image[0]?.url ?? `${import.meta.env.VITE_HIDDEN_SRC}`,
     };
+
   });
 
   return (
@@ -82,7 +92,7 @@ const FoodList = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px" }}>
         <Link to="/admin/food/create">Tạo mới</Link>
       </Button>
-      <DataTable column={columnUserList} data={data} />
+      <Table columns={columnUserList} dataSource={data} loading={isLoading} />
     </div>
   );
 };

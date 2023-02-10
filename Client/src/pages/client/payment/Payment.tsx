@@ -38,7 +38,7 @@ const Payment = ({ }: Props) => {
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
   const [voucherActive, setVoucherActive] = useState<any>([]);
-  const [movieDetail, setMovieDetail] = useState<any>();
+  // const [movieDetail, setMovieDetail] = useState<any>();
   const [voucherApply, setVoucherApply] = useState<any>();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
@@ -61,7 +61,7 @@ const Payment = ({ }: Props) => {
       setData(state?.ticket);
       setTempPrice(state?.finalPrice);
       setPriceAfterDiscount(state?.finalPrice);
-      setMovieDetail(movieSelect);
+      // setMovieDetail(movieSelect);
     }
     document.title = "Payment";
   }, [state, movieSelect]);

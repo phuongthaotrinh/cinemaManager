@@ -24,13 +24,10 @@ type Props = {
 };
 const { Option } = Select;
 const RenderSeats = ({
-  row,
   column,
   seats,
-  setSeats,
   seatDetails,
   setSeatDetails,
-  seatFile,
   roomId,
 }: Props) => {
   const dispatch = useAppDispatch();
@@ -169,9 +166,9 @@ const RenderSeats = ({
         dispatch(getOneSBSTById(roomId));
         setIsModalOpen(false);
         message.success("Thay đổi trạng thái thành công");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((err: any) => message.error(err));
   };
@@ -183,9 +180,9 @@ const RenderSeats = ({
       .then(() => {
         dispatch(getOneSBSTById(roomId));
         message.success("Thay đổi loại ghế thành công");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 2000);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       })
       .catch((error: any) => message.error(error));
   };
@@ -305,13 +302,13 @@ const RenderSeats = ({
     }
     const chooseTheoCT = () => {
       setHiddenChooseAll(true);
-      setShowByCT(false)
+      // setShowByCT(false)
       setMutipleForm(false)
     }
 
     const closeOption = () => {
       setHiddenChooseAll(false);
-      setShowByCT(false)
+      // setShowByCT(false)
       setMutipleForm(false)
       onReset()
     }
@@ -357,7 +354,7 @@ const RenderSeats = ({
     // mutil form: update ghế rtheo nhiều hàng
     const renderMutipleForm = () => {
       setHiddenChooseAll(false);
-      setShowByCT(false)
+      // setShowByCT(false)
       setMutipleForm(true)
     }
     const FormMutiple = () => {
@@ -505,12 +502,12 @@ const RenderSeats = ({
       };
       dispatch(updateSeatThunk(payload))
         .unwrap()
-        .then(() => {
+        .then(async() => {
           message.success("Update thành công");
-          // setTimeout(() => {
-          //   window.location.reload();
-          //   onReset();
-          // }, 2000);
+          setTimeout(() => {
+            window.location.reload();
+            onReset();
+          }, 1000);
         })
         .catch((error: any) => {
           handleSubmit();

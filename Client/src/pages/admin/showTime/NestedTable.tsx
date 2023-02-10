@@ -30,7 +30,7 @@ const NestedTable = (props: Props) => {
     dispatch(getAlSt({}));
   }, [dispatch]);
 
-  const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
+  const { stList , isLoading, errorMessage} = useAppSelector((state) => state.ShowTimeReducer);
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
@@ -165,7 +165,7 @@ const NestedTable = (props: Props) => {
   const data: any[] = [];
   for (let key in showByDate) {
     data.push({
-      key: Math.floor(Math.random() * showByDate[key].length * 100),
+      key: Math.floor(Math.random() * showByDate[key].length * Math.random()),
       date: key,
     });
   }
@@ -180,6 +180,7 @@ const NestedTable = (props: Props) => {
         columns={columns}
         expandable={{ expandedRowRender, defaultExpandedRowKeys: ['0'] }}
         dataSource={data}
+        loading={isLoading}
       />
 
     </div>

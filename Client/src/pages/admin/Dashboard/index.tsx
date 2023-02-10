@@ -15,9 +15,8 @@ import {
   Legend,
   LineElement,
 } from "chart.js";
-import { Bar, Line, Radar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 import { useAppSelector } from "../../../redux/hook";
-import Item from "antd/lib/list/Item";
 
 ChartJS.register(
   CategoryScale,

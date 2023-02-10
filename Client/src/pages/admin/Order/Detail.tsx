@@ -13,7 +13,6 @@ const AdminOrdersDetail = (props: Props) => {
    const dispatch = useAppDispatch();
    const [orderDetail, setOrderDetail] = useState<any>();
    const [detail, setDetail] = useState<any>();
-   const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
    useEffect(() => {
       dispatch(getOneOrder(id));
    }, [id]);
@@ -27,7 +26,6 @@ const AdminOrdersDetail = (props: Props) => {
          setOrderDetail(order?.order);
          setDetail(order?.detail);
          let price = (order?.order?.foodDetailId?.totalPrice) + (order?.order?.totalPrice);
-         setTotalPriceFinal(price);
       }
    }, [order]);
    return (

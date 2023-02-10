@@ -114,7 +114,6 @@ export const RenderSeatClient = ({ seats, seatDetails, setSeatDetails, setSeatFi
   }, []);
 
   const clearSelectedSeats = () => { };
-
   const getClassNameForSeats = (seatValue: any) => {
     let seatStatus = seatValue?.status;
     let dynamicClass;
@@ -142,6 +141,7 @@ export const RenderSeatClient = ({ seats, seatDetails, setSeatDetails, setSeatFi
   };
   const price = roomId?.formatId?.extraPrice + showtime?.price;
 
+  
   const onSeatClick = (seatValue: any, rowIndex: any, key: any) => {
     seatValue = {
       ...seatValue,

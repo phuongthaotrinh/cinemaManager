@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./TickitPrice.module.scss";
 type Props = {};
 

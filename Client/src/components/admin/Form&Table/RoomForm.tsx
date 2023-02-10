@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styled from "styled-components";
 import { Button, Card, Form, FormInstance, Input, Select, Skeleton, InputNumber } from "antd";
 import { validateMessages } from "../../../ultils/FormMessage";
 import { useAppSelector } from "../../../redux/hook";
+import { useAppDispatch } from './../../../redux/hook';
+import { getSeatType } from "../../../redux/slice/SeatTypeSlice";
+import { getAllData } from "../../../redux/slice/FilmFormatSlice";
 interface RoomFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -26,9 +29,17 @@ const RoomForm = ({ form, onFinish, showSeatTye, rowFile, colFile, editData = tr
   const [column, setColumn] = useState<number>(colFile);
   const { seatType } = useAppSelector((state: any) => state?.seatTypeReducer);
   const { filmFormats } = useAppSelector((state) => state.FormatReducer);
-
+  const dispatch = useAppDispatch()
   const onChangeRow = (val: any) => { setRow(val) };
   const onChangeCols = (val: any) => { setColumn(val) };
+
+  useEffect(() => {
+    dispatch(getSeatType());
+    dispatch(getAllData());
+  }, [dispatch])
+
+
+
   return (
     <div className="">
       {editData ? (

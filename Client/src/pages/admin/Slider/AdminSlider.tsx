@@ -2,15 +2,19 @@ import { Button, Select, Space, Table, message, } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { EditOutlined } from "@ant-design/icons";
-import { UpdateSliderThunk } from "../../../redux/slice/Slider";
+import { UpdateSliderThunk, getSlider } from "../../../redux/slice/Slider";
 import { defaultStatus } from "../../../ultils/data";
+import { useEffect } from "react"
 type Props = {};
 const { Option } = Select;
 
 const AdminSlider = (props: Props) => {
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getSlider())
+  }, [])
   const { slider } = useAppSelector((state) => state.slider);
-  
+
   const changeStatus = (id: any, value: any, title: any) => {
     dispatch(UpdateSliderThunk({ _id: id, status: value, title: title }))
       .unwrap()

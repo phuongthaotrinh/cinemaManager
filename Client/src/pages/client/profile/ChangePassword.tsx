@@ -1,5 +1,4 @@
-import React from "react";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updatePass } from "../../../redux/slice/userSlice";
 import Swal from "sweetalert2";

@@ -47,10 +47,12 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
 type showTimeState = {
    stList: any[];
    errorMessage: string | undefined;
+   isLoading: boolean
 };
 const initialState: showTimeState = {
    stList: [],
    errorMessage: "",
+   isLoading: false
 };
 
 const ShowTimeSlice = createSlice({
@@ -63,11 +65,16 @@ const ShowTimeSlice = createSlice({
 
       builder.addCase(getAlSt.fulfilled, (state, { payload }) => {
          state.stList = payload;
+         state.isLoading = false
       });
       builder.addCase(getAlSt.rejected, (state, { payload }) => {
          state.errorMessage = payload;
+         state.isLoading = false
       });
-
+      builder.addCase(getAlSt.pending, (state, { payload }) => {
+         state.errorMessage = payload;
+         state.isLoading = true
+      });
       // delete
 
       builder.addCase(removeData.fulfilled, (state, action) => {

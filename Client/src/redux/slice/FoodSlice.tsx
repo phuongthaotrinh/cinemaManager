@@ -72,7 +72,9 @@ export const searchFood = createAsyncThunk(
 
 const initialState: any = {
   food: [],
-  foodDetails: []
+  foodDetails: [],
+  isLoading: false,
+  errMess: ""
 };
 const FoodSlice = createSlice({
   name: "food",
@@ -82,7 +84,7 @@ const FoodSlice = createSlice({
   extraReducers: (builder) => {
     // create
     builder.addCase(createFood.pending, (state, action) => {
-      state.errMess = false;
+      state.isLoading = true
     });
     builder.addCase(createFood.fulfilled, (state, action) => {
       state.food.push(action.payload);
