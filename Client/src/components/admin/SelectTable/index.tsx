@@ -4,6 +4,7 @@ import type { TableRowSelection } from "antd/es/table/interface";
 import { compareDate, ConditionType } from "../../../ultils";
 import { useAppDispatch } from "./../../../redux/hook";
 import { AsyncThunk } from "@reduxjs/toolkit";
+import { FaExchangeAlt } from "react-icons/fa"
 interface DataType {
   key: React.Key;
   name: string;
@@ -32,6 +33,7 @@ const SelectTable = ({ columns, api, data, loading, statusUpdate, currStatus, ty
   const [overDateVC, setOverDateVC] = useState<any>({ status: false, dataOver: [], });
   const [allDataOverDate, setAllDataOverDate] = useState<any>([]);
   const [allDataOverDateVC, setAllDataOverDateVC] = useState<any>([]);
+
   const dispatch = useAppDispatch();
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
@@ -183,7 +185,7 @@ const SelectTable = ({ columns, api, data, loading, statusUpdate, currStatus, ty
   return (
     <>
       {selectedRowKeys?.length > 0 && (
-        <div className="action w-full bg-gray-200 flex-wrap p-3 ">
+        <div className="action w-full bg-gray-100 flex-wrap p-3 ">
           <div className="selector flex justify-center items-center">
             All
             <span className="font-bold px-1">{selectedRowKeys?.length}</span>
@@ -241,13 +243,14 @@ const SelectTable = ({ columns, api, data, loading, statusUpdate, currStatus, ty
             )}
           </div>
           <div className="optional flex justify-center items-center">
-            <Tooltip title="Chuyển sang trạng thái">
-              <Button type="default" onClick={handleChange}>
-                {currStatus == 0
-                  ? "Chuyển sang dừng hoạt động"
-                  : "Chuyển sang hoạt động "}
+            <div className="flex justify-center items-center">
+              <Button type="text" style={{ cursor: "default" }}>
+                {currStatus == 0 ? "Hoạt động" : "Dừng hoạt động"}
               </Button>
-            </Tooltip>
+              <FaExchangeAlt />
+              <Button type="link" onClick={handleChange}>
+                {currStatus == 0 ? "Dừng hoạt động" : "Hoạt động "}
+              </Button></div>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect } from "react";
 import configRoute from "../../config";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import { AiFillHeart } from 'react-icons/ai'
 import SignUpSocial from "../../components/client/SignUpSocial";
 import { Button, notification } from "antd";
 import { LogOut } from "../../redux/slice/AuthSlice";
+import "./index.scss"
 type Props = {
   children: JSX.Element;
 };
@@ -27,15 +28,15 @@ const AuthCore = ({ children }: Props) => {
     navigate(configRoute.routes.signin)
   }
   return (
-    <section className="container max-w-6xl px-3 mx-auto justify-center h-[550px] sm:h-auto  shadow-lg rounded-md">
-      <div className="w-full h-full">
+    <section className="h-[100vh] flex justify-center items-center  rounded-sm border border-solid">
+      <div className="w-[80%] shadow-custom">
         <div className="grid lg:grid-cols-2  sm:grid sm:grid-cols-1">
           <div className=" w-[608px] p-[30px] sm:place-items-center">
-            <div className="font-[800] text-[21.5px]  leading-[27px] mb-[10px] pl-4">
+            <div className="font-[800] text-[21.5px]  leading-[27px] mb-3 pl-4">
               <Link to={configRoute.routes.home}>
-                <h1 className="text-center font-bold text-[30px]  opacity-1 uppercase">{webConfigs[0]?.storeName}</h1>
+                <h1 className="text-center font-bold text-[40px]  opacity-1 uppercase">{webConfigs[0]?.storeName}</h1>
               </Link>
-              <h3>Cuộc sống hàng ngày dễ chịu, niềm vui hàng ngày</h3>
+              <h3 className="">Cuộc sống hàng ngày dễ chịu, niềm vui hàng ngày</h3>
             </div>
             <div className=" font-[400] text-[14px] leading-[20px] text-[#949494]  mb-[80px] pl-4">
               <p>
@@ -43,7 +44,7 @@ const AuthCore = ({ children }: Props) => {
                 với tài khoản {webConfigs[0]?.storeName} Friends của bạn!
               </p>
             </div>
-            <div className=" flex w-full justify-center ">
+            <div className="flex justify-center items-center  ">
               <img src={webConfigs[0]?.logo[0]?.url} className="max-w-[350px] h-[296px] align-middle" />
             </div>
           </div>

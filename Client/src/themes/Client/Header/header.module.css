@@ -5,7 +5,7 @@
     @apply flex justify-between mx-auto w-[1200px] 
 }
 .header .logo img{
-    width: 100px;
+    width: 80px;
     margin-top: 5px;
 }
 .header .header_navbar nav ul{
