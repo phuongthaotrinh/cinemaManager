@@ -9,7 +9,7 @@ import { LogOut } from "../../redux/slice/AuthSlice";
 import Loading from "../../components/Loading";
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<any>['items'][string];
-
+import "./adminTheme.scss"
 type AdminLayoutProps = {
   children: JSX.Element;
   title: string;
@@ -39,7 +39,7 @@ const AdminLayout = ({ children, title, BCR }: AdminLayoutProps) => {
   const [collapsed, setCollapsed] = useState(false);
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }} className="admin_theme">
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} breakpoint="md" collapsedWidth={50} >
         <div style={{ padding: "0 16px", height: 46, lineHeight: "50px", fontSize: 20, fontWeight: 700, textTransform: "uppercase", color: "#fff", textAlign: "center", }}>
           <Link to="/" style={{ color: "#fff" }}>
@@ -66,7 +66,7 @@ const AdminLayout = ({ children, title, BCR }: AdminLayoutProps) => {
           </div>
         </Header>
 
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{ margin: '0 16px' }} className="admin_theme_content">
           <div style={{ margin: '16px 0' }} id="breadcrumbLocation">
             {BCR}
           </div>

@@ -156,7 +156,7 @@ export const getDashBoardData = async (req, res) => {
       },
       { $sort: { date: 1 } }
     ]).exec();
-    const topMovieProfit = await movie.find().sort({ "profit": -1 }).select(["name", "profit"]).exec();
+    const topMovieProfit = await movie.find().sort({ "profit": -1 }).select(["name", "profit", "image", "languages"]).exec();
     const companyProfit = await Order.aggregate([
       {
         $lookup: {

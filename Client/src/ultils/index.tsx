@@ -152,17 +152,3 @@ export const percentage = (data: number, ...arg: any) => {
   return res
 }
 
-
-export const lazyload = (path: any, nameExport: any) => {
-  return lazy(async () => {
-    const promise = import(path);
-    if (nameExport == null) {
-      return promise
-    } else {
-      const module = await promise;
-      return (
-        { default: module[nameExport] }
-      );
-    }
-  })
-}

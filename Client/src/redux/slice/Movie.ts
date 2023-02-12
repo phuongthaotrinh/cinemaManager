@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { MovieApi } from "../../service/MovieApi";
+import { RootState } from "../store";
 
 export const createMovie = createAsyncThunk(
   "movie/MovieCreate",
@@ -81,16 +82,17 @@ export const searchMovie = createAsyncThunk(
     }
   }
 );
-//  const movieState = {
-//   movie: any[];
-//   isFetching: boolean;
-//   isSucess: boolean;
-//   errMess: boolean;
-// };
-const initialState: any = {
+type initialStateT = {
+  movie: any[],
+  oneMovie: any[],
+  movieSearch: any[],
+  errMess: any,
+  isLoading: boolean
+}
+const initialState: initialStateT = {
   movie: [],
   oneMovie: [],
-  errMess: false,
+  errMess: "",
   movieSearch: [],
   isLoading: false
 };
@@ -102,19 +104,12 @@ const movieSlice = createSlice({
     // create
     builder.addCase(createMovie.pending, (state, action) => {
       state.errMess = false;
-      //   state.isFetching = true;
-      //   state.isSucess = false;
     });
     builder.addCase(createMovie.fulfilled, (state, action) => {
-      //   state.errMess = false;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
       state.movie.push(action.payload);
     });
     builder.addCase(createMovie.rejected, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     // list
     builder.addCase(getMovie.pending, (state, action) => {
@@ -132,8 +127,6 @@ const movieSlice = createSlice({
     // remove
     builder.addCase(removeMovieItem.fulfilled, (state, action) => {
       state.errMess = action.payload;
-      //   state.isFetching = false;
-      //   state.isSucess = true;
       state.movie = state.movie.filter(
         (x: any) => x._id !== action.payload._id
       );
@@ -154,19 +147,13 @@ const movieSlice = createSlice({
 
     builder.addCase(getOneMovie.pending, (state, action) => {
       state.errMess = false;
-      state.isFetching = true;
-      state.isSucess = false;
     });
     builder.addCase(getOneMovie.fulfilled, (state, action) => {
       state.errMess = false;
-      state.isFetching = false;
-      state.isSucess = true;
       state.oneMovie = action.payload;
     });
     builder.addCase(getOneMovie.rejected, (state, action) => {
       state.errMess = true;
-      //   state.isFetching = false;
-      //   state.isSucess = false;
     });
     builder.addCase(searchMovie.fulfilled, (state, action) => {
       state.movieSearch = action.payload;
@@ -174,4 +161,8 @@ const movieSlice = createSlice({
   },
 });
 
+// Select state currentUser from slice
+export const selectMovies = (state:RootState) =>state.movie.movie
+export const oneMovie = (state:RootState) => state.movie.oneMovie
+export const selectPending = (state:RootState) => state.movie.isLoading
 export default movieSlice.reducer;

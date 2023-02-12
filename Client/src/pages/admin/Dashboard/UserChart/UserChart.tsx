@@ -1,14 +1,15 @@
 import { Table } from "antd";
-import useSelectUser from "../../../hook/useSelectUser";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { useSelectUser } from "../../../../hook";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface Props { }
+interface Props {
+}
 
-const UserChart = (props: Props) => {
-  const { dayta } = useSelectUser();
+const UserChart = ({}: Props) => {
+  const { dayta, total } = useSelectUser();
   const data = {
     labels: dayta.map((item) => item.name),
     datasets: [
@@ -29,25 +30,20 @@ const UserChart = (props: Props) => {
       },
     ],
   };
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
-    },
-    {
-      key: "2",
-      name: "John",
-      age: 42,
-      address: "10 Downing Street",
-    },
-  ];
+  const dataSource = dayta.map((item: any, index: any) => {
+    return {
+      key: index + 1,
+      name: item?.name,
+      data: item?.data.length,
+      percent: (item?.percent)
+    }
+  })
 
   const columns = [
     {
       title: "#",
-      key: "key"
+      key: "key",
+      dataIndex: "key"
     },
     {
       title: "Name",
@@ -55,21 +51,23 @@ const UserChart = (props: Props) => {
       key: "name",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "SL",
+      dataIndex: "data",
+      key: "data",
+      render: (_: any, { data }: any) => <p>{`${data} / ${total}`}</p>
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Percent",
+      dataIndex: "percent",
+      key: "percent",
+      render: (_: any, { percent }: any) => <p>{`${percent}%`}</p>
     },
   ];
   return (
     <div className=" grid grid-cols-2 gap-5	">
       <div className="progress w-full h-auto overflow-auto" style={{
       }}>
-        <Table dataSource={dataSource} columns={columns} pagination={false} />
+        <Table dataSource={dataSource} columns={columns} pagination={false} loading={(!dayta || !total) ? true : false} />
       </div>
       <div className="canvas_fill">
         <Doughnut data={data} width={3} height={3} />

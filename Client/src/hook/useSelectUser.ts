@@ -14,6 +14,7 @@ const useSelectUser = () => {
   const [activeUser, setActiveUser] = useState<DashBoardUser>({ name: "", data: [], percent: 0, sortname: "" });
   const [inActiveUser, setInActiveUser] = useState<DashBoardUser>({ name: "", data: [], percent: 0, sortname: "" });
   const [closeUser, setCloseUser] = useState<DashBoardUser>({ name: "", data: [], percent: 0, sortname: "" });
+  const [total, setTotal] = useState(0)
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,12 +28,13 @@ const useSelectUser = () => {
       setActiveUser({ name: "Người dùng đang hoạt động", data: active, percent: a[0], sortname: "Active" });
       setInActiveUser({ name: "Người dùng  đã dừng hoạt động", data: closeUser, percent: a[1], sortname: "Close" });
       setCloseUser({ name: "Người dùng chưa xác thực", data: inActive, percent: a[2], sortname: "InActive" });
+      setTotal(len)
     })();
 
   }, [dispatch]);
 
   const dayta = [{ ...activeUser }, { ...closeUser }, { ...inActiveUser }];
-  return { activeUser, inActiveUser, closeUser, dayta }
+  return { activeUser, inActiveUser, closeUser, dayta, total }
 }
 
 export default useSelectUser;
