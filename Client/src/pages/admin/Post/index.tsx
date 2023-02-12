@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import DataTable from "../../../components/admin/Form&Table/Table"
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"))
 import { Space, Typography, message, Tooltip, Button, Select, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
 import { Link } from 'react-router-dom';
@@ -28,12 +28,12 @@ const AdminPosts = (props: Props) => {
       .catch(() => message.error(errorMessage))
   };
 
-  const changeStatus = (id: any, value: any,title:any) => {
+  const changeStatus = (id: any, value: any, title: any) => {
     dispatch(updateData({ _id: id, status: value, title: title })).unwrap()
-    .then(() => {
-      message.success('Thay đổi trạng thái thành công');
-      dispatch(getAlPost())
-    });
+      .then(() => {
+        message.success('Thay đổi trạng thái thành công');
+        dispatch(getAlPost())
+      });
   }
 
   const columns: any[] = [
@@ -150,7 +150,7 @@ const AdminPosts = (props: Props) => {
       <Button type="primary" style={{ marginBottom: "20px", marginRight: "12px" }}>
         <Link to="add">Tạo Bài viết</Link>
       </Button>
-      <Button  style={{ marginBottom: "20px" }}>
+      <Button style={{ marginBottom: "20px" }}>
         <Link to={configRoute.routes.adminCategories}>DS Danh mục</Link>
       </Button>
       <DataTable column={columns} data={data} />

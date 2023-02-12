@@ -1,8 +1,9 @@
+import { lazy } from "react"
 import { Space, Button } from "antd";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { EditOutlined } from "@ant-design/icons";
-import DataTable from "../../../components/admin/Form&Table/Table";
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import configRoute from "../../../config";
 type Props = {};
 

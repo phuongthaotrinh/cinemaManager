@@ -1,6 +1,7 @@
 import { formatDistance, parseISO } from "date-fns";
 import { isPast } from "date-fns/esm";
 import moment from "moment";
+import { lazy } from "react";
 
 export const formatCurrency = (money?: number) => {
   let newMoney;
@@ -129,3 +130,39 @@ export const compareBtwDate = (start?: any, end?: any, condition?: any) => {
   return distanceV;
 };
 
+
+export const upperOrLowerText = (val: string, condition: "upper" | "low") => {
+  if (condition == "upper") {
+    let data = val.toString().trim().toUpperCase();
+    return data;
+  } else {
+    let data = val.toString().trim().toLowerCase();
+    return data;
+  }
+};
+
+
+export const percentage = (data: number, ...arg: any) => {
+  const res: any[] = []
+  for (const iterator of arg) {
+    const a = Math.round((iterator / data) * 100);
+
+    res.push(a)
+  }
+  return res
+}
+
+
+export const lazyload = (path: any, nameExport: any) => {
+  return lazy(async () => {
+    const promise = import(path);
+    if (nameExport == null) {
+      return promise
+    } else {
+      const module = await promise;
+      return (
+        { default: module[nameExport] }
+      );
+    }
+  })
+}

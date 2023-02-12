@@ -1,3 +1,4 @@
+import {lazy} from "react"
 import { Button, message, Modal, Select, Tooltip } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ import {
 import { AiOutlineInfoCircle, AiOutlineMore } from "react-icons/ai";
 import { defaultStatus } from "../../../ultils/data";
 import { useSearch } from "../../../hook";
-import SelectTable from "../../../components/admin/SelectTable";
+const SelectTable = lazy(() => import("../../../components/admin/SelectTable")) ;
 
 type Props = {
   data: any;

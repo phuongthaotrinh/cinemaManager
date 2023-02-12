@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,lazy} from "react";
 import { Link } from "react-router-dom";
-import SlideShow from "../../../components/client/SlideShow/SlideShow";
+const SlideShow = lazy(() => import("../../../components/client/SlideShow/SlideShow")) ;
 import styles from "./Home.module.scss";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { convertDateToNumber, formatDate } from "../../../ultils";
-import Voucher from "../../../components/client/voucher";
-import News from "../News/News";
-import { Spin } from "antd";
-import Loading from "../../../components/Loading";
+const  Voucher = lazy(() => import( "../../../components/client/voucher"));
+const  News = lazy(() => import("../News/News")) ;
+const  Loading = lazy(() => import("../../../components/Loading")) ;
 import { getSlider } from "../../../redux/slice/Slider";
 import { getMovie } from "../../../redux/slice/Movie";
 

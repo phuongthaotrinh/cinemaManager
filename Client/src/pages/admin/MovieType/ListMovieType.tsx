@@ -1,13 +1,18 @@
 import { Button, Space } from "antd";
-import React from "react";
+import React, { useEffect, lazy } from "react";
 import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import configRoute from "../../../config";
-import { useAppSelector } from "../../../redux/hook";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { EditOutlined } from "@ant-design/icons";
+import { getMovieType } from "../../../redux/slice/movieTypeSlice";
 type Props = {};
 
 const ListMovieType = (props: Props) => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getMovieType())
+  }, [])
   const { movieType, isFetching } = useAppSelector(
     (state) => state.movieTypeReducer
   );

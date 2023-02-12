@@ -1,8 +1,8 @@
 import { Form, Button, message } from "antd";
 import moment from "moment";
-import { useState, useEffect } from 'react';
+import { useState, useEffect,lazy } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import UserForm from '../../../components/admin/Form&Table/UserForm';
+const UserForm = lazy(() => import('../../../components/admin/Form&Table/UserForm')) ;
 import config from '../../../config';
 import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { createUser } from "../../../redux/slice/userSlice"
@@ -51,7 +51,7 @@ const UserCreate = (props: Props) => {
         newPass={newPass}
         setNewPass={setNewPass}
         showPass={showPass}
-        userEdit={false}
+        userEdit={true}
         userId={undefined} />
     </div>
   )

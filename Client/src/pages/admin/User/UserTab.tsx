@@ -1,44 +1,30 @@
+import { lazy } from "react"
 import { Button, Tabs } from 'antd';
-import { useEffect, useState } from 'react'
-import { useAppSelector } from '../../../redux/hook';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getUsers } from '../../../redux/slice/userSlice';
-import AdminUserList from './List';
+const AdminUserList = lazy(() => import('./List'));
+import { useSelectUser } from '../../../hook';
 type Props = {
 }
 
 const UserTab = ({ }: Props) => {
    document.title = "Admin | Orders";
-   const dispatch = useDispatch<any>();
-   useEffect(() => { dispatch(getUsers()) }, [dispatch])
-   const { users } = useAppSelector((state: any) => state.userReducer);
-   const [userActive, setUserActive] = useState<any[]>([]);
-   const [userInActive, setUserInActive] = useState<any[]>([]);
-   const [userClose, setUserClose] = useState<any[]>([]);
-   useEffect(() => {
-      if (users) {
-         setUserInActive(users?.filter((item: any) => item?.status == 0));
-         setUserActive(users?.filter((item: any) => item?.status == 1))
-         setUserClose(users?.filter((item: any) => item?.status == 2))
-      }
-   }, [users])
+   const { activeUser, closeUser, inActiveUser } = useSelectUser()
 
    const items: any[] = [
       {
          key: 1,
-         label: `Người dùng đang hoạt động (${userActive?.length})`,
-         children: <AdminUserList data={userActive} />
+         label: `${activeUser?.name} (${activeUser?.data?.length})`,
+         children: <AdminUserList data={activeUser.data} />
       },
       {
          key: 2,
-         label: `Người dùng  đã dừng hoạt động(${userClose?.length}) `,
-         children: <AdminUserList data={userClose} />
+         label: `${closeUser?.name}(${closeUser?.data?.length}) `,
+         children: <AdminUserList data={closeUser.data} />
       },
       {
          key: 3,
-         label: `Người dùng chưa xác thực(${userInActive?.length}) `,
-         children: <AdminUserList data={userInActive} />
+         label: `${inActiveUser?.name}(${inActiveUser?.data?.length}) `,
+         children: <AdminUserList data={inActiveUser.data} />
       },
    ]
 

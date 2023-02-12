@@ -1,14 +1,13 @@
-import { Button, Tabs, message } from 'antd';
-import { useEffect, useState } from 'react'
+import { Button, Tabs } from 'antd';
+import { useEffect, useState,lazy } from 'react'
 import { useAppSelector } from '../../../redux/hook';
-import MovieTable from './MovieTable';
+const MovieTable = lazy(() => import('./MovieTable')) ;
 import { useDispatch } from 'react-redux';
 import { getAllOrders } from '../../../redux/slice/OrdersSlice';
 import { Link } from 'react-router-dom';
 import configRoute from '../../../config';
-import SearchByCate from '../../../components/admin/SearchByCate';
-import { MovieMutipleOption } from '../../../ultils/data'
 import { getMovie } from '../../../redux/slice/Movie';
+import useSelectMovie from "../../../hook/useSelectMovie"
 type Props = {
 }
 
@@ -18,12 +17,11 @@ const MovieTab = ({ }: Props) => {
    useEffect(() => { dispatch(getAllOrders({})) }, [dispatch]);
    useEffect(() => { dispatch(getMovie()) }, [dispatch]);
 
-   
-   const { movie, isLoading } = useAppSelector((state) => state.movie)
+   const {isLoading} = useSelectMovie({})
+
+   const { movie } = useAppSelector((state) => state.movie)
    const [movieActive, setMovieActive] = useState<any[]>([]);
    const [movieInActive, setMovieInActive] = useState<any[]>([]);
-   const [hiddenEl, setHiddenEl] = useState<any>(false)
-   const [findData, setFindData] = useState<any[]>([]);
    useEffect(() => {
       if (movie) {
          setMovieActive(movie?.filter((item: any) => item?.status == 0));
@@ -43,26 +41,8 @@ const MovieTab = ({ }: Props) => {
          children: <MovieTable data={movieInActive} isLoading={isLoading} statusUpdate={0} currStatus={1} />
       },
    ]
-   const SearchItems: any[] = [
-      {
-         key: 4,
-         label: ` Phim tìm thấy (${findData?.length})`,
-         children: <MovieTable data={findData} isLoading={isLoading} />
-      },
-   ]
-
-   const onFinish = (val: any) => {
-      if (val?.optionData == "name") {
-         let a = movie.filter((item: any) => item?.name.toLowerCase().includes(val?.searchValue.toLowerCase()));
-         if (a?.length > 0) { setHiddenEl(true); setFindData(a) } else { message.error("Không tìm phim đơn nào"); setFindData([]); setHiddenEl(true) }
-      }
-   }
-   const onReset = () => {
-      setHiddenEl(false)
-   }
    return (
       <>
-         <SearchByCate data={movie} onFinish={onFinish} onReset={onReset} category={MovieMutipleOption} />
          <div className="flex gap-5">
             <Button type="primary" style={{ marginBottom: "20px" }}>
                <Link to="/admin/movies/create">Tạo Phim</Link>
@@ -73,21 +53,13 @@ const MovieTab = ({ }: Props) => {
                </Link>
             </Button>
          </div>
-         {!hiddenEl ? (
+      
             <Tabs
                defaultActiveKey="1"
                size={"small"}
                style={{ marginBottom: 32 }}
                items={items}
             />
-         ) : (
-            <Tabs
-               defaultActiveKey="1"
-               size={"small"}
-               style={{ marginBottom: 32 }}
-               items={SearchItems}
-            />
-         )}
       </>
 
    )

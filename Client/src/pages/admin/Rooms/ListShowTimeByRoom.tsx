@@ -7,6 +7,7 @@ import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
 import { Link, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useGroupBy } from "../../../hook";
+import { PAGE_SIZE } from "../../../ultils/data";
 type Props = {};
 interface ExpandedDataType {
   key: React.Key;
@@ -44,7 +45,7 @@ const ListShowTimeByRoom = ({ }: Props) => {
   }, [stByRoom]);
 
   const handleSubmit = () => {
-    let sort: any[] = stByRoom?.sort( (a: any, b: any) => convertDate(b.startAt) - convertDate(a.startAt)  );
+    let sort: any[] = stByRoom?.sort((a: any, b: any) => convertDate(b.startAt) - convertDate(a.startAt));
     const group = groupByDate(sort)
     setShowByDate({ ...group });
   };
@@ -105,7 +106,12 @@ const ListShowTimeByRoom = ({ }: Props) => {
         }
       });
     }
-    return <Table columns={columns} dataSource={data} pagination={false} />;
+    return <Table columns={columns} dataSource={data}
+      pagination={data && data?.length > PAGE_SIZE && {
+        defaultPageSize: 5,
+        showSizeChanger: true,
+        pageSizeOptions: ["5", "10", "20", "30"]
+      }} />;
   };
   const columns: TableColumnsType<any[]> = [
     { title: "Ngày chiếu", dataIndex: "date", key: "date" },
@@ -139,6 +145,11 @@ const ListShowTimeByRoom = ({ }: Props) => {
             columns={columns}
             expandable={{ expandedRowRender, defaultExpandedRowKeys: ["0"] }}
             dataSource={dataTable}
+            pagination={dataTable && dataTable?.length > PAGE_SIZE && {
+              defaultPageSize: 5,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "20", "30"]
+            }}
           />
         </div>
       ) : (

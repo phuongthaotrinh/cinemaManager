@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import UserForm from "../../../components/admin/Form&Table/UserForm";
+import { useEffect, useState,lazy } from "react";
+const UserForm = lazy(() => import("../../../components/admin/Form&Table/UserForm")) ;
 import { Form, message } from "antd";
 import moment from "moment";
 import { AuthApi } from "../../../service/authApi";

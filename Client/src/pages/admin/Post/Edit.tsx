@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import { Button, Form, message } from "antd";
-import { useDispatch } from "react-redux";
 import { updateData } from "../../../redux/slice/PostSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import PostForm from "../../../components/admin/Form&Table/PostForm";
+const PostForm = lazy(() => import("../../../components/admin/Form&Table/PostForm"));
 import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
 import configRoute from "../../../config";

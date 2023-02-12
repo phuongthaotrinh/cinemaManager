@@ -1,3 +1,4 @@
+import { useEffect, lazy } from "react";
 import { message, Select, Space, Typography, Tag } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { Link } from "react-router-dom";
@@ -9,9 +10,10 @@ import {
 } from "../../../ultils";
 import { defaultStatus } from "../../../ultils/data";
 import { useSearch } from "../../../hook";
-import SelectTable from "../../../components/admin/SelectTable";
+const SelectTable = lazy(() => import("../../../components/admin/SelectTable"));
 import moment from "moment";
 import { isPast, parseISO } from "date-fns";
+
 type Props = {
   data: any;
   isLoading?: boolean;
@@ -24,7 +26,6 @@ const { Text } = Typography
 const AdminVoucherList = ({ data, isLoading, statusUpdate, currStatus }: Props) => {
   document.title = "Admin | DS Phim";
   const dispatch = useAppDispatch();
-
   const { getColumnSearchProps } = useSearch();
 
   const changeStatus = (id: any, value: any) => {

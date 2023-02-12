@@ -1,6 +1,6 @@
 import {  notification } from "antd";
-import { useEffect, useState } from "react";
-import Ticket from "../../../components/client/Ticket";
+import { useEffect, useState,lazy } from "react";
+const Ticket = lazy(() => import("../../../components/client/Ticket")) ;
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getByShortId } from "../../../redux/slice/OrdersSlice";
 type Props = {}

@@ -1,9 +1,10 @@
-import { Button, message, Space, Tag } from "antd";
+import {lazy} from "react";
+import { Button, Space, Tag } from "antd";
 import { Link } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import configRoute from "../../../config";
 import { useAppSelector } from "../../../redux/hook";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 type Props = {};
 
 const WebConfig = (props: Props) => {

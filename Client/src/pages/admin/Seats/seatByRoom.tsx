@@ -1,7 +1,7 @@
 import { Button, Collapse, Tabs } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy} from "react";
 import { Link, useParams } from "react-router-dom";
-import RenderSeats from "../../../components/admin/RenderSeats";
+const RenderSeats = lazy(() => import("../../../components/admin/RenderSeats"));
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 import { RenderSeatClient } from "../../../components/admin/RenderSeats/RenderSeatClient";

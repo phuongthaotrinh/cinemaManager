@@ -1,18 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,lazy } from "react";
 import { Button, Form, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import config from "../../../config";
-import VoucherForm from "../../../components/admin/Form&Table/VoucherForm";
+const VoucherForm = lazy(() => import("../../../components/admin/Form&Table/VoucherForm")) ;
 import { useAppSelector, useAppDispatch } from "../../../redux/hook";
 import { createData } from "../../../redux/slice/voucherSlice";
 import moment from "moment";
-import { useUpperText } from "../../../hook";
+import { upperOrLowerText } from "../../../ultils";
 
 type Props = {};
 
 const AdminVoucherCreate = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
-  const { upper } = useUpperText()
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ const AdminVoucherCreate = (props: Props) => {
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
       values.imagesFile = values?.avatarList?.fileList;
-      values.code = upper(values.code);
+      values.code = upperOrLowerText(values.code, "upper");
       await dispatch(createData({ ...values, timeStart, timeEnd })).unwrap();
       message.success("Thêm Voucher thành công");
       navigate(config.routes.AdminVouchers);

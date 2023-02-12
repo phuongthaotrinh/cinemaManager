@@ -1,7 +1,8 @@
+import { lazy } from "react"
 import { Button, Card, Form, Input, InputNumber, message, Space } from "antd";
 import { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import DataTable from "../../../components/admin/Form&Table/Table";
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import { EditOutlined } from "@ant-design/icons";
 import { formatCurrency } from "../../../ultils";
 import { updateData, createData, getAllData } from "../../../redux/slice/FilmFormatSlice";
@@ -17,7 +18,7 @@ const FilmFormatList = (props: Props) => {
   const [flag, setFlag] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-  useEffect(() => { setFlag(flag)}, [flag]);
+  useEffect(() => { setFlag(flag) }, [flag]);
 
   useEffect(() => {
     document.title = "Admin | FilmFormat Manager";

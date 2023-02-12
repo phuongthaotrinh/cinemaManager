@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,lazy } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateUser } from "../../../redux/slice/userSlice";
-import UserForm from "../../../components/admin/Form&Table/UserForm";
+const UserForm = lazy(() => import("../../../components/admin/Form&Table/UserForm")) ;
 import config from "../../../config";
 import moment from "moment";
 interface Props { }

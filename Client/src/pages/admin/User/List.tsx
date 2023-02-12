@@ -3,10 +3,9 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { updateUser } from "../../../redux/slice/userSlice";
 import { EditOutlined } from "@ant-design/icons";
-import { userRole, userStatus } from "../../../ultils/data";
+import { userRole, userStatus ,PAGE_SIZE} from "../../../ultils/data";
 import { provices } from "../../../redux/slice/Provider";
 import { useSearch } from "../../../hook";
-
 type Props = {
   data: any
 };
@@ -34,6 +33,10 @@ const AdminUserList = ({ data }: Props) => {
   };
   const columnUserList: any = [
     {
+      title: "#",
+      dataIndex: "key"
+    },
+    {
       title: "Ảnh",
       dataIndex: "image",
       key: "image",
@@ -45,7 +48,7 @@ const AdminUserList = ({ data }: Props) => {
       width: 30,
     },
     {
-      title: "EMAIL",
+      title: "Email",
       dataIndex: "email",
       key: "email",
       ...getColumnSearchProps("email"),
@@ -152,7 +155,7 @@ const AdminUserList = ({ data }: Props) => {
       width: 30,
     },
     {
-      title: "Hành động",
+      title: "",
       key: "action",
       render: (_: any, record: any) => (
         <Space size="middle">
@@ -184,7 +187,14 @@ const AdminUserList = ({ data }: Props) => {
 
   return (
     <div>
-      <Table columns={columnUserList} dataSource={dataSource} loading={isFetching} />
+      <Table columns={columnUserList} dataSource={dataSource} loading={isFetching}
+        pagination={data.length > PAGE_SIZE && {
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ["5", "10", "20", "30"]
+        }}
+      />
+
     </div>
   );
 };

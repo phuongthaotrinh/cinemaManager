@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Button, message, Select, TableColumnsType } from 'antd';
-import { Table } from 'antd';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import React, { useState, useEffect,lazy } from 'react';
+import { Button, message, Select, TableColumnsType,Table } from 'antd';
 import { Link, useSearchParams } from 'react-router-dom';
-import { formatDate, formatTime } from '../../../ultils';
-import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
 import { isPast, parseISO } from "date-fns";
+
+import { formatDate, formatTime ,convertDate} from '../../../ultils';
+import { useAppDispatch, useAppSelector} from '../../../redux/hook';
+import { getAlSt,updateData } from '../../../redux/slice/ShowTimeSlice';
 import { defaultStatus } from '../../../ultils/data';
-import { updateData } from "../../../redux/slice/ShowTimeSlice"
 import configRoute from '../../../config';
-import { convertDate } from '../../../ultils';
-import DrawerShowTime from './DrawerShowTime';
-import AdminShowTimesCreate from './Create';
 import { useGroupBy } from '../../../hook';
+const DrawerShowTime = lazy(() => import('./DrawerShowTime')) ;
+const AdminShowTimesCreate = lazy(() => import('./Create'));
+
 type Props = {}
 interface ExpandedDataType {
   key: React.Key;

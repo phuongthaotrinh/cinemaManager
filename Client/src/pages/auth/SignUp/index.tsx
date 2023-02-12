@@ -3,7 +3,8 @@ import config from "../../../config";
 import { Form, notification } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { authAsyncRegister } from "../../../redux/slice/AuthSlice";
-import AuthForm from "../../../components/auth/AuthForm";
+import { lazy } from 'react';
+const AuthForm = lazy(() => import("../../../components/auth/AuthForm"));
 type Props = {};
 
 const SignUp = (props: Props) => {

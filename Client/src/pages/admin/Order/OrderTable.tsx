@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { EditOutlined } from "@ant-design/icons";
 import { formatCurrency, formatDate, formatTime } from '../../../ultils';
 import { useSearch } from '../../../hook';
+import { PAGE_SIZE } from '../../../ultils/data';
 
 type Props = { data: any }
 
@@ -100,7 +101,12 @@ const OrderTable = ({ data }: Props) => {
    ];
    return (
       <div>
-         <Table columns={columns} dataSource={dataSource}  />
+         <Table columns={columns} dataSource={dataSource}
+            pagination={dataSource && dataSource?.length > PAGE_SIZE && {
+               defaultPageSize: 5,
+               showSizeChanger: true,
+               pageSizeOptions: ["5", "10", "20", "30"]
+            }} />
       </div>
    )
 }

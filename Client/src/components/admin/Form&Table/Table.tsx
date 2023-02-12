@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Empty, Table } from "antd";
 import styled from "styled-components";
+import { PAGE_SIZE } from "../../../ultils/data";
 interface DataTableProps {
   column: any[];
   data?: any[];
@@ -45,6 +46,11 @@ const DataTable = ({
             ),
           }}
           loading={loading}
+          pagination={data && data?.length > PAGE_SIZE && {
+            defaultPageSize: 5,
+            showSizeChanger: true,
+            pageSizeOptions: ["5", "10", "20", "30"]
+          }}
         />
       </TableWrapper>
     </>

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState , lazy} from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import NavNews from "../../../components/client/NavNews";
-import NewsContent from "../../../components/client/NewsContent";
+const NavNews = lazy(() => import("../../../components/client/NavNews")) ;
+const NewsContent = lazy(() => import("../../../components/client/NewsContent")) ;
 import config from "../../../config";
 import "./News.module.scss";
 import { useAppSelector } from "../../../redux/hook";

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link } from "react-router-dom";
 import { updateRoom, getRooms } from "../../../redux/slice/roomSlice";
 import { EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { defaultStatus } from "../../../ultils/data";
+import { PAGE_SIZE, defaultStatus } from "../../../ultils/data";
 import configRoute from "../../../config";
 import { useSearch } from "../../../hook";
 const { Option } = Select;
@@ -155,7 +155,12 @@ const AdminRoomList = (props: Props) => {
           </Link>
         </Button>
       </div>
-      <Table columns={columns} dataSource={data} loading={isFetching} />
+      <Table columns={columns} dataSource={data} loading={isFetching}
+        pagination={data && data?.length > PAGE_SIZE && {
+          defaultPageSize: 5,
+          showSizeChanger: true,
+          pageSizeOptions: ["5", "10", "20", "30"]
+        }} />
     </div>
   );
 };

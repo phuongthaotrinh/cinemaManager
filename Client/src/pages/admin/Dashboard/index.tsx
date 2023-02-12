@@ -3,7 +3,7 @@ import { MovieApi } from "../../../service/MovieApi";
 import { orderApi } from "../../../service/orders";
 import { UserApi } from "../../../service/userApi";
 import { RiMovie2Fill, RiUserLine } from "react-icons/ri";
-import {FaCheckCircle, FaCartArrowDown, FaShippingFast, FaMoneyCheck,FaTimes} from "react-icons/fa"
+import { FaCheckCircle, FaCartArrowDown, FaShippingFast, FaMoneyCheck, FaTimes } from "react-icons/fa"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -175,99 +175,105 @@ const Dashboard = (props: Props) => {
   }, []);
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 mb-4 gap-4">
-        {statOrder?.map((item, index) => (
-          <div
-            key={index}
-            className={`bg-white p-3 rounded-md ${
-              item.status === 0
-                ? "order__card-item--new"
-                : item.status === 1
-                ? "order__card-item--verified"
-                : item.status === 2
-                ? "order__card-item--progress"
-                : item.status === 3
-                ? "order__card-item--success"
-                : "order__card-item--cancel"
-            }`}
-          >
-            <div className="">
-              <div className="flex items-center justify-between">
-                <div className="">
-                  {item.status === 0 ? (
-                    <FaCartArrowDown />
-                  ) : item.status === 1 ? (
-                    <FaCheckCircle />
-                  ) : item.status === 2 ? (
-                    <FaShippingFast />
-                  ) : item.status === 3 ? (
-                    <FaMoneyCheck/>
-                  ) : (
-                    <FaTimes />
-                  )}
-                </div>
-                <div className="text-center">
-                  <strong>{item.total}</strong>
-                  <p className="font-semibold text-sm">{item.statusText}</p>
-                </div>
-              </div>
+    // <div>
+    //   <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 mb-4 gap-4">
+    //     {statOrder?.map((item, index) => (
+    //       <div
+    //         key={index}
+    //         className={`bg-white p-3 rounded-md ${
+    //           item.status === 0
+    //             ? "order__card-item--new"
+    //             : item.status === 1
+    //             ? "order__card-item--verified"
+    //             : item.status === 2
+    //             ? "order__card-item--progress"
+    //             : item.status === 3
+    //             ? "order__card-item--success"
+    //             : "order__card-item--cancel"
+    //         }`}
+    //       >
+    //         <div className="">
+    //           <div className="flex items-center justify-between">
+    //             <div className="">
+    //               {item.status === 0 ? (
+    //                 <FaCartArrowDown />
+    //               ) : item.status === 1 ? (
+    //                 <FaCheckCircle />
+    //               ) : item.status === 2 ? (
+    //                 <FaShippingFast />
+    //               ) : item.status === 3 ? (
+    //                 <FaMoneyCheck/>
+    //               ) : (
+    //                 <FaTimes />
+    //               )}
+    //             </div>
+    //             <div className="text-center">
+    //               <strong>{item.total}</strong>
+    //               <p className="font-semibold text-sm">{item.statusText}</p>
+    //             </div>
+    //           </div>
 
-              <div className="order__card-percent">
-                <div
-                  className="order__card-percent-inner"
-                  style={{ width: (item.total / totalOrder) * 100 + "%" }}
-                ></div>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    //           <div className="order__card-percent">
+    //             <div
+    //               className="order__card-percent-inner"
+    //               style={{ width: (item.total / totalOrder) * 100 + "%" }}
+    //             ></div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     ))}
+    //   </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
-          <RiMovie2Fill className="w-10 h-10 px-1" />
-          <div className="text-center">
-            <span className="block text-black font-semibold">{totalMovie}</span>
-            <span className="text-sm font-semibold">
-              Top phim có nhiều người xem nhiều nhất
-            </span>
-          </div>
-        </div>
-        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
-          <RiUserLine className="w-10 h-10 px-1" />
-          <div className="text-center">
-            <span className="block text-black font-semibold">{totalUser}</span>
-            <span className="text-sm font-semibold">Số tài khoản hiện có</span>
-          </div>
-        </div>
-        <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
-          <div>
-            {/* <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" /> */}
-          </div>
+    //   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    //     <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+    //       <RiMovie2Fill className="w-10 h-10 px-1" />
+    //       <div className="text-center">
+    //         <span className="block text-black font-semibold">{totalMovie}</span>
+    //         <span className="text-sm font-semibold">
+    //           Top phim có nhiều người xem nhiều nhất
+    //         </span>
+    //       </div>
+    //     </div>
+    //     <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+    //       <RiUserLine className="w-10 h-10 px-1" />
+    //       <div className="text-center">
+    //         <span className="block text-black font-semibold">{totalUser}</span>
+    //         <span className="text-sm font-semibold">Số tài khoản hiện có</span>
+    //       </div>
+    //     </div>
+    //     <div className="flex items-center p-3 justify-center bg-white rounded-md text-[#b5b5c3]">
+    //       <div>
+    //         {/* <FontAwesomeIcon icon={faShoppingCart} className="w-10 h-10 px-1" /> */}
+    //       </div>
 
-          <div className="text-center">
-            <span className="block text-black font-semibold">{totalPost}</span>
-            <span className="text-sm font-semibold">Tổng đơn đặt hàng</span>
-          </div>
-        </div>
-      </div>
+    //       <div className="text-center">
+    //         <span className="block text-black font-semibold">{totalPost}</span>
+    //         <span className="text-sm font-semibold">Tổng đơn đặt hàng</span>
+    //       </div>
+    //     </div>
+    //   </div>
 
-      {/* doanh thu phim theo tháng */}
-      <div className="bg-white mt-4 rounded-md p-3">
-        <Bar options={optionsMovie} data={dataMovie} />
-      </div>
+    //   {/* doanh thu phim theo tháng */}
+    //   <div className="bg-white mt-4 rounded-md p-3">
+    //     <Bar options={optionsMovie} data={dataMovie} />
+    //   </div>
 
-      {/* user đăng ký theo tháng */}
-      <div className="bg-white mt-4 rounded-md p-3">
-        <Line options={optionsUser} data={dataUser} />
-      </div>
+    //   {/* user đăng ký theo tháng */}
+    //   <div className="bg-white mt-4 rounded-md p-3">
+    //     <Line options={optionsUser} data={dataUser} />
+    //   </div>
 
-      {/* tổng đơn đặt hàng */}
-      <div className="bg-white mt-4 rounded-md p-3">
-        <Line options={optionsOrder} data={dataOrder} />
-      </div>
-    </div>
+    //   {/* tổng đơn đặt hàng */}
+    //   <div className="bg-white mt-4 rounded-md p-3">
+    //     <Line options={optionsOrder} data={dataOrder} />
+    //   </div>
+    // </div>
+    <>
+      dada
+
+
+
+    </>
   );
 };
 

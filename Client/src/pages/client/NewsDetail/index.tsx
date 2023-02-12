@@ -1,6 +1,8 @@
+import { lazy } from 'react';
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../../redux/hook";
-import NewsDetailComponent from "../../../components/client/NewsDetailComponent";
+const NewsDetailComponent = lazy(() => import( "../../../components/client/NewsDetailComponent"));
+
 
 const NewsDetail = () => {
   const { slug } = useParams();

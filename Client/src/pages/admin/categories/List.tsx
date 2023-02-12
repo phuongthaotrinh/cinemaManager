@@ -1,9 +1,11 @@
+import { lazy } from "react"
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
+
 import { Button, message, Space } from "antd";
 import { Link } from "react-router-dom";
-import {  EditOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import configRoute from "../../../config";
-import DataTable from "../../../components/admin/Form&Table/Table";
 import { removeCategory } from "../../../redux/slice/CategorySlice";
 type Props = {};
 

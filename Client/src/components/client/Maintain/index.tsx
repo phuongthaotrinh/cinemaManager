@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 type PrivateRouteProps = {
   children: JSX.Element;
-  isMaintain: number;
+  isMaintain?: number;
 };
 
 const Maintain = ({ children, isMaintain }: PrivateRouteProps) => {

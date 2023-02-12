@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, Suspense, lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import MenuAdminLayout from "./Menu";
+const MenuAdminLayout = lazy(() => import("./Menu"));
 import { Dropdown, message, Layout, Badge, Button } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../redux/hook";
 import configRoute from "../../config";
 import { LogOut } from "../../redux/slice/AuthSlice";
+import Loading from "../../components/Loading";
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<any>['items'][string];
 
@@ -70,22 +71,22 @@ const AdminLayout = ({ children, title, BCR }: AdminLayoutProps) => {
             {BCR}
           </div>
           <div style={
-               {
-                backgroundColor: "#fff",
-                padding: 10,
-                boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-                borderRadius: 4,
-              }
+            {
+              backgroundColor: "#fff",
+              padding: '10px',
+              boxShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+              borderRadius: 4,
+              height: "100%",
+              minHeight: "100%"
+            }
           }>
-            {children}
+            <Suspense fallback={<Loading />}>
+              {children}
+            </Suspense>
           </div>
         </Content>
-        <Footer style={{ textAlign: 'center' }}>Footer</Footer>
       </Layout>
     </Layout>
-
-
-
   );
 };
 

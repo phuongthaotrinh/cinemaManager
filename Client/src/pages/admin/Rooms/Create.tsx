@@ -1,7 +1,7 @@
 import { Form, Button, message } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect,lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import RoomForm from "../../../components/admin/Form&Table/RoomForm";
+const RoomForm = lazy(() => import("../../../components/admin/Form&Table/RoomForm")) ;
 import config from "../../../config";
 import { useAppDispatch } from "../../../redux/hook";
 import { createRooms } from "../../../redux/slice/roomSlice";

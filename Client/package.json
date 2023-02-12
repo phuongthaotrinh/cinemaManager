@@ -15,6 +15,7 @@
     "axios": "0.27.2",
     "chart.js": "4.0.1",
     "date-fns": "2.29.3",
+    "faker": "^5.5.3",
     "moment": "2.29.4",
     "react": "18.2.0",
     "react-chartjs-2": "4.3.1",
@@ -28,6 +29,7 @@
     "redux": "4.2.0",
     "redux-persist": "6.0.0",
     "redux-thunk": "2.4.1",
+    "reselect": "^4.1.7",
     "sass": "1.54.9",
     "styled-components": "5.3.6",
     "sweetalert2": "^11.4.8"
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@ckeditor/ckeditor5-react": "5.0.2",
     "@types/ckeditor__ckeditor5-build-classic": "29.0.1",
+    "@types/faker": "^6.6.9",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "@types/react-highlight-words": "0.16.4",

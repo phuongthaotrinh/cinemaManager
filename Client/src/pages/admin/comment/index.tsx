@@ -1,7 +1,7 @@
 import { Button, Rate, Switch, message, Tooltip } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,lazy } from "react";
 import { Link, useParams } from "react-router-dom";
-import DataTable from "../../../components/admin/Form&Table/Table";
+const DataTable = lazy(() => import("../../../components/admin/Form&Table/Table"));
 import { Comenter } from "../../../service/commenApi";
 import { formatDate, formatTime } from "../../../ultils";
 type Props = {};

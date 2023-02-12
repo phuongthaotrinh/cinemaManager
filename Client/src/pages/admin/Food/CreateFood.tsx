@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { Button, Form, message } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createFood } from "../../../redux/slice/FoodSlice";
 import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
-import FoodForm from "../../../components/admin/Form&Table/FoodForm";
+const FoodForm = lazy(() => import("../../../components/admin/Form&Table/FoodForm")) ;
 type Props = {};
 
 const CreateFood = (props: Props) => {

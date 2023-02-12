@@ -7,7 +7,7 @@ import { defaultStatus } from "../../../ultils/data";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import "antd/dist/antd.css";
 import { convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
-import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
+import { getAlSt } from "../../../redux/slice/ShowTimeSlice.ts";
 import { useGroupBy } from "../../../hook";
 interface ShowTimeFormProps {
   form: FormInstance<any>;

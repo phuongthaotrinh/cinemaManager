@@ -1,17 +1,18 @@
 import { Button, Tabs } from 'antd';
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy } from 'react'
 import { useAppSelector } from '../../../redux/hook';
-import AdminVoucherList from './List';
+const AdminVoucherList = lazy(() => import('./List'));
 import { useDispatch } from 'react-redux';
 import { getAllOrders } from '../../../redux/slice/OrdersSlice';
 import { Link } from 'react-router-dom';
+import { getAlVc } from '../../../redux/slice/voucherSlice';
 type Props = {}
 
 const VoucherTab = (props: Props) => {
    document.title = "Admin | Orders";
    const dispatch = useDispatch<any>();
 
-   useEffect(() => { dispatch(getAllOrders({})) }, [dispatch])
+   useEffect(() => { dispatch(getAllOrders({})); dispatch(getAlVc()) }, [dispatch])
    const { vouchers, isLoading } = useAppSelector((state) => state.voucherReducer);
    const [voucherActive, setVoucherActive] = useState<any[]>([]);//status =0
    const [voucherInActive, setVoucherInActive] = useState<any[]>([]); // status = 1 

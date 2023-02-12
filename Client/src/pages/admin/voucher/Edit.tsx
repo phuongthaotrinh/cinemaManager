@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,lazy} from "react";
 import { Button, Form, message } from "antd";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import VoucherForm from "../../../components/admin/Form&Table/VoucherForm";
+const VoucherForm = lazy(() => import("../../../components/admin/Form&Table/VoucherForm")) ;
 import { Link, useNavigate, useParams } from "react-router-dom";
 import config from "../../../config";
 import moment from "moment";
-import { useUpperText } from "../../../hook";
+import { upperOrLowerText } from "../../../ultils";
 
 type Props = {};
 
@@ -17,7 +17,7 @@ const AdminVoucherEdit = (props: Props) => {
   const [avatarList, setAvatarList] = useState<any[]>([]);
   const { id } = useParams();
   const { vouchers } = useAppSelector((state) => state.voucherReducer);
-  const { upper} = useUpperText()
+
 
   const dataSelected = vouchers.find((item: any) => item._id === id);
   useEffect(() => {
@@ -44,7 +44,7 @@ const AdminVoucherEdit = (props: Props) => {
       const [x, y] = timeValid;
       const timeStart = new Date(moment(x).format());
       const timeEnd = new Date(moment(y).format());
-      values.code = upper(values.code);
+      values.code = upperOrLowerText(values.code, "upper");
       await dispatch(
         updateData({ ...values, _id: id, timeStart, timeEnd })
       ).unwrap();

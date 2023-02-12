@@ -1,5 +1,5 @@
 import { Button, Modal, Spin } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState,lazy } from "react";
 import styles from "./MovieDetail.module.css";
 import { BsCalendar } from "react-icons/bs";
 import { GiFilmSpool } from "react-icons/gi";
@@ -8,7 +8,8 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneMovie } from "../../../redux/slice/Movie";
 import { convertDate, convertDateToNumber, formatDate, formatTime, formatTime2, } from "../../../ultils";
 import { getAlSt } from "../../../redux/slice/ShowTimeSlice";
-import RelateMovie from "../RelateMovie";
+import { getUsers } from "../../../redux/slice/userSlice";
+const RelateMovie = lazy(() => import("../RelateMovie")) ;
 import Comente from "../comment";
 import Swal from "sweetalert2";
 import configRoute from "../../../config";
@@ -44,6 +45,7 @@ const MovieDetail = (props: Props) => {
   }, [slug]);
   useEffect(() => {
     dispatch(getAlSt({}));
+    dispatch(getUsers())
   }, []);
 
   if (data == "") return <Spin spinning />;

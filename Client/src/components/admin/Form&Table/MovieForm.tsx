@@ -20,7 +20,7 @@ type Props = {
 
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
-
+  
 
   return (
     <>

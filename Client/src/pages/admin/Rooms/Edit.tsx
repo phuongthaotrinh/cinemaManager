@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,lazy } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { updateRoom } from "../../../redux/slice/roomSlice";
-import RoomForm from "../../../components/admin/Form&Table/RoomForm";
+const RoomForm = lazy(() => import("../../../components/admin/Form&Table/RoomForm")) ;
 import config from "../../../config";
 import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
 

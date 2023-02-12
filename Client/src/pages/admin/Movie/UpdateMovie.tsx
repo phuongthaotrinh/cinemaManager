@@ -1,11 +1,11 @@
-import { Button,  Form,  message } from "antd";
-import React, { useEffect, useState } from "react";
+import { Button, Form, message } from "antd";
+import { useEffect, useState, lazy } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import configRoute from "../../../config";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { UpdateMovie } from "../../../redux/slice/Movie";
 import moment from "moment";
-import MovieForm from "../../../components/admin/Form&Table/MovieForm";
+const MovieForm = lazy(() => import("../../../components/admin/Form&Table/MovieForm"));
 
 type Props = {};
 

@@ -12,7 +12,10 @@ export const getUsers = createAsyncThunk<any, void, { rejectValue: string }>(
     }
   }
 );
-export const removeUser = createAsyncThunk<any, string | undefined, { rejectValue: string }
+export const removeUser = createAsyncThunk<
+  any,
+  string | undefined,
+  { rejectValue: string }
 >("users/removeUser", async (id, { rejectWithValue }) => {
   try {
     const { data } = await UserApi.removeUser(id);
@@ -26,7 +29,8 @@ export const updateUser = createAsyncThunk<any, any, { rejectValue: string }>(
   async (user, { rejectWithValue }) => {
     try {
       const { data } = await UserApi.updateUser(user);
-      return data; updateUser
+      return data;
+      updateUser;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
     }
@@ -55,8 +59,15 @@ export const updatePass = createAsyncThunk<any, any, { rejectValue: string }>(
     }
   }
 );
+type DashBoardUser = {
+  name: string,
+  data: any[]
+}
 type UserState = {
   users: any[];
+  activeUser: DashBoardUser;
+  inActiveUser: DashBoardUser;
+  closeUser:DashBoardUser;
   isFetching: boolean;
   isSucess: boolean;
   isErr: boolean;
@@ -64,16 +75,22 @@ type UserState = {
 };
 const initialState: UserState = {
   users: [],
+  activeUser: {  name: "",  data: []},
+  inActiveUser: {  name: "",  data: []},
+  closeUser: {  name: "",  data: []},
   isFetching: false,
   isSucess: false,
   isErr: false,
   errorMessage: "",
+  // userDashBoard: {}
 };
 
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    
+  },
   extraReducers: (builder) => {
     //getAll
     builder.addCase(getUsers.pending, (state) => {
@@ -98,7 +115,9 @@ const userSlice = createSlice({
       state.isFetching = false;
       state.isErr = false;
       state.isSucess = true;
-      state.users = state.users.filter((item) => item._id !== payload._id);
+      state.users = state.users.filter(
+        (item: { _id: any }) => item._id !== payload._id
+      );
     });
     builder.addCase(removeUser.rejected, (state, { payload }) => {
       state.isErr = true;
@@ -133,9 +152,9 @@ const userSlice = createSlice({
     builder.addCase(updateUser.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
-      state.users = state.users.map((item) =>
-      item._id !== action.payload._id ? item : action.payload
-    );
+      state.users = state.users.map((item: { _id: any }) =>
+        item._id !== action.payload._id ? item : action.payload
+      );
     });
     builder.addCase(updateUser.rejected, (state, action) => {
       state.isFetching = false;
@@ -149,7 +168,7 @@ const userSlice = createSlice({
     builder.addCase(updatePass.fulfilled, (state, action) => {
       state.isFetching = false;
       state.isSucess = true;
-      state.users = state.users.map((item) =>
+      state.users = state.users.map((item: { _id: any }) =>
         item._id !== action.payload._id ? item : action.payload
       );
     });

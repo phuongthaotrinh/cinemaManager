@@ -136,3 +136,16 @@ td.ant-table-cell {
     }
   }
 }
+
+.canvas_fill{
+  canvas{
+    height: 350px !important;
+    width: 350px !important
+  }
+}
+.ant-table-thead > tr > th{
+  background: #e6e6e6 !important;
+  position: static !important;
+  top: 0 !important;;
+  bottom: 0  !important;
+}

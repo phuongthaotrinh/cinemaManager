@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import { Tabs } from "antd";
-import UserInfo from "./UserInfo";
 import { useAppSelector } from "../../../redux/hook";
-import UserOrder from "./UserOrder";
-import ChangePassword from "./ChangePassword";
+const UserInfo = lazy(() => import("./UserInfo"));
+const UserOrder = lazy(() => import("./UserOrder"));
+const ChangePassword = lazy(() => import("./ChangePassword"));
 type Props = {};
 
 const Profile = (props: Props) => {
@@ -32,13 +32,13 @@ const Profile = (props: Props) => {
     }
   ]
   return (
-        <div className="container mt-[30px] min-h-[550px] h-[550px] bg-slate-50 p-5">
-          <Tabs
-            className="p-3"
-            tabPosition="left"
-            items={items}
-          />
-        </div>
+    <div className="container mt-[30px] min-h-[550px] h-[550px] bg-slate-50 p-5">
+      <Tabs
+        className="p-3"
+        tabPosition="left"
+        items={items}
+      />
+    </div>
 
   );
 };

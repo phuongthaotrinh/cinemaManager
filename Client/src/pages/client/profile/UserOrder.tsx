@@ -1,9 +1,9 @@
 import { Button, Modal, Table, Tag } from 'antd'
-import { useState } from 'react'
+import { useState, lazy } from 'react'
 import { useSearch } from '../../../hook'
 import { formatCurrency, formatDate, formatTime } from '../../../ultils'
 import type { ColumnsType } from 'antd/es/table';
-import Ticket from '../../../components/client/Ticket'
+const Ticket = lazy(() => import('../../../components/client/Ticket'));
 import { useAppDispatch } from '../../../redux/hook';
 import { getOneOrder } from '../../../redux/slice/OrdersSlice';
 

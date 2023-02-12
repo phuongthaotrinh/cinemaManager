@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import { Button, Form, Input, message, Select } from "antd";
+import { useEffect, useState ,lazy} from "react";
+import { Button, Form, message } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import { createSlider } from "../../../redux/slice/Slider";
-import SliderForm from "../../../components/admin/Form&Table/SliderForm";
+const SliderForm = lazy(() => import("../../../components/admin/Form&Table/SliderForm")) ;
 type Props = {};
 
 const CreateSlider = (props: Props) => {

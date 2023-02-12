@@ -1,81 +1,83 @@
 import configRoute from "../config";
-import { AuthTheme } from "../themes";
+import { lazy } from "react"
+const AuthTheme = lazy(() => import("../themes").then(module => {
+  return { default: module.AuthTheme }
+})) 
 
-import SignIn from "../pages/auth/SignIn";
-
-import SignUp from "../pages/auth/SignUp";
-import NotFoundPage from "../pages/NotFound";
-
-import BookChair from "../pages/client/bookChair/BookChair";
-import Home from "../pages/client/home/Home";
-import TickitPrice from "../pages/client/TickitPrice/TickitPrice";
-import Complete from "../pages/auth/complete";
+// import SignIn from "../pages/auth/SignIn";
+const SignIn = lazy(() => import("../pages/auth/SignIn"));
+const SignUp = lazy(() => import("../pages/auth/SignUp"));
+const NotFoundPage = lazy(() => import("../pages/NotFound"));
+const BookChair = lazy(() => import("../pages/client/bookChair/BookChair"));
+const TickitPrice = lazy(() => import("../pages/client/TickitPrice/TickitPrice"));
+const Home = lazy(() => import("../pages/client/home/Home"));
+const Complete = lazy(() => import("../pages/auth/complete"));
 
 // admin
-import Dashboard from "../pages/admin/Dashboard/DashBoard";
-import UserCreate from "../pages/admin/User/Create";
-import UserEdit from "../pages/admin/User/Update";
+const UserCreate = lazy(() => import("../pages/admin/User/Create"));
+const Dashboard = lazy(() => import("../pages/admin/Dashboard/DashBoard"));
+const UserEdit = lazy(() => import("../pages/admin/User/Update"));
 
-import CreateMovieType from "../pages/admin/MovieType/CreateMovieType";
-import ListMovieType from "../pages/admin/MovieType/ListMovieType";
+const CreateMovieType = lazy(() => import("../pages/admin/MovieType/CreateMovieType"));
+const ListMovieType = lazy(() => import("../pages/admin/MovieType/ListMovieType"));
 
-import ListSeatType from "../pages/admin/SeatType/ListSeatType";
-import CeateSeatType from "../pages/admin/SeatType/CeateSeatType";
-import UploadSeatType from "../pages/admin/SeatType/UploadSeatType";
+const ListSeatType = lazy(() => import("../pages/admin/SeatType/ListSeatType"));
+const CeateSeatType = lazy(() => import("../pages/admin/SeatType/CeateSeatType"));
+const UploadSeatType = lazy(() => import("../pages/admin/SeatType/UploadSeatType"));
 
-import ListCategories from "../pages/admin/categories/List";
-import EditMovieType from "../pages/admin/MovieType/EditMovieType";
-import CreateCategory from "../pages/admin/categories/Create";
+const ListCategories = lazy(() => import("../pages/admin/categories/List"));
+const EditMovieType = lazy(() => import("../pages/admin/MovieType/EditMovieType"));
+const CreateCategory = lazy(() => import("../pages/admin/categories/Create"));
 
-import AdminRoomList from "../pages/admin/Rooms/List";
-import AdminRoomCreate from "../pages/admin/Rooms/Create";
-import AdminRoomEdit from "../pages/admin/Rooms/Edit";
-import AdminShowTimesCreate from "../pages/admin/showTime/Create";
-import FilmFormatList from "../pages/admin/FilmFormat/List";
-import CreateMovie from "../pages/admin/Movie/CreateMovie";
-import UpdateMovies from "../pages/admin/Movie/UpdateMovie";
-import News from "../pages/client/News/News";
+const AdminRoomList = lazy(() => import("../pages/admin/Rooms/List"));
+const AdminRoomCreate = lazy(() => import("../pages/admin/Rooms/Create"));
+const AdminRoomEdit = lazy(() => import("../pages/admin/Rooms/Edit"));
+const AdminShowTimesCreate = lazy(() => import("../pages/admin/showTime/Create"));
+const FilmFormatList = lazy(() => import("../pages/admin/FilmFormat/List"));
+const CreateMovie = lazy(() => import("../pages/admin/Movie/CreateMovie"));
+const UpdateMovies = lazy(() => import("../pages/admin/Movie/UpdateMovie"));
+const News = lazy(() => import("../pages/client/News/News"));
 
-import AdminVoucherList from "../pages/admin/voucher/List";
-import AdminVoucherCreate from "../pages/admin/voucher/Create";
-import AdminVoucherEdit from "../pages/admin/voucher/Edit";
+const AdminVoucherList = lazy(() => import("../pages/admin/voucher/List"));
+const AdminVoucherCreate = lazy(() => import("../pages/admin/voucher/Create"));
+const AdminVoucherEdit = lazy(() => import("../pages/admin/voucher/Edit"));
 
-import AdminPosts from "../pages/admin/Post/index";
-import AdminPostsCreate from "../pages/admin/Post/Create";
-import AdminPostsEdit from "../pages/admin/Post/Edit";
-import NewsDetail from "../pages/client/NewsDetail";
-import Search from "../pages/client/search/Search";
-import FoodList from "../pages/admin/Food/FoodList";
-import CreateFood from "../pages/admin/Food/CreateFood";
-import UpdateFood from "../pages/admin/Food/UpdateFood";
-import CreateSlider from "../pages/admin/Slider/CreateSlider";
-import AdminSlider from "../pages/admin/Slider/AdminSlider";
-import UpdateSlider from "../pages/admin/Slider/UpdateSlider";
-import Profile from "../pages/client/profile";
-import WebConfig from "../pages/admin/Config";
-import WebConfigCreate from "../pages/admin/Config/Create";
-import WebConfigEdit from "../pages/admin/Config/Edit";
-import VoucherContent from "../components/client/VoucherContent";
-import SeatByRoom from "../pages/admin/Seats/seatByRoom";
-import Payment from "../pages/client/payment/Payment";
-import ForgotPass from "../pages/auth/ForgotPassword";
-import Contact from "../components/client/Contact";
-import EditCategory from "../pages/admin/categories/Edit";
-import ListCommentMovie from "../pages/admin/comment";
-import ChooseCombo from "../components/client/ChooseCombo";
-import LoadingPushAccountInLocalStorage from "../components/client/loadingPushAccountInLocalStorage";
-import AdminOrdersDetail from "../pages/admin/Order/Detail";
-import FindOrder from "../pages/client/findOrder";
-import PaymentStatus from "../components/client/PaymentStatus";
-import OrderTab from "../pages/admin/Order/OrderTab";
-import NestedTable from "../pages/admin/showTime/NestedTable";
-import CancelOrder from "../components/client/CancelOrder";
-import CheckOrder from "../pages/client/CheckOrder";
-import MovieTab from "../pages/admin/Movie/MovieTab";
-import ListShowTimeByRoom from "../pages/admin/Rooms/ListShowTimeByRoom";
-import UserTab from "../pages/admin/User/UserTab";
-import DetailMovie from "../pages/client/movieDetail/DetailMovie";
-import AdminVoucherTab from "../pages/admin/voucher/Tab"
+const AdminPosts = lazy(() => import("../pages/admin/Post/index"));
+const AdminPostsCreate = lazy(() => import("../pages/admin/Post/Create"));
+const AdminPostsEdit = lazy(() => import("../pages/admin/Post/Edit"));
+const NewsDetail = lazy(() => import("../pages/client/NewsDetail"));
+const Search = lazy(() => import("../pages/client/search/Search"));
+const FoodList = lazy(() => import("../pages/admin/Food/FoodList"));
+const CreateFood = lazy(() => import("../pages/admin/Food/CreateFood"));
+const UpdateFood = lazy(() => import("../pages/admin/Food/UpdateFood"));
+const CreateSlider = lazy(() => import("../pages/admin/Slider/CreateSlider"));
+const AdminSlider = lazy(() => import("../pages/admin/Slider/AdminSlider"));
+const UpdateSlider = lazy(() => import("../pages/admin/Slider/UpdateSlider"));
+const Profile = lazy(() => import("../pages/client/profile"));
+const WebConfig = lazy(() => import("../pages/admin/Config"));
+const WebConfigCreate = lazy(() => import("../pages/admin/Config/Create"));
+const WebConfigEdit = lazy(() => import("../pages/admin/Config/Edit"));
+const VoucherContent = lazy(() => import("../components/client/VoucherContent"));
+const SeatByRoom = lazy(() => import("../pages/admin/Seats/seatByRoom"));
+const Payment = lazy(() => import("../pages/client/payment/Payment"));
+const ForgotPass = lazy(() => import("../pages/auth/ForgotPassword"));
+const Contact = lazy(() => import("../components/client/Contact"));
+const EditCategory = lazy(() => import("../pages/admin/categories/Edit"));
+const ListCommentMovie = lazy(() => import("../pages/admin/comment"));
+const ChooseCombo = lazy(() => import("../components/client/ChooseCombo"));
+const LoadingPushAccountInLocalStorage = lazy(() => import("../components/client/loadingPushAccountInLocalStorage"));
+const AdminOrdersDetail = lazy(() => import("../pages/admin/Order/Detail"));
+const FindOrder = lazy(() => import("../pages/client/findOrder"));
+const PaymentStatus = lazy(() => import("../components/client/PaymentStatus"));
+const OrderTab = lazy(() => import("../pages/admin/Order/OrderTab"));
+const NestedTable = lazy(() => import("../pages/admin/showTime/NestedTable"));
+const CancelOrder = lazy(() => import("../components/client/CancelOrder"));
+const CheckOrder = lazy(() => import("../pages/client/CheckOrder"));
+const MovieTab = lazy(() => import("../pages/admin/Movie/MovieTab"));
+const ListShowTimeByRoom = lazy(() => import("../pages/admin/Rooms/ListShowTimeByRoom"));
+const UserTab = lazy(() => import("../pages/admin/User/UserTab"));
+const DetailMovie = lazy(() => import("../pages/client/movieDetail/DetailMovie"));
+const AdminVoucherTab = lazy(() => import("../pages/admin/voucher/Tab"))
 type RoutesType = {
   path: string;
   component: any;

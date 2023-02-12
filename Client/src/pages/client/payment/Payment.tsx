@@ -1,13 +1,13 @@
 import { Button, Form, Input, message, Select } from "antd";
-import style from "./Payment.module.scss";
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { useState, useEffect } from "react";
+import { useState, useEffect,lazy } from "react";
 import {
   discountPercent,
   formatCurrency,
   formatDate,
   formatDateString,
   formatTime,
+  upperOrLowerText
 } from "../../../ultils";
 import { isFuture, isPast, parseISO } from "date-fns";
 import { banks } from "../../../ultils/data";
@@ -16,8 +16,7 @@ import { createPaymeny } from "../../../redux/slice/OrdersSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { updateData } from "../../../redux/slice/voucherSlice";
 import Swal from "sweetalert2";
-import PaymentStep from "../../../components/client/PaymentStep";
-import { useUpperText } from "../../../hook";
+const PaymentStep = lazy(() => import("../../../components/client/PaymentStep")) ;
 const layout = {
   labelCol: { span: 12 },
   wrapperCol: { span: 12 },
@@ -38,13 +37,11 @@ const Payment = ({ }: Props) => {
   const [data, setData] = useState<any>([]);
   const [info, setInfo] = useState<any>();
   const [voucherActive, setVoucherActive] = useState<any>([]);
-  // const [movieDetail, setMovieDetail] = useState<any>();
   const [voucherApply, setVoucherApply] = useState<any>();
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
   const { movie } = useAppSelector((state: any) => state.movie);
   const navigate = useNavigate()
-  const { upper } = useUpperText()
   const { state } = useLocation();
 
   let movieSelect = movie?.find(
@@ -61,7 +58,6 @@ const Payment = ({ }: Props) => {
       setData(state?.ticket);
       setTempPrice(state?.finalPrice);
       setPriceAfterDiscount(state?.finalPrice);
-      // setMovieDetail(movieSelect);
     }
     document.title = "Payment";
   }, [state, movieSelect]);
@@ -91,7 +87,7 @@ const Payment = ({ }: Props) => {
 
   const handle = () => {
     if (CODE) {
-      let upperCode = upper(CODE);
+      let upperCode = upperOrLowerText(CODE, "upper");
       let item = voucherActive.find((item: any) => item?.code === upperCode);
       let checkUsed = item?.userId?.find(
         (val: any) => val?._id === currentUser?._id

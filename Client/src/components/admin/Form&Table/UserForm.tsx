@@ -30,7 +30,7 @@ const UserForm = ({ userEdit, userId, avatarList, showPass, form, onFinish, onRe
           <>
             <Card className="col-6 w-full">
               <Form.Item label="Ảnh">
-                <ImageUpload imageList={avatarList} limit={1} key={1} />
+                <ImageUpload imageList={avatarList} limit={2} key={1} />
                 <small>(Tải lên ít nhất 1 ảnh và tối đa 2 ảnh)</small>
               </Form.Item>
               <Form.Item

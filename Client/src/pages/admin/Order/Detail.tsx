@@ -1,7 +1,7 @@
 import { Button, message } from "antd";
-import  { useEffect, useState } from "react";
+import  { useEffect, useState,lazy } from "react";
 import { Link,useParams } from "react-router-dom";
-import Ticket from "../../../components/client/Ticket";
+const Ticket = lazy(() => import("../../../components/client/Ticket")) ;
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getOneOrder } from "../../../redux/slice/OrdersSlice";
 

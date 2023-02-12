@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import { Button, Form, message } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createMovie } from "../../../redux/slice/Movie";
 import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
 import moment from "moment";
-import MovieForm from "../../../components/admin/Form&Table/MovieForm";
+const MovieForm = lazy(() => import("../../../components/admin/Form&Table/MovieForm"));
 type Props = {};
 
 const CreateMovie = (props: Props) => {
-  const [image, setImage] = useState<any  []>([]);
+  const [image, setImage] = useState<any[]>([]);
   const [form] = Form.useForm();
   document.title = "Admin | Tạo Phim"
   const dispatch = useAppDispatch();
@@ -34,10 +34,10 @@ const CreateMovie = (props: Props) => {
   }
   return (
     <>
-        <Button type="primary" style={{ marginBottom: "20px" }}>
-          <Link to="/admin/movies">DS phim</Link>
-        </Button>
-      <MovieForm image={image} setImage={setImage} form={form} onFinish={onFinish} onReset={onReset}/>
+      <Button type="primary" style={{ marginBottom: "20px" }}>
+        <Link to="/admin/movies">DS phim</Link>
+      </Button>
+      <MovieForm image={image} setImage={setImage} form={form} onFinish={onFinish} onReset={onReset} />
     </>
   );
 };

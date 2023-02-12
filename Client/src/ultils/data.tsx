@@ -100,3 +100,4 @@ export const orderMutipleOption = [
 export const MovieMutipleOption = [
   { value: "name", name: "Theo tên phim" },
 ];
+export const PAGE_SIZE = 5

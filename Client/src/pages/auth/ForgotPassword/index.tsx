@@ -49,7 +49,6 @@ const ForgotPass = (props: Props) => {
   const onFinishResetPass = ({ password }: any) => {
     console.log(password);
     const payload = { newPassword: password };
-    console.log(payload);
     dispatch(updatePass({ token, newPassword: password }))
       .then(() => {
         notification.success({

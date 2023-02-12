@@ -1,13 +1,11 @@
-import {  message } from "antd";
-import { useEffect, useState } from "react";
+import { message } from "antd";
+import { useEffect, useState, lazy } from "react";
 import { useParams } from "react-router-dom";
-
 import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import { getByShortId } from "../../../redux/slice/OrdersSlice";
-import Ticket from "../../../components/client/Ticket";
+const Ticket = lazy(() => import("../../../components/client/Ticket"));
 
-
-type Props = {}
+type Props = {};
 
 const CheckOrder = (props: Props) => {
   const { id } = useParams();
@@ -15,7 +13,9 @@ const CheckOrder = (props: Props) => {
   const dispatch = useAppDispatch();
   const [orderDetail, setOrderDetail] = useState<any>();
   const [detail, setDetail] = useState<any>();
-  const { isLogged, currentUser } = useAppSelector((state) => state.authReducer);
+  const { isLogged, currentUser } = useAppSelector(
+    (state) => state.authReducer
+  );
   // const [totalPriceFinal, setTotalPriceFinal] = useState<any>(0);
   useEffect(() => {
     dispatch(getByShortId(id));
@@ -28,7 +28,8 @@ const CheckOrder = (props: Props) => {
     if (order) {
       setOrderDetail(order?.order);
       setDetail(order?.detail);
-      let price = (order?.order?.foodDetailId?.totalPrice) + (order?.order?.totalPrice);
+      let price =
+        order?.order?.foodDetailId?.totalPrice + order?.order?.totalPrice;
       // setTotalPriceFinal(price);
     }
   }, [order]);
@@ -36,10 +37,16 @@ const CheckOrder = (props: Props) => {
     <section className="container max-w-6xl p-3 bg-white mt-8 justify-center h-auto">
       <div>
         <span>Thông tin đơn hàng {id}</span>
-        {order && <Ticket detail={detail} order={orderDetail} isAdmin={currentUser.role == 1} />}
+        {order && (
+          <Ticket
+            detail={detail}
+            order={orderDetail}
+            isAdmin={currentUser.role == 1}
+          />
+        )}
       </div>
     </section>
   );
-}
+};
 
-export default CheckOrder
+export default CheckOrder;

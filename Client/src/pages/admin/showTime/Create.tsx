@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import ShowTimeForm from '../../../components/admin/Form&Table/ShowTimeForm';
-import { useAppDispatch, useAppSelector } from '../../../redux/hook';
-import { createData } from '../../../redux/slice/ShowTimeSlice'
+import React, { useEffect, useState, lazy } from 'react';
 import { Button, Form, message } from 'antd'
 import moment from 'moment';
-import config from '../../../config';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useAppDispatch } from '../../../redux/hook';
+import { createData } from '../../../redux/slice/ShowTimeSlice'
 import configRoute from '../../../config';
-import DrawerShowTime from './DrawerShowTime';
-import NestedTable from './NestedTable';
+const ShowTimeForm = lazy(() => import('../../../components/admin/Form&Table/ShowTimeForm'));
+const DrawerShowTime = lazy(() => import('./DrawerShowTime'));
+const NestedTable = lazy(() => import('./NestedTable'));
 
 type Props = {}
 
@@ -31,7 +30,7 @@ const AdminShowTimesCreate = (_props: Props) => {
     dispatch(createData(values)).unwrap()
       .then(() => {
         message.success('Tạo thành công');
-        navigate(config.routes.adminMovie)
+        navigate(configRoute.routes.adminMovie)
       })
       .catch((error: any) => message.error(error.message))
   }

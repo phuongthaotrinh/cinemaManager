@@ -5,6 +5,7 @@ import { compareDate, ConditionType } from "../../../ultils";
 import { useAppDispatch } from "./../../../redux/hook";
 import { AsyncThunk } from "@reduxjs/toolkit";
 import { FaExchangeAlt } from "react-icons/fa"
+import { PAGE_SIZE } from "../../../ultils/data";
 interface DataType {
   key: React.Key;
   name: string;
@@ -259,10 +260,10 @@ const SelectTable = ({ columns, api, data, loading, statusUpdate, currStatus, ty
         columns={columns}
         dataSource={data}
         loading={loading}
-        pagination={{
+        pagination={data && data?.length > PAGE_SIZE && {
           defaultPageSize: 5,
           showSizeChanger: true,
-          pageSizeOptions: ["5", "10", "20", "30"],
+          pageSizeOptions: ["5", "10", "20", "30"]
         }}
       />
     </>

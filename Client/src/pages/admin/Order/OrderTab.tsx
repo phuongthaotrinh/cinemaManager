@@ -1,8 +1,8 @@
 import { Tabs, message } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy } from "react";
 import { useAppSelector } from "../../../redux/hook";
-import OrderTable from "./OrderTable";
-import SearchByCate from "../../../components/admin/SearchByCate";
+const OrderTable = lazy(() => import("./OrderTable"));
+const SearchByCate = lazy(() => import("../../../components/admin/SearchByCate"));
 import { useDispatch } from "react-redux";
 import { getAllOrders } from "../../../redux/slice/OrdersSlice";
 import { orderMutipleOption } from "../../../ultils/data";
