@@ -1,5 +1,5 @@
-import configRoute from "../config";
-import { lazy } from "react"
+import configRoute from '../config';
+import { lazy } from 'react';
 const AuthTheme = lazy(() => import("../themes").then(module => {
   return { default: module.AuthTheme }
 })) 

@@ -1,15 +1,15 @@
-import React, { useState, useEffect,lazy } from 'react';
-import { Button, message, Select, TableColumnsType,Table } from 'antd';
+import React, { useState, useEffect, lazy } from 'react';
+import { Button, message, Select, TableColumnsType, Table } from 'antd';
 import { Link, useSearchParams } from 'react-router-dom';
 import { isPast, parseISO } from "date-fns";
 
-import { formatDate, formatTime ,convertDate} from '../../../ultils';
-import { useAppDispatch, useAppSelector} from '../../../redux/hook';
-import { getAlSt,updateData } from '../../../redux/slice/ShowTimeSlice';
+import { formatDate, formatTime, convertDate } from '../../../ultils';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { getAlSt, updateData } from '../../../redux/slice/ShowTimeSlice';
 import { defaultStatus } from '../../../ultils/data';
 import configRoute from '../../../config';
 import { useGroupBy } from '../../../hook';
-const DrawerShowTime = lazy(() => import('./DrawerShowTime')) ;
+const DrawerShowTime = lazy(() => import('./DrawerShowTime'));
 const AdminShowTimesCreate = lazy(() => import('./Create'));
 
 type Props = {}
@@ -29,7 +29,7 @@ const NestedTable = (props: Props) => {
     dispatch(getAlSt({}));
   }, [dispatch]);
 
-  const { stList , isLoading, errorMessage} = useAppSelector((state) => state.ShowTimeReducer);
+  const { stList, isLoading, errorMessage } = useAppSelector((state) => state.ShowTimeReducer);
   const [searchParams, setSearchParams] = useSearchParams();
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
@@ -163,8 +163,9 @@ const NestedTable = (props: Props) => {
 
   const data: any[] = [];
   for (let key in showByDate) {
+    console.log("kye", typeof key)
     data.push({
-      key: Math.floor(Math.random() * showByDate[key].length * Math.random()),
+      key: (Math.floor(Math.random() * showByDate[key].length * Math.random())),
       date: key,
     });
   }

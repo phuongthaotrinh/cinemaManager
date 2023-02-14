@@ -10,6 +10,8 @@ type DashBoardMovie = {
 }
 
 const useSelectMovie = () => {
+  const [movies, setMovies] = useState<any>([]);
+  const [dashboard, setDashboard] = useState<any>([])
   const [top5, setTop5] = useState<any>([]);
   const [activeMv, setActiveMv] = useState<any>([]);
   const [inActiveMv, setInActiveMv] = useState<any>([]);
@@ -17,41 +19,42 @@ const useSelectMovie = () => {
   const dispatch = useAppDispatch();
   const labels = top5.map((item: any) => item.name)
   const datasetChart: number[] = top5.map((item: any) => item.profit);
-  const [dashboard, setDashboard] = useState([])
-  useEffect(() => {
-    (async () => {
-      await dispatch(getMovie());
-    })();
-
-  }, [dispatch]);
-
-  const movies = useAppSelector(selectMovies);
-  const isLoading = useAppSelector(selectPending);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (movies) {
-      setActiveMv(movies.filter((item) => item.status == 0));
-      setInActiveMv(movies.filter((item) => item.status !== 0));
-    }
-  }, [movies]);
+    Promise.all([dispatch(getMovie()), dispatch(getdashBoard())])
+      .then((result) => {
+        setMovies(result[0].payload)
+        setDashboard(result[1].payload);
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
+
   useEffect(() => {
-    (async () => {
-      const { payload } = await dispatch(getdashBoard());
-      const topMovieProfit = payload.topMovieProfit;
-      const thanZero = topMovieProfit.filter((item: any) => item.profit > 0);
-      if (thanZero) {
+    if (dashboard && movies) {
+      setActiveMv(movies.filter((item: { status: number; }) => item.status == 0));
+      setInActiveMv(movies.filter((item: { status: number; }) => item.status !== 0));
+      const topMovieProfit = dashboard.topMovieProfit;
+      if (topMovieProfit) {
+        const thanZero = topMovieProfit.filter((item: any) => item.profit > 0);
         let a1 = thanZero.slice(0, 1)
         let a2 = topMovieProfit.slice(0, 5)
         const a = a1.reduce(function (acc: any, cur: any,) { return cur }, {});
         setMostProfit(a);
         setTop5(a2);
-        setDashboard(payload)
       }
-    })();
+    }
+  }, [movies, dashboard])
+  const handleChangeStatus = (data:any) => {
+    console.log('data', data);
+    
+  }
+  return { movies, activeMv, inActiveMv, isLoading, mostProfit, top5, labels, datasetChart, dashboard,handleChangeStatus }
 
-  }, [dispatch])
 
-  return { movies, activeMv, inActiveMv, isLoading, mostProfit, top5, labels, datasetChart, dashboard }
 }
 
 export default useSelectMovie

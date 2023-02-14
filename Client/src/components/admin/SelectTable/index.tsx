@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Table, Button, Tooltip, message } from "antd";
+import React, { useEffect, useState } from 'react';
+import { AsyncThunk } from '@reduxjs/toolkit';
+import {
+  Button,
+  message,
+  Table,
+  } from 'antd';
+import { compareDate, ConditionType } from '../../../ultils';
+import { FaExchangeAlt } from 'react-icons/fa';
+import { PAGE_SIZE } from '../../../ultils/data';
+import { useAppDispatch } from './../../../redux/hook';
 import type { TableRowSelection } from "antd/es/table/interface";
-import { compareDate, ConditionType } from "../../../ultils";
-import { useAppDispatch } from "./../../../redux/hook";
-import { AsyncThunk } from "@reduxjs/toolkit";
-import { FaExchangeAlt } from "react-icons/fa"
-import { PAGE_SIZE } from "../../../ultils/data";
 interface DataType {
   key: React.Key;
   name: string;

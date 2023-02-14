@@ -1,15 +1,28 @@
-import { Button, Col, Form, Input, InputNumber, message, Modal, Row, Select, Space, Table, Tooltip } from "antd";
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import { getOneSBSTById } from "../../../redux/slice/SeatBySTSlice";
-import { updateSeatThunk } from "../../../redux/slice/SeatSlice";
-import { defaultStatus } from "../../../ultils/data";
-import styles from "../Form&Table/room.module.scss";
-import { validateMessages } from "../../../ultils/FormMessage";
+import React, { useEffect, useState } from 'react';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Row,
+  Select,
+  Space,
+  Table,
+  Tooltip
+  } from 'antd';
 import { CloseOutlined, MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { defaultStatus } from '../../../ultils/data';
+import { getOneSBSTById } from '../../../redux/slice/SeatBySTSlice';
 import { IoApps, IoCreateOutline } from 'react-icons/io5';
-import { MinusOutlined, OrderedListOutlined } from "@ant-design/icons";
-import { useGroupBy } from "../../../hook";
+import { MinusOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { updateSeatThunk } from '../../../redux/slice/SeatSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { useGroupBy } from '../../../hook';
+import { validateMessages } from '../../../ultils/FormMessage';
+import styles from "../Form&Table/room.module.scss";
 type Props = {
   row?: any;
   column?: any;

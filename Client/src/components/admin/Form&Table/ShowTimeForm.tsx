@@ -1,14 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, DatePicker, FormInstance, Select, Skeleton, InputNumber, Form, Alert } from "antd";
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import {
+  Alert,
+  Button,
+  Card,
+  DatePicker,
+  Form,
+  FormInstance,
+  InputNumber,
+  Select,
+  Skeleton
+  } from 'antd';
+import { convertMovieTime, formatCurrency, formatDate } from '../../../ultils';
+import { defaultStatus } from '../../../ultils/data';
+import { getAlSt } from '../../../redux/slice/ShowTimeSlice';
+import { getMovie } from '../../../redux/slice/Movie';
+import { getRooms } from '../../../redux/slice/roomSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
+import { useGroupBy } from '../../../hook';
+import { validateMessages } from '../../../ultils/FormMessage';
+import 'antd/dist/antd.css';
 import type { RangePickerProps } from "antd/es/date-picker";
-import { validateMessages } from "../../../ultils/FormMessage";
-import moment from "moment";
-import { defaultStatus } from "../../../ultils/data";
-import { useAppDispatch, useAppSelector } from "../../../redux/hook";
-import "antd/dist/antd.css";
-import { convertMovieTime, formatCurrency, formatDate } from "../../../ultils";
-import { getAlSt } from "../../../redux/slice/ShowTimeSlice.ts";
-import { useGroupBy } from "../../../hook";
 interface ShowTimeFormProps {
   form: FormInstance<any>;
   onFinish: (values: any) => void;
@@ -30,6 +42,11 @@ const ShowTimeForm = ({
   editUser = true,
 }: ShowTimeFormProps) => {
   const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getAlSt({}));
+    dispatch(getMovie())
+    dispatch(getRooms())
+  }, [dispatch]);
   const { movie } = useAppSelector((state) => state.movie);
   const { rooms } = useAppSelector((state) => state.roomReducer);
   const [messRoom, setMessRoom] = useState<any>("");
@@ -47,10 +64,8 @@ const ShowTimeForm = ({
   const [startTime, setStartTime] = useState<any>();
   const [disableBtn, setDisableBtn] = useState<any>(false);
 
-  useEffect(() => {
-    dispatch(getAlSt({}));
-  }, []);
-  const { stList } = useAppSelector((state: any) => state.ShowTimeReducer);
+
+  const { stList, isLoading } = useAppSelector((state: any) => state.ShowTimeReducer);
   const { groupByTime, groupByDate } = useGroupBy()
   let movieSelect = movie?.find((item: any) => item?._id === movieId);
   let movieTime = convertMovieTime((movieSelect?.runTime) + 15);
@@ -153,7 +168,7 @@ const ShowTimeForm = ({
     //       if (timeChose < inputEnd && newTimeEnd  < inputStart) {
     //         let roomExist = arrTimeStart[inputStart]
     //         let data = flatten(roomExist)
-            
+
     //         let kiemtraphongtrong = roomList.filter((cv: any) => {
     //           return !data.find((e: any) => {
     //             return e?._id == cv?._id;
@@ -368,6 +383,7 @@ const ShowTimeForm = ({
                           htmlType="submit"
                           type="primary"
                           style={{ minWidth: 150 }}
+                          loading={isLoading}
                         >
                           Lưu
                         </Button>

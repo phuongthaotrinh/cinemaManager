@@ -29,6 +29,10 @@ const OrderTab = ({ }: Props) => {
          setOrderXuatVe(orders?.filter((item: any) => item?.status == 3));
       }
    }, [orders]);
+
+
+   console.log(orderSuccess);
+   
    const items: any[] = [
       {
          key: 1,

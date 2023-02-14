@@ -7,16 +7,22 @@ import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 let persistor = persistStore(store);
 import App from "./App"
-
-
-
+const Loading = () => {
+  return (
+    <div className="h-[100vh] flex justify-center items-center">
+      <h2>Loading.....</h2>
+    </div>
+  )
+}
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <Suspense fallback={<Loading />}>
+         <App /> 
+         </Suspense>
     </PersistGate>
+
   </Provider>
 
 );

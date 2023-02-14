@@ -51,5 +51,4 @@ const reducers = combineReducers({
   DashboardReducer
 });
 const rootReducer = persistReducer(persistConfig, reducers);
-
 export default rootReducer;

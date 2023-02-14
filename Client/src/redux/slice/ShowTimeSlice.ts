@@ -89,11 +89,17 @@ const ShowTimeSlice = createSlice({
 
       builder.addCase(createData.fulfilled, (state, { payload }) => {
          state.stList.push(payload);
+         state.isLoading = false
+
       });
       builder.addCase(createData.rejected, (state, { payload }) => {
          state.errorMessage = payload;
+         state.isLoading = false
       });
-
+      builder.addCase(createData.pending, (state, { payload }) => {
+         state.errorMessage = payload;
+         state.isLoading = true
+      });
       //update
 
       builder.addCase(updateData.fulfilled, (state, action) => {

@@ -2,8 +2,7 @@ import { Fragment, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { publicRoutes, privateRoutes } from "./routes";
 import "antd/dist/antd.css";
-const ClientTheme = lazy(() => import("./themes").then(module => {return { default: module.ClientTheme }}))
-const AdminTheme = lazy(() => import("./themes").then(module => {return { default: module.AdminTheme }}))
+import { ClientTheme, AdminTheme } from "./themes";
 import { useAppDispatch, useAppSelector } from "./redux/hook";
 const Maintain = lazy(() => import("./components/client/Maintain"));
 import { getConfigs } from "./redux/slice/webConfig";
@@ -27,8 +26,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        
+ 
         <BrowserRouter>
           <Routes>
             {publicRoutes.map((route, index) => {
@@ -80,7 +78,6 @@ function App() {
             })}
           </Routes>
         </BrowserRouter>
-      </Suspense>
     </>
   );
 }

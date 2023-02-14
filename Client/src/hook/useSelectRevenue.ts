@@ -4,7 +4,7 @@ import { getdashBoard } from '../redux/slice/DashBoard';
 
 
 
-const useSelectMovie = () => {
+const useSelectRevenue = () => {
   const [byDay, setByDay] = useState<any>([]);
   const [byMonth, setByMonth] = useState<any>([]);
   const [byYear, setByYear] = useState<any>([]);
@@ -19,13 +19,13 @@ const useSelectMovie = () => {
       setByDay(payload.dayProfit);
       setByMonth(payload.monthProfit)
       setByYear(payload.profitByYear);
-      setByDay(payload.dayProfit);
       setByProfit(payload.byProfit)
     })();
 
-  }, [dispatch])
-
-  return {  dashboard }
+  }, [dispatch]);
+  console.log("payload.dayProfit", byDay);
+  
+  return { dashboard, byDay, byMonth, byYear, byProfit, byCompany }
 }
 
-export default useSelectMovie
+export default useSelectRevenue 

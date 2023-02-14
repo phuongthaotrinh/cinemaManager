@@ -1,8 +1,13 @@
-import React from 'react'
-import { Upload, Modal, Form, message } from 'antd';
+import axios from 'axios';
+import React from 'react';
+import {
+  Form,
+  message,
+  Modal,
+  Upload
+  } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { UploadFile } from 'antd/lib/upload/interface';
-import axios from 'axios';
 
 type Props = {
   imageList: UploadFile<any>[],
