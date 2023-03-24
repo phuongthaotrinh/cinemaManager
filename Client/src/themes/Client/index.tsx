@@ -16,9 +16,9 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
     });
   }, []);
   return (
-    <div className=" min-h-screen bg-black text-white">
+    <div className=" min-h-screen bg-black absolute top-0 w-full text-white">
       <Navbar />
-      <ClientHeader />
+      {/* <ClientHeader /> */}
       {children}
       <Footer />
     </div>

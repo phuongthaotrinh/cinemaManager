@@ -24,7 +24,7 @@ const Header = (props: Props) => {
                 <div className="absolute w-full h-[650px] bg-gradient-to-r from-black">
                 </div>
                 <img className='w-full h-[650px] object-cover' src={`${movieRender?.image?.[0]?.url}`} />
-                <div className="absolute w-full top-[20%] p-4 md:p-8 ">
+                <div className="absolute w-full top-[10%] p-4 md:p-8 ">
                     <h1 className='text-3xl md:text-5xl font-bold text-white' >{movieRender?.name}</h1>
                     <div className="my-7 flex items-center">
                         <button className='border bg-gray-300 text-white border-gray-300 px-5 py-2 rounded hover:bg-transparent transiti'><Link to={`/movie/${movieRender?._id}`} className='font-bold flex items-center text-black hover:text-red-600 p-1' ><MdOutlineSend style={{ fontSize: '20px', paddingRight: '5px' }} />Đặt vé ngay</Link></button>
@@ -33,9 +33,7 @@ const Header = (props: Props) => {
                     <p className='text-gray-400 text-sm'>Khởi chiếu: {formatDate(movieRender?.releaseDate)}</p>
                     <p className='w-full md:max-w-[70%] lg:max-w-[35%] text-gray-200 mt-3'>{truncateString(movieRender?.description, 200)}</p>
                 </div>
-
             </div>
-
         </div>
     )
 }

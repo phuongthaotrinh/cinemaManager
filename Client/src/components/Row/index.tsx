@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react'
 import { MdChevronRight, MdChevronLeft } from 'react-icons/md';
 import MovieCard from '../MovieCard';
-import axios from 'axios';
-
-
+import { useAppDispatch } from '../../redux/hook';
+import { getOneMovie } from '../../redux/slice/Movie';
 interface Props {
     title: string,
-    fetchURL: string,
+    fetchURL: any,
     rowID: string | number,
-    rateSpin?: boolean 
+    rateSpin?: boolean
 }
 
-const Row = ({ title, fetchURL, rowID, rateSpin}: Props) => {
+const Row = ({ title, fetchURL, rowID, rateSpin }: Props) => {
+    const dispatch = useAppDispatch()
     const [data, setData] = useState([]);
+
     useEffect(() => {
-        axios.get(fetchURL).then(({ data }) => {
-            setData(data.results)
-        })
+        dispatch(fetchURL()).then(({ payload }: any) => {
+            setData(payload)
+        },)
+
+
     }, [fetchURL]);
     const slideLeft = () => {
         const slider = (document.getElementById('slider' + rowID)) as HTMLElement;
@@ -38,7 +41,7 @@ const Row = ({ title, fetchURL, rowID, rateSpin}: Props) => {
 
                 <div id={'slider' + rowID} className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative">
                     {data.map((item, index) => (
-                        <MovieCard key={index} item={item} />
+                        <MovieCard key={index} item={item}/>
                     ))}
                 </div>
                 <MdChevronRight

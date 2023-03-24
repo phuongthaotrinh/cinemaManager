@@ -35,7 +35,7 @@ const MovieDetail = (props: Props) => {
   document.title = `${slug}`;
   useEffect(() => {
     if (movie) {
-      let arr = movie?.filter((item: any) => item?._id !== movieSelectId);
+      let arr:any = movie?.filter((item: any) => item?._id !== movieSelectId);
       setRelateArr(arr);
     }
   }, [movieSelectId]);
@@ -216,7 +216,7 @@ const MovieDetail = (props: Props) => {
   };
 
   return (
-    <>
+    <div >
       <Modal
         className="newStyle"
         title={data?.name}
@@ -256,10 +256,10 @@ const MovieDetail = (props: Props) => {
                   <span>Thời lượng:</span> {data?.movie?.runTime} phút
                 </p>
                 <p>
-                  <span>Diễn viên:</span> {data?.movie?.actor}
+                  <span>Diễn viên:</span> {data?.movie?.actor.slice(0,5 )}
                 </p>
                 <p>
-                  <span>Đạo diễn:</span> {data?.movie?.director}
+                  <span>Đạo diễn:</span> {data?.movie?.director.slice(0,5 )}
                 </p>
                 <p>
                   <span>Xuất xứ:</span> {data?.movie?.country}
@@ -313,7 +313,7 @@ const MovieDetail = (props: Props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
