@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Button, Card, DatePicker, Form, Input, InputNumber, Select, Skeleton } from "antd";
-import { useAppSelector } from "../../../redux/hook";
+import { useEffect, useRef, useState } from "react";
+import { Button, Card, DatePicker, Form, Input, InputNumber, InputRef, Select, Skeleton, Space } from "antd";
+import { useAppDispatch, useAppSelector } from "../../../redux/hook";
 import {
   MovieCountry,
   MoviLanguages,
@@ -9,6 +9,10 @@ import {
 } from "../../../ultils/data";
 import { validateMessages } from "../../../ultils/FormMessage";
 import ImageUpload from "../../../components/upload";
+import { getMovieType } from "../../../redux/slice/movieTypeSlice";
+import { useSearch } from "../../../hook";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 type Props = {
   form?: any;
@@ -19,13 +23,18 @@ type Props = {
 };
 
 const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getMovieType())
+  }, [dispatch]);
+
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
-  
 
   return (
     <>
       <Form
         form={form}
+        id="form_2"
         layout="vertical"
         onFinish={onFinish}
         validateMessages={validateMessages}
@@ -35,7 +44,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
             <>
               <Card className="col-6 w-full">
                 <Form.Item label="Ảnh">
-                  <ImageUpload imageList={image} limit={1} key={1} />
+                  <ImageUpload imageList={image} limit={2} key={1} />
                 </Form.Item>
                 <Form.Item name="name" label="Tên phim" rules={[{ required: true, min: 5 }]}  >
                   <Input />
@@ -49,7 +58,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                   <Select mode="multiple">
                     {movieType &&
                       movieType?.map((item: any, index: any) => (
-                        <Select.Option value={item._id} key={index}>
+                        <Select.Option value={item._id} key={`${item._id}.${item?.id}.${index}`}>
                           {item?.movieName}
                         </Select.Option>
                       ))}

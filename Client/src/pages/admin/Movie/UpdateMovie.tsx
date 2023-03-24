@@ -19,8 +19,6 @@ const UpdateMovies = (props: Props) => {
 
   const { movie } = useAppSelector((state) => state.movie);
   const data = movie?.find((item: any) => item._id === id);
-  console.log(data);
-
   useEffect(() => {
     if (data) {
       setImage(data?.image as any[]);

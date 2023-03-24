@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy } from 'react';
+import React, { useState, useEffect, lazy , useId} from 'react';
 import { Button, message, Select, TableColumnsType, Table } from 'antd';
 import { Link, useSearchParams } from 'react-router-dom';
 import { isPast, parseISO } from "date-fns";
@@ -34,6 +34,7 @@ const NestedTable = (props: Props) => {
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
   let movieSelect = movie.find((item: any) => item?._id === movieId);
+  const keyId = useId().concat(Math.random(9999));
 
   useEffect(() => {
     if (stList) {
@@ -96,6 +97,9 @@ const NestedTable = (props: Props) => {
         )
       },
       { title: 'Trạng thái truy cập', dataIndex: 'status2', key: 'status2', width: 100, render: (_: any, { status2 }: any) => <p>{status2 ? "Quá hạn, không thể truy cập" : "Đang hoạt động"}</p> },
+      { title: 'Xem theo phòng', key: 'watching', width: 100, render: (_: any, { _id }: any) =>(
+        <Link to="">Xem ghế đã bán</Link>
+      ) },
       {
         title: "Hành động",
         key: "status",
@@ -163,9 +167,9 @@ const NestedTable = (props: Props) => {
 
   const data: any[] = [];
   for (let key in showByDate) {
-    console.log("kye", typeof key)
+    let idShowTime = showByDate[key].map((item:any) => item._id);
     data.push({
-      key: (Math.floor(Math.random() * showByDate[key].length * Math.random())),
+      key: keyId.concat(idShowTime),
       date: key,
     });
   }

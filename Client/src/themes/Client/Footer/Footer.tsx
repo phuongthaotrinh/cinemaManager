@@ -1,46 +1,40 @@
 import { Link } from 'react-router-dom'
-import { MdEmail, MdOutlineFacebook } from 'react-icons/md'
-import { FaGooglePlus } from 'react-icons/fa'
-import { BsYoutube } from 'react-icons/bs'
 import { useAppSelector } from '../../../redux/hook'
 type Props = {}
 
 const Footer = (props: Props) => {
     const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
+
     return (
-        <>
-            <div className='border-t border-[#0e1624] min-h-[200px] mt-10 '>
-                <div className='mx-auto w-[1200px] py-4'>
-                    <div>
-                        <ul className='flex justify-center text-white'>
-                            <li className='px-2'>Chính sách</li>
-                            <div className='text-[#555]'>|</div>
-                            <li className='px-2'>Lịch chiếu</li>
-                            <div className='text-[#555]'>|</div>
-                            <li className='px-2'>Tin tức</li>
-                            <div className='text-[#555]'>|</div>
-                            <li className='px-2'>Giá vé</li>
-                            <div className='text-[#555]'>|</div>
-                            <li className='px-2'>Hỏi đáp</li>
-                            <div className='text-[#555]'>|</div>
-                            <li className='px-2'>Liên hệ</li>
-                        </ul>
-                    </div>
-                    <div className='flex justify-center my-5'>
-                        <Link to={`/`}><p className='px-1 text-[#9f9f9f] text-3xl'><MdEmail /></p></Link>
-                        <Link to={`/`}><p className='px-1 text-[#9f9f9f] text-3xl'><FaGooglePlus /></p></Link>
-                        <Link to={`/`}><p className='px-1 text-[#9f9f9f] text-3xl'><MdOutlineFacebook /></p></Link>
-                        <Link to={`/`}><p className='px-1 text-[#9f9f9f] text-3xl'><BsYoutube /></p></Link>
-                    </div>
-                    <div className='text-white text-center'>
-                        <p>Địa chỉ: {webConfigs[0]?.address[0]?.text} </p>
-                        <p>Bản quyền thuộc trung tâm chiếu phim  {webConfigs[0]?.storeName} </p>
-                        <p>Giấy phép số: 224/GP- TTĐT ngày 29/05/2021 - Chịu trách nhiệm: Nguyễn Văn A - Giám đốc.</p>
-                        <p>Hotline: {webConfigs[0]?.phone} </p>
-                    </div>
+        <div className='bg-black h-[300px] mt-[150px] bg-[#1E293B] pt-12'>
+            <div className="text-white flex items-center justify-center gap-8 mt-5">
+                <div className="">
+                    <Link to="/" className='grid place-items-center'><img className='w-[110px] h-[90px] object-fill border border-yellow-600' src={webConfigs?.[0]?.logo?.[0]?.url} alt="" /></Link>
+                    <Link to={""}><button className='px-[1em] py-1 rounded-sm mt-5 text-[1.3em] font-bold whitespace-normal uppercase bg-[#01B4E4] text-white'>Join the Community</button></Link>
+                </div>
+                <div className="grid ">
+                    <h2 className='text-black font-bold'>THE BASICS</h2>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Giới thiệu về {webConfigs?.[0]?.storeName}</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Contact Us</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Chương trình khuyến mãi</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Chính sách ưu đãi</Link>
+                </div>
+                <div className="grid ">
+                    <h2 className='text-black font-bold'>COMMUNITY</h2>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Guidelines</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Discussions</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Leaderboard</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Twitter</Link>
+                </div>
+                <div className=" grid ">
+                    <h2 className='text-black font-bold'>LEGAL</h2>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Terms of Use</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>API Terms of Use</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Privacy Policy</Link>
+                    <Link to="#" className='text-white text-[14px] text-slate-400 hover:text-black font-medium'>Privacy Policy</Link>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

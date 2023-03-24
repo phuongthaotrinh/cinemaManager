@@ -174,7 +174,7 @@ const swaggerJSDocs = YAML.load(__dirname + "/configs/api.yaml")
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
 
 mongoose
-  .connect(process.env.MONGODB_ONLINE)
+  .connect(process.env.MONGODB_LOCAL)
   .then(() => console.log("Kết nối MongoDB thành công"))
   .catch((err) => console.log(err));
 

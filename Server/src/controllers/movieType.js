@@ -3,22 +3,39 @@ import Movie from "../models/movie";
 
 export const create = async (req, res) => {
   try {
-    const exitMovieType = await MovieType.findOne({ movieName: req.body.movieName }).exec();
-    if (exitMovieType) {
-      return res.status(500).json("Thể loại phim đã tồn tại");
+    const movieTypes = req.body;
+    const exitMovieType = await MovieType.findOne({ movieName: req.body.movieName, }).exec();
+    
+    if (movieTypes.length > 0 && movieTypes.length !== undefined) {
+      const exits = await MovieType.find({}).exec();
+      for (const allItem of exits) {
+        for (const req of movieTypes) {
+         if(allItem.imdbId == req.imdbId){
+          return res.status(500).json("Thể loại phim đã tồn tại");
+         }
+        }
+      }
+    } else {
+      if (exitMovieType) {
+        return res.status(500).json("Thể loại phim đã tồn tại");
+      }
     }
-    const movieType = await new MovieType(req.body).save();
+    const movieType = await MovieType.insertMany(movieTypes);
+
     res.json(movieType);
   } catch (error) {
     res.status(400).json({
       message: "don't create",
+      error,
     });
   }
 };
 
 export const read = async (req, res) => {
   try {
-    const movieType = await MovieType.findOne({ _id: req.params.id }).sort({createdAt: -1}).exec();
+    const movieType = await MovieType.findOne({ _id: req.params.id })
+      .sort({ createdAt: -1 })
+      .exec();
     res.json(movieType);
   } catch (error) {
     res.status(400).json({
@@ -83,28 +100,29 @@ export const readMovieOfMovieType = async (req, res) => {
   }
 };
 
-
 export const searchByGenre = async (req, res) => {
   try {
     const searchString = req.query.q ? req.query.q : "";
-    const result = await MovieType.find({ movieName: new RegExp(searchString, "i") }).exec();
-    res.json(result)
+    const result = await MovieType.find({
+      movieName: new RegExp(searchString, "i"),
+    }).exec();
+    res.json(result);
   } catch (error) {
     res.status(400).json({
-      message: `don't find, ${error}`
-    })
+      message: `don't find, ${error}`,
+    });
   }
-}
+};
 
 export const getNameById = async (req, res) => {
   try {
-    const name = await MovieType.findOne({_id: req.params.id}).exec()
+    const name = await MovieType.findOne({ _id: req.params.id }).exec();
     res.status(200).json({
-      name: name.movieName
-    })
+      name: name.movieName,
+    });
   } catch (error) {
     res.status(400).json({
-      message: `don't find, ${error}`
-    })
+      message: `don't find, ${error}`,
+    });
   }
-}
+};

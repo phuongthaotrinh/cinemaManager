@@ -12,45 +12,28 @@
   box-sizing: border-box;
 }
 
-// ::-webkit-scrollbar-track {
-//   border-radius: 4px;
-//   max-height: 5px;
-//   height: 5px;
-//   margin-top: 40px;
-//   height: 3px;
-// }
-
-// ::-webkit-scrollbar {
-//   width: 8px;
-//   max-height: 5px;
-//   height: 3px;
-// }
-
-// ::-webkit-scrollbar-thumb {
-//   width: 8px;
-//   height: 3px;
-//   border-radius: 4px;
-//   background: #d9d9d9;
-// }
-
 :root {
   --font-family: "Noto Sans", sans-serif;
   --primary: #48647f;
   --bg: #f0f0f0;
   --white: #ffff;
   --border: #dcdcdc;
-  --black: #000000;
+  // --black: #000000;
 }
 
 body {
   border-radius: 3px;
   scroll-behavior: smooth;
-  background-color: var(--bg) !important;
-
+  // background-color: var(--bg) !important;
   ::selection {
     color: var(--white);
     background-color: var(--primary);
   }
+  min-height: 100vh;
+  height: 100vh;
+}
+*::-webkit-scrollbar{
+  display: none
 }
 
 .font-montserrat {

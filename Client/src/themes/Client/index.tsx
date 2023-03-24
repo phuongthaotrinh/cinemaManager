@@ -1,6 +1,7 @@
-import { useEffect, useState,lazy } from "react";
-const Footer = lazy(() => import("./Footer/Footer")) ;
-const ClientHeader = lazy(() => import("./Header")) ;
+import { useEffect, useState, lazy } from "react";
+import Navbar from "./Header/Navbar";
+const Footer = lazy(() => import("./Footer/Footer"));
+const ClientHeader = lazy(() => import("./Header"));
 
 type ClientLayoutProps = {
   children: any;
@@ -15,11 +16,10 @@ const ClientLayout = ({ children }: ClientLayoutProps) => {
     });
   }, []);
   return (
-    <div className="bg-[#151f32] min-h-screen">
-      <div className="">
-        <ClientHeader />
-      </div>
-      <main>{children}</main>
+    <div className=" min-h-screen bg-black text-white">
+      <Navbar />
+      <ClientHeader />
+      {children}
       <Footer />
     </div>
   );

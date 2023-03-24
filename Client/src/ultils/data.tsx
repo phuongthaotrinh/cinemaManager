@@ -59,15 +59,14 @@ export const MovieLimitAge = [
 ];
 
 export const MovieCountry = [
-  { name: "Việt Nam" },
-  { name: "Âu - Mỹ" },
-  { name: "Trung Quốc" },
-  { name: "Hàn Quốc" },
-  { name: "Đài Loan" },
-  { name: "Nhật Bản" },
-  { name: "Thái Lan" },
-  { name: "Ấn Độ" },
-  { name: "Quốc giá khác" },
+  { name: "Việt Nam", original_language: "vn" },
+  { name: "Âu - Mỹ" , original_language: "en" },
+  { name: "Trung Quốc" , original_language: "chi" },
+  { name: "Hàn Quốc" , original_language: "kor" },
+  { name: "Nhật Bản" , original_language: "jp" },
+  { name: "Thái Lan" , original_language: "tl" },
+  { name: "Ấn Độ" , original_language: "indo" },
+  { name: "Quốc giá khác" , original_language: "fi" },
 ];
 
 export const MoviLanguages = [

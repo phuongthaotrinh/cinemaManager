@@ -1,23 +1,59 @@
-import { Button, Form, Input, message } from "antd";
+import { Button, Divider, Form, Input, Table, message } from "antd";
 import { useAppDispatch } from "../../../redux/hook";
 import { createMovieType } from "../../../redux/slice/movieTypeSlice";
 import { Link, useNavigate } from "react-router-dom";
 import configRoute from "../../../config";
+import { useState } from 'react';
+import requests from "../../../tmdb"
+import axiosClient from "../../../service/instance";
 type Props = {};
 
 const CreateMovieType = (props: Props) => {
   const [form] = Form.useForm();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const onFinish = async (values: any) => {
-    const { meta, payload } = await dispatch(createMovieType(values));
-    if (meta.requestStatus == "fulfilled") {
-      message.success("Thêm thành công");
-      navigate(configRoute.routes.adminMovieType);
+    if (values.length !== undefined) {
+      const options = values.map(function (row: any) {
+        return { imdbId: row.id || null, movieName: row.name }
+      });
+      dispatch(createMovieType(options))
+        .then(() => { message.success("Nhap thanh cong");navigate(configRoute.routes.adminMovieType)  })
+        .catch(() => message.error("Loix"))
     } else {
-      message.error(`${payload}`);
+      dispatch(createMovieType(values))
+        .then(() => { message.success("Them thanh cong");navigate(configRoute.routes.adminMovieType)  })
+        .catch(() => message.error("Loix"))
     }
   };
+  const [res, setRes] = useState([]);
+  const handleFromTmdb = () => {
+    const handle = async () => {
+      const { data } = await axiosClient.get(requests.getGenres);
+      setRes(data.genres)
+    }
+    handle()
+  }
+  const dataSource = res && res.map((item: any, index: any) => {
+    return {
+      key: index + 1,
+      name: item?.name
+    }
+  });
+
+  const columns = [
+    {
+      title: '#',
+      dataIndex: 'key',
+      key: 'key',
+    },
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+  ];
 
   return (
     <>
@@ -48,6 +84,15 @@ const CreateMovieType = (props: Props) => {
           </Button>
         </Form.Item>
       </Form>
+
+      <Divider>Hoặc</Divider>
+      <Button type="primary" onClick={handleFromTmdb}>Nhập từ tài nguyên TMDB</Button>
+      {res && res.length > 0 && (
+        <>
+          <Table columns={columns} dataSource={dataSource} size="middle" />
+          <Button onClick={() => onFinish(res)}>Pushlist</Button>
+        </>
+      )}
     </>
   );
 };

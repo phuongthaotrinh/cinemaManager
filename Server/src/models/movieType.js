@@ -5,6 +5,9 @@ const movieTypeSchema = new Schema({
         type: String,
         required:true,
         index: true
+    },
+    imdbId: {
+        type: Number
     }
 }, {timestamps:true})
 

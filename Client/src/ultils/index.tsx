@@ -152,3 +152,22 @@ export const percentage = (data: number, ...arg: any) => {
   return res
 }
 
+
+
+export const truncateString = (str:string, num:number) =>{
+  if(str?.length > num){
+      return str.slice(0,num) + '...';
+  }else{
+      return str;
+  }
+}
+
+export const formatRunTimeToDate = (num: any) => {
+  let hours = Math.floor(num / 60);  
+  let minutes:any = num % 60;
+  if (minutes + ''.length < 2) {
+    minutes = '0' + minutes; 
+  }
+  return hours + "h" + minutes+"m";
+  
+}

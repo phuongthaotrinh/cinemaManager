@@ -52,7 +52,7 @@ const ImageUpload = (props: Props) => {
       onError({ error });
     }
   }
-  const accepts = ["image/gif", "image/jpeg", "image/png"];
+  const accepts = ["image/gif", "image/jpeg", "image/png", ".svg"];
 
   const handleChange = ({ fileList, file }: { fileList: any; file: any }) => {
     const extensionFile = accepts.map((item) => item.split("image/")[1]);
