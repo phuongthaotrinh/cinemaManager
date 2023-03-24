@@ -16,7 +16,7 @@ const CancelOrder = (props: Props) => {
   return (
     <div className="flex flex-row justify-center mt-16 ">
       <div className="w-[55%]">
-        <div className="bg-[#f6710d] h-[650px] ">
+        <div className="bg-[#f6710d] h-[550px] ">
           <div className="flex items-center justify-between p-2">
             <h1 className="text-3xl p-3 text-white "> </h1>
             <div className="">

@@ -19,12 +19,12 @@ const Header = (props: Props) => {
 
 
     return (
-        <div className='w-full h-[650px]'>
+        <div className='w-full h-[550px]'>
             <div className="w-full h-full">
-                <div className="absolute w-full h-[650px] bg-gradient-to-r from-black">
+                <div className="absolute w-full h-[550px] bg-gradient-to-r from-black">
                 </div>
-                <img className='w-full h-[650px] object-cover' src={`${movieRender?.image?.[0]?.url}`} />
-                <div className="absolute w-full top-[10%] p-4 md:p-8 ">
+                <img className='w-full h-[550px] object-cover' src={`${movieRender?.image?.[0]?.url}`} />
+                <div className="absolute w-full top-[5%] p-4 md:p-8 ">
                     <h1 className='text-3xl md:text-5xl font-bold text-white' >{movieRender?.name}</h1>
                     <div className="my-7 flex items-center">
                         <button className='border bg-gray-300 text-white border-gray-300 px-5 py-2 rounded hover:bg-transparent transiti'><Link to={`/movie/${movieRender?._id}`} className='font-bold flex items-center text-black hover:text-red-600 p-1' ><MdOutlineSend style={{ fontSize: '20px', paddingRight: '5px' }} />Đặt vé ngay</Link></button>

@@ -30,7 +30,7 @@ const Row = ({ title, fetchURL, rowID, rateSpin }: Props) => {
         slider.scrollLeft = slider.scrollLeft + 400;
     };
     return (
-        <div className='mt-5'>
+        <div className=''>
             <h2 className='text-white font-bold md:text-xl p-4 bg-black uppercase'>{title}</h2>
             <div className="relative flex items-center group ">
                 <MdChevronLeft

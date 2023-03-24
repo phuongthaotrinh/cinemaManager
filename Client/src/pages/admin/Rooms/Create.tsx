@@ -20,13 +20,12 @@ const AdminRoomCreate = (props: Props) => {
 
   const onFinish = (val: any) => {
     dispatch(createRooms(val))
-    console.log(val);
-      // .unwrap()
-      // .then(() => {
-      //   message.success("tạo thành công");
-      //   navigate(config.routes.adminRooms);
-      // })
-      // .catch((err: any) => message.error(`${err}`));
+      .unwrap()
+      .then(() => {
+        message.success("tạo thành công");
+        navigate(config.routes.adminRooms);
+      })
+      .catch((err: any) => message.error(`${err}`));
   };
   useEffect(() => {
     setShowSeatTye(true);
