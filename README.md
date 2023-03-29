@@ -1,3 +1,4 @@
+# Readme đang update, mn vui lòng chờ e ạ..
 # cinemaManager
 
 
