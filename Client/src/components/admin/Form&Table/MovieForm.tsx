@@ -51,7 +51,7 @@ const MovieForm = ({ form, onFinish, image, setImage, onReset }: Props) => {
                 </Form.Item>
 
                 <Form.Item name="runTime" label="Thời gian chiếu (dv: phút)" rules={[{ required: true, }, { type: "number", min: 45, max: 180 }]}   >
-                  <InputNumber min={45} max={180} style={{ width: '100%' }} />
+                  <InputNumber min={45} max={200} style={{ width: '100%' }} />
                 </Form.Item>
 
                 <Form.Item label="Thể loại" name="movieTypeId" rules={[{ required: true }]}   >

@@ -34,7 +34,7 @@ const NestedTable = (props: Props) => {
   let movieId = searchParams.get("movieId");
   let { movie } = useAppSelector((state: any) => state.movie);
   let movieSelect = movie.find((item: any) => item?._id === movieId);
-  const keyId = useId().concat(Math.random(9999));
+  const keyId = useId();
 
   useEffect(() => {
     if (stList) {

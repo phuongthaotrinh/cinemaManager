@@ -76,7 +76,7 @@ const Comente = ({ data }: Props) => {
   };
 
   return (
-    <div className="content__comment min-h-full w-full max-w-[1440p] bg-white p-2 m-0 rounded-b-xl">
+    <div className="content__comment h-[270px] max-h-[270px] overflow-y-scroll w-full max-w-[1440p] bg-white p-2 m-0 rounded-b-xl">
       <Form form={form} layout="vertical" onFinish={onFinish}>
         <div className="flex items-center gap-3">
           {currentUser !== null &&

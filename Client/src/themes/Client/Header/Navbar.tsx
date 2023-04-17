@@ -39,8 +39,8 @@ const Navbar = () => {
   }
 
   return (
-    <div className='w-full absolute flex justify-between top-0 items-center p-4 z-[100]'>
-      <Link to="/"><img className='w-[125px] max-w-[125px] p-4' src={`${webConfigs?.[0]?.logo?.[0]?.url} ` || "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"} alt="" /></Link>
+    <div className='w-full absolute flex justify-between top-0 items-center p-4 z-[100] sm:w-full '>
+      <Link to="/"><img className='w-[120px] max-w-[120px] h-[90px] max-h-[90px] object-cover p-4' src={`${webConfigs?.[0]?.logo?.[0]?.url} ` || "https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"} alt="" /></Link>
       <div className="flex items-center gap-5">
         <MdNotificationsNone className='text-[25px]' />
         <MdOutlineControlCamera className='text-[25px]' />
@@ -48,11 +48,9 @@ const Navbar = () => {
         <div className='flex items-center"'>
           {currentUser ? (
             <div className="w-[30px] h-[30px] rounded-full cursor-pointer">
-              <Dropdown menu={{ items }}>
+              <Dropdown menu={{ items }} className="sm:relative sm:right-11 " placement="bottomRight">
                 <a onClick={(e) => e.preventDefault()}>
-                  <Space>
                     <img className='w-full h-full  object-cover object-center' src={currentUser?.avatar?.[0]?.url || currentUser?.avatar?.url || "https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"} alt="" />
-                  </Space>
                 </a>
               </Dropdown>
             </div>

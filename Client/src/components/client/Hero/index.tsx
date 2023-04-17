@@ -5,12 +5,11 @@ type Props = {};
 const Hero = (props: Props) => {
     return (
         <div className="my-7 w-full h-[280px] container mx-auto">
-            <div className=" p-[70px] container" style={{backgroundPosition: "center"  ,backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,190235,ad47dd)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg")` }}>
-
-                <div className="grid grid-cols-3 gap-4">
+            <div className="sm:p-[20px]  lg:p-[70px]  md:p-[70px] container" style={{backgroundPosition: "center"  ,backgroundImage: `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,190235,ad47dd)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg")` }}>
+                <div className="lg:grid lg:grid-cols-3 gap-4 sm:block sm:p-3 ">
                     <div className="left col-span-2">
                         <h1 className="text-[32px] mb-3 text-white font-bold">Join Today</h1>
-                        <p className="w-[600px] text-[19px]">
+                        <p className="lg:w-[600px] text-[19px] sm:w-full">
                             Get access to maintain your own custom personal lists, track what
                             you've seen and search and filter for what to watch
                             next—regardless if it's in theatres, on TV or available on popular

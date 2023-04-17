@@ -21,7 +21,7 @@ const CreateMovie = (props: Props) => {
   useEffect(() => { dispatch(getMovieType()) }, [dispatch]);
   const { movieType } = useAppSelector((state: any) => state.movieTypeReducer);
   const [searchText, setSearchText] = useState('');
-  const [tmdbData, setTmdbData] = useState<any>({});
+  const [tmdbData, setTmdbData] = useState<any>(undefined);
 
   const onFinish = async (values: any) => {
     values.releaseDate = new Date(moment(values.releaseDate).format());
@@ -55,49 +55,57 @@ const CreateMovie = (props: Props) => {
       .catch(() => {
         message.error("Không tìm thấy film nào");
       })
+  }
+  useEffect(() => {
+    (async () => {
+      const res = await handler();
 
-      if (tmdbData) {
-        const dataImage = [] as any[];
-        dataImage.push(
-          { url: `https://image.tmdb.org/t/p/original${tmdbData[0]?.backdrop_path}` },
-          { url: `https://image.tmdb.org/t/p/w500${tmdbData[0]?.poster_path}` }
-        )
-        setImage(dataImage);
-        const mvTID = tmdbData[0]?.genres.map((item: any) => item?.id);
-        const res = [] as any[];
-        if (mvTID) {
-          for (const iterator of movieType) {
-            for (const check of mvTID) {
-              if (iterator?.imdbId == check) {
-                res.push(iterator);
-              }
+      form.setFieldsValue({...res})
+    })()
+  }, [tmdbData, searchText])
+
+  const handler = () => {
+    if (tmdbData) {
+      const dataImage = [] as any[];
+      dataImage.push(
+        { url: `https://image.tmdb.org/t/p/original${tmdbData[0]?.backdrop_path}` },
+        { url: `https://image.tmdb.org/t/p/w500${tmdbData[0]?.poster_path}` }
+      )
+      setImage(dataImage);
+      const mvTID = tmdbData[0]?.genres.map((item: any) => item?.id);
+      const res = [] as any[];
+      if (mvTID) {
+        for (const iterator of movieType) {
+          for (const check of mvTID) {
+            if (iterator?.imdbId == check) {
+              res.push(iterator);
             }
           }
         }
-  
-        let country = {} as any;
-        for (const iterator of MovieCountry) {
-          const original_language = tmdbData[0]?.original_language;
-          if (iterator?.original_language == original_language) {
-            country = iterator
-          }
-        }
-  
-        form.setFieldsValue({
-          dataImage,
-          releaseDate: moment(tmdbData[0]?.release_date),
-          runTime: Number(tmdbData[0]?.runtime),
-          name: tmdbData[0]?.title,
-          status: tmdbData[0]?.status === "Released" ? 0 : 1,
-          actor: tmdbData[1]?.cast.map((item: any) => item?.name),
-          director: tmdbData[1]?.crew?.map((item: any) => item?.name),
-          trailerUrl: ` https://www.youtube.com/watch?v=${tmdbData[0]?.videos?.results?.[0]?.key}`,
-          description: tmdbData[0]?.overview || "Nội dung đang cập nhật....",
-          movieTypeId: res?.map((item: any) => item?._id),
-          country: country?.name
-        });
       }
-
+      console.log("_____dataImage", dataImage)
+      let country = {} as any;
+      for (const iterator of MovieCountry) {
+        const original_language = tmdbData[0]?.original_language;
+        if (iterator?.original_language == original_language) {
+          country = iterator
+        }
+      }
+      const data = {
+        dataImage,
+        releaseDate: moment(tmdbData[0]?.release_date),
+        runTime: Number(tmdbData[0]?.runtime),
+        name: tmdbData[0]?.title,
+        status: tmdbData[0]?.status === "Released" ? 0 : 1,
+        actor: tmdbData[1]?.cast.map((item: any) => item?.name),
+        director: tmdbData[1]?.crew?.map((item: any) => item?.name),
+        trailerUrl: ` https://www.youtube.com/watch?v=${tmdbData[0]?.videos?.results?.[0]?.key}`,
+        description: tmdbData[0]?.overview || "Nội dung đang cập nhật....",
+        movieTypeId: res?.map((item: any) => item?._id),
+        country: country?.name
+      }
+      return data
+    }
   }
 
   return (

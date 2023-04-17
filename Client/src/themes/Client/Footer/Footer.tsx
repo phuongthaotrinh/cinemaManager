@@ -6,7 +6,7 @@ const Footer = (props: Props) => {
     const { webConfigs } = useAppSelector((state: any) => state.WebConfigReducer);
 
     return (
-        <div className='bg-black h-[300px] mt-[150px] bg-[#1E293B] pt-12'>
+        <div className='bg-black h-[300px] mt-[150px] bg-[#1E293B] pt-12 relative top-0 bottom-0 w-full'>
             <div className="text-white flex items-center justify-center gap-8 mt-5">
                 <div className="">
                     <Link to="/" className='grid place-items-center'><img className='w-[110px] h-[90px] object-fill border border-yellow-600' src={webConfigs?.[0]?.logo?.[0]?.url} alt="" /></Link>

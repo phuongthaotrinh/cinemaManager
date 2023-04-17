@@ -37,12 +37,12 @@ export const list = async (req, res) => {
 
 export const getOne = async (req, res) => {
   try {
-    const movie = await Movie.findOne({ _id: req.params.id }).exec();
-    const movieType = movie.movieTypeId.map((item) => item);
-    const nameMovieType = await MovieType.find({ _id: movieType }).exec();
+    const movie = await Movie.findOne({ _id: req.params.id }).populate(["movieTypeId"]).exec();
+    // const movieType = movie.movieTypeId.map((item) => item);
+    // const nameMovieType = await MovieType.find({ _id: movieType }).exec();
     return res.status(200).json({
       movie,
-      nameMovieType: nameMovieType.map((a) => a.movieName),
+      // nameMovieType: nameMovieType.map((a) => a.movieName),
     });
   } catch (error) {
     return res.status(400).json({
@@ -54,15 +54,15 @@ export const getOne = async (req, res) => {
 export const getSlug = async (req, res) => {
   const { slug } = req.params;
   try {
-    const movie = await Movie.findOne({ slug }).exec();
-    const movieType = movie.movieTypeId.map((item) => item);
-    const nameMovieType = await MovieType.find({ _id: movieType }).exec();
+    const movie = await Movie.findOne({ slug }).populate(["movieTypeId"]).exec();
+    // const movieType = movie.movieTypeId.map((item) => item);
+    // const nameMovieType = await MovieType.find({ _id: movieType }).exec();
     const comment = await Comment.find({ movieId: movie._id })
       .populate("userId", ["username", "email", "avatar"])
       .exec();
     return res.status(200).json({
       movie,
-      nameMovieType: nameMovieType.map((a) => a.movieName),
+      // nameMovieType: nameMovieType.map((a) => a.movieName),
       comment,
     });
   } catch (error) {

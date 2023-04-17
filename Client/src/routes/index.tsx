@@ -76,7 +76,7 @@ const CheckOrder = lazy(() => import("../pages/client/CheckOrder"));
 const MovieTab = lazy(() => import("../pages/admin/Movie/MovieTab"));
 const ListShowTimeByRoom = lazy(() => import("../pages/admin/Rooms/ListShowTimeByRoom"));
 const UserTab = lazy(() => import("../pages/admin/User/UserTab"));
-const DetailMovie = lazy(() => import("../pages/client/movieDetail/DetailMovie"));
+const DetailMovie = lazy(() => import("../pages/client/movieDetail"));
 const AdminVoucherTab = lazy(() => import("../pages/admin/voucher/Tab"))
 type RoutesType = {
   path: string;

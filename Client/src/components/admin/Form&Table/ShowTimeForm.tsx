@@ -233,7 +233,7 @@ const ShowTimeForm = ({
                     rules={[{ required: true }]}
                   >
                     <DatePicker
-                      disabledDate={disabledDate}
+                      // disabledDate={disabledDate}
                       showTime={{ hideDisabledOptions: true, format: "HH:mm" }}
                       format="DD-MM-YYYY HH:mm"
                       onChange={validRange}

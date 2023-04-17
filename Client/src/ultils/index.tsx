@@ -70,7 +70,7 @@ export const formatTime2 = (dateString: any) => {
   return date;
 };
 
-export const formatDate2 = (dateString: any) => {
+export const formatDate2 = (dateString: any ) => {
   let a = new Date(dateString);
   let data = moment(a).format("DD/MM/YYYY");
   return data;

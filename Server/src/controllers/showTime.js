@@ -7,7 +7,7 @@ export const create = async (req, res) => {
     // req.body.startAt = new Date(req.body.startAt);
     // req.body.endAt = new Date(req.body.startAt.getTime() + movie.runTime * 3600 * 1000);
     const existShowTime = await ShowTime.find({ endAt: { $gte: req.body.startAt }, roomId: { $in: req.body.roomId } }).populate("roomId").populate("movieId").exec();
-    console.log(existShowTime)
+    // console.log(existShowTime)
     if (existShowTime.length) return res.status(400).json({ message: "Khung giờ hoặc phòng chiếu của phim đang bị trùng, vui lòng tạo khung giờ khác", existShowTime });
     const showTime = await new ShowTime(req.body).save();
     return res.json(showTime);

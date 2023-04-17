@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react'
 import { MdChevronRight, MdChevronLeft } from 'react-icons/md';
 import MovieCard from '../MovieCard';
 import { useAppDispatch } from '../../redux/hook';
-import { getOneMovie } from '../../redux/slice/Movie';
+import { Spin } from 'antd';
+
 interface Props {
     title: string,
     fetchURL: any,
@@ -10,17 +11,18 @@ interface Props {
     rateSpin?: boolean
 }
 
-const Row = ({ title, fetchURL, rowID, rateSpin }: Props) => {
+const Row = ({ title, fetchURL, rowID }: Props) => {
     const dispatch = useAppDispatch()
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        dispatch(fetchURL()).then(({ payload }: any) => {
-            setData(payload)
-        },)
-
+        (async () => {
+            const { payload } = await dispatch(fetchURL());
+            setData(payload);
+        })()
 
     }, [fetchURL]);
+
     const slideLeft = () => {
         const slider = (document.getElementById('slider' + rowID)) as HTMLElement;
         slider.scrollLeft = slider.scrollLeft - 400;
@@ -29,6 +31,7 @@ const Row = ({ title, fetchURL, rowID, rateSpin }: Props) => {
         const slider = (document.getElementById('slider' + rowID)) as HTMLElement;
         slider.scrollLeft = slider.scrollLeft + 400;
     };
+
     return (
         <div className=''>
             <h2 className='text-white font-bold md:text-xl p-4 bg-black uppercase'>{title}</h2>
@@ -40,9 +43,10 @@ const Row = ({ title, fetchURL, rowID, rateSpin }: Props) => {
                 />
 
                 <div id={'slider' + rowID} className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative">
-                    {data.map((item, index) => (
-                        <MovieCard key={index} item={item}/>
+                    {data && data.map((item, index) => (
+                        <MovieCard key={index} item={item} />
                     ))}
+                     {!data || data.length < 1 && <Spin  className='grid place-content-center h-full'/>}
                 </div>
                 <MdChevronRight
                     onClick={slideRight}

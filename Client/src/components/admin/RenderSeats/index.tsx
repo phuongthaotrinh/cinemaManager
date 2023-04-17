@@ -50,7 +50,7 @@ const RenderSeats = ({
   const [seatArrSelect, setSeatArrSelect] = useState<any>([]);
   const [showByCT, setShowByCT] = useState(false);
   const [hiddenChooseAll, setHiddenChooseAll] = useState(false);
-  const { seatType } = useAppSelector((state) => state.seatTypeReducer);
+  const { seatType } = useAppSelector((state:any) => state.seatTypeReducer);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blockSeat, setBlockSeat] = useState<any>([]);
   const [parseCharac, setParseCharac] = useState<any>([]);
