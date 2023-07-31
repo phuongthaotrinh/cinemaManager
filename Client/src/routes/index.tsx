@@ -69,11 +69,11 @@ const LoadingPushAccountInLocalStorage = lazy(() => import("../components/client
 const AdminOrdersDetail = lazy(() => import("../pages/admin/Order/Detail"));
 const FindOrder = lazy(() => import("../pages/client/findOrder"));
 const PaymentStatus = lazy(() => import("../components/client/PaymentStatus"));
-const OrderTab = lazy(() => import("../pages/admin/Order/OrderTab"));
+const OrderTab = lazy(() => import("../pages/admin/Order"));
 const NestedTable = lazy(() => import("../pages/admin/showTime/NestedTable"));
 const CancelOrder = lazy(() => import("../components/client/CancelOrder"));
 const CheckOrder = lazy(() => import("../pages/client/CheckOrder"));
-const MovieTab = lazy(() => import("../pages/admin/Movie/MovieTab"));
+const MovieTab = lazy(() => import("../pages/admin/Movie"));
 const ListShowTimeByRoom = lazy(() => import("../pages/admin/Rooms/ListShowTimeByRoom"));
 const UserTab = lazy(() => import("../pages/admin/User/UserTab"));
 const DetailMovie = lazy(() => import("../pages/client/movieDetail"));

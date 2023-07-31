@@ -6,7 +6,9 @@ import { BsFillPlayFill } from "react-icons/bs"
 import { Modal, Spin } from "antd";
 import Tab from "./Tab";
 import { useAppDispatch } from "../../../redux/hook";
-import { getOneMovie } from "../../../redux/slice/Movie";
+import { getOneMovie} from "../../../redux/slice/Movie";
+import {getShowTimeByDate} from "../../../redux/slice/ShowTimeSlice";
+import moment from "moment";
 
 type Props = {}
 
@@ -16,7 +18,10 @@ const DetailMovie = (props: Props) => {
   const { slug } = useParams()
   const [open, setOpen] = useState(false);
   const [detail, setDetail] = useState<any>();
-  useEffect(() => {
+  const [date, setDate] = useState<any>(moment().startOf('day').format())
+    console.log("datedâdasdasd",date)
+
+    useEffect(() => {
     if (!state && state == null) {
       (async () => {
         const { payload } = await dispatch(getOneMovie(slug));
@@ -26,6 +31,26 @@ const DetailMovie = (props: Props) => {
       setDetail(state)
     }
   }, [state, slug])
+
+  useEffect(() => {
+      if((state !== null || detail !== undefined) && (state || detail)) {
+        const id  = state ? state?._id : detail?._id;
+        console.log("id",id);
+
+       (async () => {
+           const options = {
+               id: id,
+               date:date
+           }
+           console.log("options",options)
+          const payload  = await dispatch(getShowTimeByDate(options));
+          console.log("payload của  gọi danh sách ngày chiếu", payload)
+        })()
+      }
+  },[slug,state,date])
+
+
+
 
   document.title = `${detail?.name || state?.name || "Loading..."}`
 
@@ -54,7 +79,7 @@ const DetailMovie = (props: Props) => {
                       <span className='border rounded-sm mr-2 px-1 text-gray-400'>{detail?.ageLimit}</span>
                       <span className='text-white mr-2'>{formatDate(detail?.releaseDate)}</span>
                       <span className="text-white mr-2 before:contents-[*] before:text-red-600 after:tetx-red-600 before:mr-2 after:contents-[*] after:mr-2 ">
-                        {detail?.movieTypeId?.map((item: any) => <Link to="#" className='p-1 text-slate-300' key={item?._id}>{item?.movieName.concat(",")}</Link>)}
+                        {detail?.movieTypeId?.map((item: any) => <Link to="#" className='p-1 text-slate-300' key={item?._id}>{item?.movieName?.concat(",") || ""}</Link>)}
                       </span>
                       <span className='text-white'>{formatRunTimeToDate(140)}</span>
                     </div>

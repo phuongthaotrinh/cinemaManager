@@ -20,12 +20,7 @@ const ListMovieType = (props: Props) => {
   const columnList: any = [
     {
       title: "Tên",
-      render: (item: any) => <p>{item.movieName}</p>,
-      height: "10",
-    },
-    {
-      title: "Site",
-      render: (item: any) => <p>{item.imdbId }</p>,
+      render: (item: any) => <p>{item.name}</p>,
       height: "10",
     },
     {
@@ -47,7 +42,7 @@ const ListMovieType = (props: Props) => {
   const data = movieType?.map((item: any) => {
     return {
       _id: item._id,
-      movieName: item.movieName,
+      name: item.name,
       site: item.imdbId
     };
   });

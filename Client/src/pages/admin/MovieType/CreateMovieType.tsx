@@ -16,7 +16,7 @@ const CreateMovieType = (props: Props) => {
   const onFinish = async (values: any) => {
     if (values.length !== undefined) {
       const options = values.map(function (row: any) {
-        return { imdbId: row.id || null, movieName: row.name }
+        return { imdbId: row.id || null, name: row.name }
       });
       dispatch(createMovieType(options))
         .then(() => { message.success("Nhap thanh cong");navigate(configRoute.routes.adminMovieType)  })
@@ -72,7 +72,7 @@ const CreateMovieType = (props: Props) => {
         autoComplete="off"
       >
         <Form.Item
-          name="movieName"
+          name="name"
           label="Tên thể loại phim"
           rules={[{ required: true, message: "Không được để trống! " }]}
         >

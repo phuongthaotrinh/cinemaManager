@@ -22,5 +22,9 @@ export const showTimetApi = {
   getOneByid(data:any):Promise<any> {
     const url = `setByShowTime/${data?._id}`;
     return axiosClient.get(url)
+  },
+  getStShowTimeByDate(input:any):Promise<any> {
+    const url = `showTime/getSchulesByDate/${input?.id}/${input?.date}`;
+    return axiosClient.get(url)
   }
 };

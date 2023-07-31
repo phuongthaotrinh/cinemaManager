@@ -4,7 +4,7 @@ const MovieTable = lazy(() => import('./MovieTable'));
 import { Link } from 'react-router-dom';
 import configRoute from '../../../config';
 import useSelectMovie from "../../../hook/useSelectMovie"
-import { useAppDispatch, useAppSelector } from './../../../redux/hook';
+import { useAppDispatch, useAppSelector } from '../../../redux/hook';
 import { getMovie } from '../../../redux/slice/Movie';
 type Props = {
 }

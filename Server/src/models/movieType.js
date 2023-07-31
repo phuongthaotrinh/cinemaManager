@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const movieTypeSchema = new Schema({
-    movieName: {
+    name: {
         type: String,
         required:true,
         index: true

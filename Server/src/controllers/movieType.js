@@ -4,7 +4,7 @@ import Movie from "../models/movie";
 export const create = async (req, res) => {
   try {
     const movieTypes = req.body;
-    const exitMovieType = await MovieType.findOne({ movieName: req.body.movieName, }).exec();
+    const exitMovieType = await MovieType.findOne({ name: req.body.name, }).exec();
     
     if (movieTypes.length > 0 && movieTypes.length !== undefined) {
       const exits = await MovieType.find({}).exec();
@@ -104,7 +104,7 @@ export const searchByGenre = async (req, res) => {
   try {
     const searchString = req.query.q ? req.query.q : "";
     const result = await MovieType.find({
-      movieName: new RegExp(searchString, "i"),
+      name: new RegExp(searchString, "i"),
     }).exec();
     res.json(result);
   } catch (error) {
@@ -118,7 +118,7 @@ export const getNameById = async (req, res) => {
   try {
     const name = await MovieType.findOne({ _id: req.params.id }).exec();
     res.status(200).json({
-      name: name.movieName,
+      name: name.name,
     });
   } catch (error) {
     res.status(400).json({

@@ -44,15 +44,30 @@ export const createData = createAsyncThunk<any, any, { rejectValue: string }>(
       }
    }
 );
+
+export const getShowTimeByDate  =  createAsyncThunk<any, any, { rejectValue: string }>(
+    "st/getByDate",
+    async (input, { rejectWithValue }) => {
+       try {
+          const { data } = await showTimetApi.getStShowTimeByDate(input);
+          console.log("getShowTimeByDate payload",data)
+          return data;
+       } catch (error: any) {
+          return rejectWithValue(error.response.data);
+       }
+    }
+);
 type showTimeState = {
    stList: any[];
    errorMessage: string | undefined;
-   isLoading: boolean
+   isLoading: boolean,
+   showTimeByDate: any[]
 };
 const initialState: showTimeState = {
    stList: [],
    errorMessage: "",
-   isLoading: false
+   isLoading: false,
+   showTimeByDate:[]
 };
 
 const ShowTimeSlice = createSlice({
@@ -106,6 +121,15 @@ const ShowTimeSlice = createSlice({
        
       });
       builder.addCase(updateData.rejected, (state, action) => {
+         state.errorMessage = action.payload;
+      });
+
+      //getShowTimeByDate
+
+      builder.addCase(getShowTimeByDate.fulfilled, (state, action) => {
+         state.showTimeByDate = action.payload;
+      });
+      builder.addCase(getShowTimeByDate.rejected, (state, action) => {
          state.errorMessage = action.payload;
       });
    },

@@ -27,7 +27,7 @@ const MovieCard = ({ item }: Props) => {
                     </div>}
                     open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={null}>
                     <i> <b>Mô tả: </b> {item?.description || "Chưa có mô tả cho phim này"}</i> <br />
-                    <i> <b>Thể loại: </b>{item?.movieTypeId && item?.movieTypeId?.map((item: any) => <span key={item?._id}>{item?.movieName.concat(" ")}</span>)}</i> <br />
+                    <i> <b>Thể loại: </b>{item?.movieTypeId && item?.movieTypeId?.map((item: any) => <span key={item?._id}>{item?.movieName?.concat(" ") || ""}</span>)}</i> <br />
                     <i> <b>Ngày khởi chiếu: </b> {formatDate2(item?.releaseDate)}</i> <br />
                     <i> <b>Thời lượng: </b>{formatRunTimeToDate(item?.runTime)}</i> <br />
                     <p className='mt-3 pt-3'>  <Link to={`/${item?.slug}`} state={item} className='bg-red-600 text-white px-2 py-2 rounded-r-sm hover:text-black font-semibold'>Đặt vé</Link> </p>
